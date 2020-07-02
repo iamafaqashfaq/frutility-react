@@ -3,3 +3,8 @@ export const ADMINLOGIN = () => {
         type: 'ADMINLOGIN'
     }
 }
+export const ADMINLOGOUT = () => {
+    return {
+        type: 'ADMINLOGOUT'
+    }
+}

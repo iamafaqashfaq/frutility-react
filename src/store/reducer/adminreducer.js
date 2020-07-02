@@ -3,10 +3,15 @@ const initialState = {
 }
 const AdminLoginReducer = (state = initialState, action) => {
     switch(action.type){
-        case "ADMINLOGIN":
+        case 'ADMINLOGIN':
             return {
                 ...state,
                 isLoggedin: true
+            }
+        case 'ADMINLOGOUT':
+            return {
+                ...state,
+                isLoggedin: false
             }
         default:
             return state
