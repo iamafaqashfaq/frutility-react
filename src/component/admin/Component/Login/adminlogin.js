@@ -37,19 +37,17 @@ export default function Adminlogin() {
     const sendLoginData = (event) => {
         event.preventDefault()
         let Login
-        axios.post(`https://localhost:44376/api/usercontroller/login`, model,
+        axios.post(`https://localhost:44376/api/usercontroller/adminlogin`, model,
         {withCredentials:true})
             .then(response => {
+                console.log(response)
                 Login = response.data
-                if (Login) {
-                    localStorage.setItem("token", response.data.id)
-                    localStorage.setItem("userName", response.data.userName)
+                if (Login !== false) {
+                    localStorage.setItem("token", Login.entoken)
+                    localStorage.setItem("username", Login.userName)
                     dispatch(ADMINLOGIN())
                 }
             }).catch(err => console.error(err))
-
-        // axios.get(`https://localhost:44376/api/category/2`).then(res => console.log(res))
-
     }
     const loginForm = (
         <div className="container" id="adminlogin">

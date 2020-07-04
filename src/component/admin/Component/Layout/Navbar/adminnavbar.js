@@ -7,24 +7,30 @@ import axios from 'axios'
 export default function Adminnavbar() {
     const dispatch = useDispatch();
     const logout = () => {
-        axios.post(`https://localhost:44376/api/usercontroller/signout`).then(res => {
+        axios({
+            method: 'post',
+            url: `https://localhost:44376/api/usercontroller/signout`,
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res => {
             const logout = res.data;
             if (logout) {
                 localStorage.removeItem('token')
-                localStorage.removeItem('userName')
+                localStorage.removeItem('username')
                 dispatch(ADMINLOGOUT())
             }
         })
     }
     return (
         <div>
-            <nav id="nav" className="navbar navbar-expand-md navbar-dark bg-dark">
+            <nav id="nav" className="navbar navbar-expand-md navbar-light bg-light">
                 <Link to="/admin" className="navbar-brand"><h3>Frutility Admin Panel</h3></Link>
                 <ul className="nav navbar-nav ml-auto">
                     <li className="nav-item">
                         <button className="nav-link btn btn-link"
                             onClick={logout}>
-                            {localStorage.getItem('userName').toUpperCase()} - Log Out
+                            {localStorage.getItem('username').toUpperCase()} - Log Out
                         </button>
                     </li>
                 </ul>
