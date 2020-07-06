@@ -11,7 +11,7 @@ export default class Todayorderdetail extends Component {
         this.state = {
             orderDetails: [],
             modalShow: false,
-            currentOrder: {}
+            currentOrder: []
         }
     }
     componentDidMount() {
@@ -26,14 +26,30 @@ export default class Todayorderdetail extends Component {
             }
         }).then((response) => {
             this.setState({ orderDetails: response.data })
-            console.log(this.state.orderDetails[0])
+        }).catch(err => console.error(err))
+    }
+
+    repost(){
+        axios({
+            method: "post",
+            url: 'https://localhost:44376/api/orders/todayorders',
+            data: {
+                'entoken': localStorage.getItem('token')
+            },
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then((response) => {
+            this.setState({ orderDetails: response.data })
         }).catch(err => console.error(err))
     }
     showModal(order) {
-        this.setState((prevstate, order) => { 
-            modalShow: !this.state.modalShow, currentOrder: { order }
-        })
-        console.log(this.state.currentOrder)
+        this.setState({ currentOrder: order})
+        this.setState({modalShow: !this.setState.modalShow})
+    }
+
+    hideModal(){
+        this.setState({modalShow: !this.state.modalShow})
     }
 
     updateOrder() {
@@ -61,22 +77,22 @@ export default class Todayorderdetail extends Component {
 
         return (
             <Aux>
-                <Modal show={this.state.modalShow} onHide={() => this.showModal()}>
+                <Modal show={this.state.modalShow} onHide={() => this.repost()}>
                     <Modal.Header>Order Action</Modal.Header>
                     <Modal.Body>
                         <table cellPadding="10">
                             <tbody>
                                 <tr>
                                     <td>Order Id:</td>
-                                    {/* <td>{this.state.currentOrder.order.id}</td> */}
+                                    <td>{this.state.currentOrder.id}</td>
                                 </tr>
                                 <tr>
                                     <td>At Date:</td>
-                                    {/* <td>{this.state.currentOrder.order.orderDate}</td> */}
+                                    <td>{this.state.currentOrder.orderDate}</td>
                                 </tr>
                                 <tr>
                                     <td>Status:</td>
-                                    {/* <td>{this.state.currentOrder.order.orderStatus}</td> */}
+                                    <td>{this.state.currentOrder.orderStatus}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -90,7 +106,7 @@ export default class Todayorderdetail extends Component {
                                             id="orderstatus" ref={this.orderstatus}>
                                             <option value="pending">Pending</option>
                                             <option value="dispatched">Dispatched</option>
-                                            <option value="Delievered">Delievered</option>
+                                            <option value="Delievered">Delivered</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -106,7 +122,7 @@ export default class Todayorderdetail extends Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <div className="row">
-                            <button onClick={() => this.showModal()} className="btn btn-secondary mr-2">Exit</button>
+                            <button onClick={() => this.hideModal()} className="btn btn-secondary mr-2">Exit</button>
                             <button className="btn btn-primary" onClick={() => this.updateOrder()}>Save</button>
                         </div>
                     </Modal.Footer>
