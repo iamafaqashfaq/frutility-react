@@ -6,6 +6,7 @@ import Footercomponent from './component/footercomponent'
 import Admin from './component/admin/Component/Login/adminlogin'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'font-awesome/css/font-awesome.min.css'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 
