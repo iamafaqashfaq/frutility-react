@@ -60,6 +60,7 @@ export default class categorylist extends Component {
                 }
             }).then(res => {
                 if(res.data === true){
+                    console.log(res.data)
                     this.repost()
                     this.hideModal()
                 }
