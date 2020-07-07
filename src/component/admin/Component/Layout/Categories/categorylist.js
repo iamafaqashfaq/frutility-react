@@ -36,16 +36,16 @@ export default class categorylist extends Component {
     }
 
     showModal(category) {
-        this.setState({currentCategories: category})
-        this.setState({modalShow: true})
+        this.setState({ currentCategories: category })
+        this.setState({ modalShow: true })
     }
 
     hideModal() {
-        this.setState({modalShow: false})
+        this.setState({ modalShow: false })
     }
 
     updateCategory() {
-        if(this.categoryNameInput.current.value !== '' && this.categoryDescInput.current.value !== ''){
+        if (this.categoryNameInput.current.value !== '' && this.categoryDescInput.current.value !== '') {
             console.log(this.state.currentCategories.id)
             axios({
                 method: 'put',
@@ -59,12 +59,32 @@ export default class categorylist extends Component {
                     'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
                 }
             }).then(res => {
-                if(res.data === true){
+                if (res.data === true) {
                     console.log(res.data)
                     this.repost()
                     this.hideModal()
                 }
             }).catch(err => console.error(err))
+        }
+    }
+
+    deleteCategory(id) {
+        if (id !== null) {
+            let result = window.confirm('Are you sure you want to delete this category?')
+            if (result) {
+                axios({
+                    method: 'delete',
+                    url: `https://localhost:44376/api/category/${id}`,
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
+                    }
+                }).then(res => {
+                    if (res.data === true) {
+                        this.repost()
+                    }
+                }).catch(err => console.error(err))
+            }
+
         }
     }
 
@@ -77,8 +97,10 @@ export default class categorylist extends Component {
                     <td>{category.categoryDescription}</td>
                     <td>{category.creationDate}</td>
                     <td>{category.updationDate}</td>
-                    <td><i onClick={() => this.showModal(category)} 
-                    className="fa fa-pencil-square-o fa-lg btn"></i>
+                    <td><i onClick={() => this.showModal(category)}
+                        className="fa fa-pencil-square-o fa-lg btn"></i>&nbsp;|&nbsp;
+                    <i onClick={() => this.deleteCategory(category.id)} className="fa fa-trash-o fa-lg btn">
+                        </i>
                     </td>
                 </tr>
             )
@@ -93,15 +115,15 @@ export default class categorylist extends Component {
                         <form>
                             <div className="form-group">
                                 <label htmlFor="CategoryName">Category Name</label>
-                                <input type="text" className="form-control" 
-                                defaultValue={this.state.currentCategories.categoryName}
-                                ref={this.categoryNameInput}/>
+                                <input type="text" className="form-control"
+                                    defaultValue={this.state.currentCategories.categoryName}
+                                    ref={this.categoryNameInput} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="CategoryDescription">Category Description</label>
                                 <input type="text" className="form-control"
-                                defaultValue={this.state.currentCategories.categoryDescription}
-                                ref={this.categoryDescInput} />
+                                    defaultValue={this.state.currentCategories.categoryDescription}
+                                    ref={this.categoryDescInput} />
                             </div>
                         </form>
                     </Modal.Body>

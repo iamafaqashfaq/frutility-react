@@ -114,8 +114,8 @@ export default class Todayorderdetail extends Component {
                                     <td>
                                         <select className="custom-select" name="statusselect"
                                             id="orderstatus" ref={this.orderstatus}>
-                                            <option value="pending">Pending</option>
-                                            <option value="dispatched">Dispatched</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Dispatched">Dispatched</option>
                                             <option value="Delievered">Delivered</option>
                                         </select>
                                     </td>
