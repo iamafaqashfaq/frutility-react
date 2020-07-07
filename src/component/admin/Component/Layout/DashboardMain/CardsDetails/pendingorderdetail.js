@@ -19,10 +19,10 @@ export default class Pendingorderdetail extends Component {
             method: "post",
             url: 'https://localhost:44376/api/orders/pendingorders',
             data: {
-                'entoken': localStorage.getItem('token')
+                'entoken': localStorage.getItem('admintoken')
             },
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
             }
         }).then((response) => {
             this.setState({ orderDetails: response.data })
@@ -34,10 +34,10 @@ export default class Pendingorderdetail extends Component {
             method: "post",
             url: 'https://localhost:44376/api/orders/pendingorders',
             data: {
-                'entoken': localStorage.getItem('token')
+                'entoken': localStorage.getItem('admintoken')
             },
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
             }
         }).then((response) => {
             this.setState({ orderDetails: response.data })
@@ -70,6 +70,7 @@ export default class Pendingorderdetail extends Component {
                     <td>{order.amount}</td>
                     <td>{order.orderDate}</td>
                     <td>{order.paymentMethod}</td>
+                    <td><i className="fa fa-clock-o fa-lg"></i> {order.orderStatus}</td>
                     <td><i onClick={() => this.showModal(order)} className="fa fa-pencil-square-o fa-lg btn"></i></td>
                 </tr>
             )
@@ -128,7 +129,7 @@ export default class Pendingorderdetail extends Component {
                     </Modal.Footer>
                 </Modal>
                 <div className="mt-4 ml-4 p-4">
-                    <div className="m-auto text-center p-2"><h5>Today Orders</h5></div>
+                    <div className="m-auto text-center p-2"><h5>Pending Orders</h5></div>
                     <div className="table-responsive-md">
                         <table className="card-table table table-hover">
                             <thead>
@@ -143,6 +144,7 @@ export default class Pendingorderdetail extends Component {
                                     <th>Amount</th>
                                     <th>Order Date</th>
                                     <th>Payment Method</th>
+                                    <th>Order Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>

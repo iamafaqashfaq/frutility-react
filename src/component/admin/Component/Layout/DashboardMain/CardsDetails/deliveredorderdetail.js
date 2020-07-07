@@ -19,37 +19,38 @@ export default class Deliveredorderdetail extends Component {
             method: "post",
             url: 'https://localhost:44376/api/orders/deliveredorders',
             data: {
-                'entoken': localStorage.getItem('token')
+                'entoken': localStorage.getItem('admintoken')
             },
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
             }
         }).then((response) => {
             this.setState({ orderDetails: response.data })
         }).catch(err => console.error(err))
     }
 
-    repost(){
+    repost() {
         axios({
             method: "post",
             url: 'https://localhost:44376/api/orders/deliveredorders',
             data: {
-                'entoken': localStorage.getItem('token')
+                'entoken': localStorage.getItem('admintoken')
             },
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
             }
         }).then((response) => {
             this.setState({ orderDetails: response.data })
         }).catch(err => console.error(err))
     }
     showModal(order) {
-        this.setState({ currentOrder: order})
-        this.setState({modalShow: !this.setState.modalShow})
+        this.setState({ currentOrder: order })
+        this.setState({ modalShow: !this.setState.modalShow })
+        this.orderstatus.current.value = order.OrderStatus
     }
 
-    hideModal(){
-        this.setState({modalShow: !this.state.modalShow})
+    hideModal() {
+        this.setState({ modalShow: !this.state.modalShow })
     }
 
     updateOrder() {
@@ -70,6 +71,7 @@ export default class Deliveredorderdetail extends Component {
                     <td>{order.amount}</td>
                     <td>{order.orderDate}</td>
                     <td>{order.paymentMethod}</td>
+                    <td className="fa fa-home fa-lg"> {order.orderStatus}</td>
                     <td><i onClick={() => this.showModal(order)} className="fa fa-pencil-square-o fa-lg btn"></i></td>
                 </tr>
             )
@@ -128,7 +130,7 @@ export default class Deliveredorderdetail extends Component {
                     </Modal.Footer>
                 </Modal>
                 <div className="mt-4 ml-4 p-4">
-                    <div className="m-auto text-center p-2"><h5>Today Orders</h5></div>
+                    <div className="m-auto text-center p-2"><h5>Delivered Orders</h5></div>
                     <div className="table-responsive-md">
                         <table className="card-table table table-hover">
                             <thead>
@@ -143,6 +145,7 @@ export default class Deliveredorderdetail extends Component {
                                     <th>Amount</th>
                                     <th>Order Date</th>
                                     <th>Payment Method</th>
+                                    <th>Order Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>

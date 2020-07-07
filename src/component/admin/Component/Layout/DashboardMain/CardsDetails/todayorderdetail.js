@@ -11,7 +11,8 @@ export default class Todayorderdetail extends Component {
         this.state = {
             orderDetails: [],
             modalShow: false,
-            currentOrder: []
+            currentOrder: [],
+            spinner: ["fa", "fa-refresh", "fa-lg", "fa-fw"]
         }
     }
     componentDidMount() {
@@ -19,37 +20,44 @@ export default class Todayorderdetail extends Component {
             method: "post",
             url: 'https://localhost:44376/api/orders/todayorders',
             data: {
-                'entoken': localStorage.getItem('token')
+                'entoken': localStorage.getItem('admintoken')
             },
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
             }
         }).then((response) => {
             this.setState({ orderDetails: response.data })
         }).catch(err => console.error(err))
     }
 
-    repost(){
+    repost() {
+        let addSpin = this.state.spinner
+        addSpin.push('fa-spin')
+        this.setState({spinner: addSpin})
         axios({
             method: "post",
             url: 'https://localhost:44376/api/orders/todayorders',
             data: {
-                'entoken': localStorage.getItem('token')
+                'entoken': localStorage.getItem('admintoken')
             },
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
             }
         }).then((response) => {
             this.setState({ orderDetails: response.data })
+            addSpin.pop('fa-spin')
+            this.setState({spinner: addSpin})
         }).catch(err => console.error(err))
     }
+    //To Show Bootstrap Modal and Populating State in it
     showModal(order) {
-        this.setState({ currentOrder: order})
-        this.setState({modalShow: !this.setState.modalShow})
+        this.setState({ currentOrder: order })
+        this.setState({ modalShow: !this.setState.modalShow })
     }
 
-    hideModal(){
-        this.setState({modalShow: !this.state.modalShow})
+    //To hide Bootstrap Modal
+    hideModal() {
+        this.setState({ modalShow: !this.state.modalShow })
     }
 
     updateOrder() {
@@ -69,6 +77,7 @@ export default class Todayorderdetail extends Component {
                     <td>{order.quantity}</td>
                     <td>{order.amount}</td>
                     <td>{order.orderDate}</td>
+                    <td><i className="fa fa-clock-o fa-lg"></i> {order.orderStatus}</td>
                     <td>{order.paymentMethod}</td>
                     <td><i onClick={() => this.showModal(order)} className="fa fa-pencil-square-o fa-lg btn"></i></td>
                 </tr>
@@ -113,7 +122,8 @@ export default class Todayorderdetail extends Component {
                                 <tr>
                                     <td>Remarks:</td>
                                     <td>
-                                        <textarea name="remarks" rows="10" cols="30" ref={this.remarks} className="form-control">
+                                        <textarea name="remarks" rows="10" cols="30" ref={this.remarks}
+                                            className="form-control">
                                         </textarea>
                                     </td>
                                 </tr>
@@ -127,8 +137,16 @@ export default class Todayorderdetail extends Component {
                         </div>
                     </Modal.Footer>
                 </Modal>
+
+                {/* Actual Body  */}
                 <div className="mt-4 ml-4 p-4">
-                    <div className="m-auto text-center p-2"><h5>Today Orders</h5></div>
+
+                    <div className="m-auto text-center p-2">
+                        <h5>Today Orders&emsp;&emsp;
+                            <span><i onClick={() => this.repost()} className={this.state.spinner.join(' ')} 
+                            aria-hidden="true"></i></span>
+                        </h5>
+                    </div>
                     <div className="table-responsive-md">
                         <table className="card-table table table-hover">
                             <thead>
@@ -143,6 +161,7 @@ export default class Todayorderdetail extends Component {
                                     <th>Amount</th>
                                     <th>Order Date</th>
                                     <th>Payment Method</th>
+                                    <th>Order Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>

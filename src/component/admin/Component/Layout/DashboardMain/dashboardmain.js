@@ -29,19 +29,19 @@ export default function Dashboardmain() {
 
             <Router>
                 <div className="row ml-3">
-                    <Link to="/admin/dashboard/main/todayorders"
+                    <Link to="/admin/dashboard/todayorders"
                         className="col-md-4 col-sm-6 text-decoration-none text-body">
                         <div>
                             <TodayOrders />
                         </div>
                     </Link>
-                    <Link to="/admin/dashboard/main/pendingorders"
+                    <Link to="/admin/dashboard/pendingorders"
                         className="col-md-4 col-sm-6 text-decoration-none text-body">
                         <div>
                             <PendingOrders />
                         </div>
                     </Link>
-                    <Link to="/admin/dashboard/main/deliveredorders"
+                    <Link to="/admin/dashboard/deliveredorders"
                         className="col-md-4 col-sm-6 text-decoration-none text-body">
                         <div>
                             <DeliveredOrders />
@@ -49,9 +49,9 @@ export default function Dashboardmain() {
                     </Link>
                 </div>
                 <Switch>
-                    <Route path="/admin/dashboard/main/todayorders"><TodayOrdersDetails /></Route>
-                    <Route path="/admin/dashboard/main/pendingorders"><PendingOrdersDetails /></Route>
-                    <Route path="/admin/dashboard/main/deliveredorders"><DeliveredOrdersDetails /></Route>
+                    <Route path="/admin/dashboard/todayorders"><TodayOrdersDetails /></Route>
+                    <Route path="/admin/dashboard/pendingorders"><PendingOrdersDetails /></Route>
+                    <Route path="/admin/dashboard/deliveredorders"><DeliveredOrdersDetails /></Route>
                 </Switch>
             </Router>
         </Aux>

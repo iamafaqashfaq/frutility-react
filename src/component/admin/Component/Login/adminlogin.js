@@ -14,11 +14,25 @@ export default function Adminlogin() {
     })
 
     useEffect(() => {
-        const token = localStorage.getItem("token")
-        if(token){
+        const token = localStorage.getItem("admintoken")
+        if (token) {
+            axios({
+                method: 'post',
+                url: `https://localhost:44376/api/usercontroller/checkuser`,
+                data: {
+                    entoken: token
+                },
+                headers:{
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(res => {
+                let data = res.data
+                console.log(data)
+            }).catch(err => console.error(err))
             dispatch(ADMINLOGIN());
         }
-    },[dispatch])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     //Set USERNAME FROM FORM INPUT
     const setUsername = (e) => {
         setModel({
@@ -38,13 +52,13 @@ export default function Adminlogin() {
         event.preventDefault()
         let Login
         axios.post(`https://localhost:44376/api/usercontroller/adminlogin`, model,
-        {withCredentials:true})
+            { withCredentials: true })
             .then(response => {
                 console.log(response)
                 Login = response.data
                 if (Login !== false) {
-                    localStorage.setItem("token", Login.entoken)
-                    localStorage.setItem("username", Login.userName)
+                    localStorage.setItem("admintoken", Login.entoken)
+                    localStorage.setItem("adminusername", Login.userName)
                     dispatch(ADMINLOGIN())
                 }
             }).catch(err => console.error(err))

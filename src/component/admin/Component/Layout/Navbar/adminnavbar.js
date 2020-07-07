@@ -11,13 +11,13 @@ export default function Adminnavbar() {
             method: 'post',
             url: `https://localhost:44376/api/usercontroller/signout`,
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
             }
         }).then(res => {
             const logout = res.data;
             if (logout) {
-                localStorage.removeItem('token')
-                localStorage.removeItem('username')
+                localStorage.removeItem('admintoken')
+                localStorage.removeItem('adminusername')
                 dispatch(ADMINLOGOUT())
             }
         })
@@ -25,7 +25,7 @@ export default function Adminnavbar() {
     return (
         <div>
             <nav id="nav" className="navbar navbar-expand-md navbar-light bg-light">
-                <Link to="/admin" className="navbar-brand"><h3>Frutility Admin Panel</h3></Link>
+                <Link to="/admin/dashboard" className="navbar-brand"><h3>Frutility Admin Panel</h3></Link>
                 <ul className="nav navbar-nav ml-auto">
                     <li className="nav-item">
                         <button className="nav-link btn btn-link"
