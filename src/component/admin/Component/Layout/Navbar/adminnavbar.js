@@ -30,7 +30,7 @@ export default function Adminnavbar() {
                     <li className="nav-item">
                         <button className="nav-link btn btn-link"
                             onClick={logout}>
-                            {localStorage.getItem('username').toUpperCase()} - Log Out
+                            {localStorage.getItem('adminusername').toUpperCase()} - Log Out
                         </button>
                     </li>
                 </ul>

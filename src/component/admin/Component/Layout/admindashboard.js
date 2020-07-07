@@ -5,6 +5,7 @@ import './admindashboard.css'
 import Sidebar from './Sidebar/sidebar'
 import AppFooter from '../../../footercomponent';
 import DashBoard from './DashboardMain/dashboardmain'
+import Category from './Categories/categorylayout'
 
 export default function admindashboard() {
     return (
@@ -19,7 +20,7 @@ export default function admindashboard() {
                                 <Redirect to="/admin/dashboard" exact />
                             </Route>
                             <Route path="/admin/dashboard"><DashBoard/></Route>
-                            <Route path="/admin/category" render={() => (<h1>Hello</h1>)}></Route>
+                            <Route path="/admin/category"><Category/></Route>
                         </Switch>
                         <footer>
                             <AppFooter />

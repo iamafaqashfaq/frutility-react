@@ -79,7 +79,8 @@ export default class Todayorderdetail extends Component {
                     <td>{order.orderDate}</td>
                     <td><i className="fa fa-clock-o fa-lg"></i> {order.orderStatus}</td>
                     <td>{order.paymentMethod}</td>
-                    <td><i onClick={() => this.showModal(order)} className="fa fa-pencil-square-o fa-lg btn"></i></td>
+                    <td><i onClick={() => this.showModal(order)} 
+                    className="fa fa-pencil-square-o fa-lg btn"></i></td>
                 </tr>
             )
         })
@@ -142,8 +143,8 @@ export default class Todayorderdetail extends Component {
                 <div className="mt-4 ml-4 p-4">
 
                     <div className="m-auto text-center p-2">
-                        <h5>Today Orders&emsp;&emsp;
-                            <span><i onClick={() => this.repost()} className={this.state.spinner.join(' ')} 
+                        <h5>Today Orders&emsp;
+                            <span className="text-primary"><i onClick={() => this.repost()} className={this.state.spinner.join(' ')} 
                             aria-hidden="true"></i></span>
                         </h5>
                     </div>

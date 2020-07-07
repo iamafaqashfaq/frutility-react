@@ -27,6 +27,7 @@ export default function Adminlogin() {
                 }
             }).then(res => {
                 let data = res.data
+                console.log('Login Token Check')
                 console.log(data)
             }).catch(err => console.error(err))
             dispatch(ADMINLOGIN());

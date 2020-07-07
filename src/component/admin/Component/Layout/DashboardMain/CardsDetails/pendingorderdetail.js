@@ -11,7 +11,8 @@ export default class Pendingorderdetail extends Component {
         this.state = {
             orderDetails: [],
             modalShow: false,
-            currentOrder: []
+            currentOrder: [],
+            spinner: ["fa", "fa-refresh", "fa-lg", "fa-fw"]
         }
     }
     componentDidMount() {
@@ -30,6 +31,9 @@ export default class Pendingorderdetail extends Component {
     }
 
     repost(){
+        let addSpin = this.state.spinner
+        addSpin.push('fa-spin')
+        this.setState({spinner: addSpin})
         axios({
             method: "post",
             url: 'https://localhost:44376/api/orders/pendingorders',
@@ -41,6 +45,8 @@ export default class Pendingorderdetail extends Component {
             }
         }).then((response) => {
             this.setState({ orderDetails: response.data })
+            addSpin.pop('fa-spin')
+            this.setState({spinner: addSpin})
         }).catch(err => console.error(err))
     }
     showModal(order) {
@@ -128,8 +134,17 @@ export default class Pendingorderdetail extends Component {
                         </div>
                     </Modal.Footer>
                 </Modal>
+
+                {/* Actual Body  */}
                 <div className="mt-4 ml-4 p-4">
-                    <div className="m-auto text-center p-2"><h5>Pending Orders</h5></div>
+                    <div className="m-auto text-center p-2">
+                        <h5>Pending Orders&emsp;
+                            <span className="text-primary">
+                                <i onClick={() => this.repost()} className={this.state.spinner.join(' ')} 
+                                aria-hidden="true"></i>
+                            </span>
+                        </h5>
+                    </div>
                     <div className="table-responsive-md">
                         <table className="card-table table table-hover">
                             <thead>
