@@ -6,6 +6,8 @@ import Sidebar from './Sidebar/sidebar'
 import AppFooter from '../../../footercomponent';
 import DashBoard from './DashboardMain/dashboardmain'
 import Category from './Categories/categorylayout'
+import SubCategory from './Subcategories/subCategoryLayout'
+import ProductsLayout from './Products/productsLayout';
 
 export default function admindashboard() {
     return (
@@ -21,6 +23,8 @@ export default function admindashboard() {
                             </Route>
                             <Route path="/admin/dashboard"><DashBoard/></Route>
                             <Route path="/admin/category"><Category/></Route>
+                            <Route path="/admin/subcategory"><SubCategory/></Route>
+                            <Route path="/admin/products"><ProductsLayout/></Route>
                         </Switch>
                         <footer>
                             <AppFooter />

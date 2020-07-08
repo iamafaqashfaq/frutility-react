@@ -1,58 +1,62 @@
 import React, { Component } from 'react'
 import { Modal } from 'react-bootstrap'
-import axios from 'axios'
 import Aux from '../../../../hoc/auxillary'
+import axios from 'axios'
 
-export default class categorylist extends Component {
+class SubCategoryList extends Component {
     constructor(props) {
         super(props)
+
         this.state = {
-            categoryData: [],
             modalShow: false,
-            currentCategories: []
+            subCategory: [],
+            currentsub: [],
+            categories: []
         }
-        this.categoryNameInput = React.createRef();
-        this.categoryDescInput = React.createRef();
+        this.subcategoryNameInput = React.createRef()
+        this.categoryidSelect = React.createRef()
     }
     componentDidMount() {
         this.repost()
+        axios.get(`https://localhost:44376/api/category`).then(res => {
+            this.setState({ categories: res.data })
+        })
     }
+
     componentDidUpdate() {
         if (this.props.change === true) {
             this.repost()
         }
     }
-
     repost() {
         axios({
             method: 'get',
-            url: `https://localhost:44376/api/category`,
+            url: `https://localhost:44376/api/subcategory`,
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
             }
         }).then(res => {
-            this.setState({ categoryData: res.data })
+            this.setState({ subCategory: res.data })
         }).catch(err => console.error(err))
     }
-
-    showModal(category) {
-        this.setState({ currentCategories: category })
+    showModal(subcategory) {
+        this.setState({ currentsub: subcategory })
         this.setState({ modalShow: true })
     }
-
     hideModal() {
         this.setState({ modalShow: false })
     }
 
     updateCategory() {
-        if (this.categoryNameInput.current.value !== '' && this.categoryDescInput.current.value !== '') {
+        if (this.subcategoryNameInput.current.value !== '' && this.categoryidSelect.current.value !== '') {
+            let categoryid = parseInt(this.categoryidSelect.current.value)
             axios({
                 method: 'put',
-                url: `https://localhost:44376/api/category/${this.state.currentCategories.id}`,
+                url: `https://localhost:44376/api/subcategory/${this.state.currentsub.subCategoryID}`,
                 data: {
-                    id: this.state.currentCategories.id,
-                    categoryName: this.categoryNameInput.current.value,
-                    categoryDescription: this.categoryDescInput.current.value
+                    "subCategoryID": this.state.currentsub.subCategoryID,
+                    "subCategoryName": this.subcategoryNameInput.current.value,
+                    "categoryID": categoryid
                 },
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
@@ -68,11 +72,11 @@ export default class categorylist extends Component {
 
     deleteCategory(id) {
         if (id !== null) {
-            let result = window.confirm('Are you sure you want to delete this category?')
+            let result = window.confirm('Are you sure you want to delete this subcategory?')
             if (result) {
                 axios({
                     method: 'delete',
-                    url: `https://localhost:44376/api/category/${id}`,
+                    url: `https://localhost:44376/api/subcategory/${id}`,
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
                     }
@@ -87,17 +91,17 @@ export default class categorylist extends Component {
     }
 
     render() {
-        const renderData = this.state.categoryData.map((category) => {
+        const renderData = this.state.subCategory.map((subcategory) => {
             return (
-                <tr key={category.id}>
-                    <td>{category.id}</td>
-                    <td>{category.categoryName}</td>
-                    <td>{category.categoryDescription}</td>
-                    <td>{category.creationDate}</td>
-                    <td>{category.updationDate}</td>
-                    <td><i onClick={() => this.showModal(category)}
+                <tr key={subcategory.subCategoryID}>
+                    <td>{subcategory.subCategoryID}</td>
+                    <td>{subcategory.subCategoryName}</td>
+                    <td>{subcategory.categoryName}</td>
+                    <td>{subcategory.creationDate}</td>
+                    <td>{subcategory.updationDate}</td>
+                    <td><i onClick={() => this.showModal(subcategory)}
                         className="fa fa-pencil-square-o fa-lg btn"></i>&nbsp;|&nbsp;
-                    <i onClick={() => this.deleteCategory(category.id)} className="fa fa-trash-o fa-lg btn">
+                    <i onClick={() => this.deleteCategory(subcategory.subCategoryID)} className="fa fa-trash-o fa-lg btn">
                         </i>
                     </td>
                 </tr>
@@ -112,16 +116,27 @@ export default class categorylist extends Component {
                     <Modal.Body>
                         <form>
                             <div className="form-group">
-                                <label htmlFor="CategoryName">Category Name</label>
+
+                                <label htmlFor="CategoryName">Subcategory Name</label>
+
                                 <input type="text" className="form-control"
-                                    defaultValue={this.state.currentCategories.categoryName}
-                                    ref={this.categoryNameInput} />
+                                    defaultValue={this.state.currentsub.subCategoryName}
+                                    ref={this.subcategoryNameInput} />
                             </div>
                             <div className="form-group">
+
                                 <label htmlFor="CategoryDescription">Category Description</label>
-                                <input type="text" className="form-control"
-                                    defaultValue={this.state.currentCategories.categoryDescription}
-                                    ref={this.categoryDescInput} />
+
+                                <select className="custom-select" name="categoryselect"
+                                defaultValue={this.state.currentsub.categoryID} ref={this.categoryidSelect}>
+                                    {this.state.categories.map(category => {
+                                        return (
+                                            <option key={category.id} value={category.id}>
+                                                {category.categoryName}
+                                            </option>
+                                        )
+                                    })}
+                                </select>
                             </div>
                         </form>
                     </Modal.Body>
@@ -142,9 +157,9 @@ export default class categorylist extends Component {
                     <table className="table table-hover">
                         <thead>
                             <tr>
-                                <th>Category ID</th>
-                                <th>Category Name</th>
-                                <th>Category Description</th>
+                                <th>Subcategory ID</th>
+                                <th>Subcategory Name</th>
+                                <th>Category</th>
                                 <th>Creation Date</th>
                                 <th>Updation Date</th>
                                 <th>Action</th>
@@ -156,7 +171,9 @@ export default class categorylist extends Component {
                     </table>
                 </div>
             </Aux>
-
         )
     }
 }
+
+export default SubCategoryList
+

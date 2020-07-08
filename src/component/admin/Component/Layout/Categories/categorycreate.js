@@ -73,7 +73,7 @@ export default class categorycreate extends Component {
                     </Modal.Footer>
                 </Modal>
                 <div className="card bg-info text-white mt-4">
-                    <div className="card-header">Categories</div>
+                    <div className="card-header"><h3>Categories</h3></div>
                     <div className="card-body">
                         <h4 className="card-title text-capitalize text-center">
                             add, update or create categories here
