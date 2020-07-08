@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Modal } from 'react-bootstrap'
 import Aux from '../../../../hoc/auxillary'
-import axios from 'axios'
+import { createCategory } from './../Requests/RequestPayloads';
 
 export default class categorycreate extends Component {
     constructor(props) {
@@ -21,25 +21,16 @@ export default class categorycreate extends Component {
     }
 
     createCategory() {
-        if (this.categoryNameInput.current.value !== '' && this.categoryDescInput.current.value !== '') {
-            let name = this.categoryNameInput.current.value
-            let desc = this.categoryDescInput.current.value
-            axios({
-                method: 'post',
-                url: `https://localhost:44376/api/category`,
-                data: {
-                    categoryName: name,
-                    categoryDescription: desc
-                },
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
-                }
-            }).then(res => {
-                if (res.data === true) {
-                    this.props.updateList()
-                    this.hideModal()
-                }
-            }).catch(err => console.error(err))
+        if (this.categoryNameInput.current.value !== '' && this.categoryDescInput.current.value !== '') { 
+            const payload = {
+                'name': this.categoryNameInput.current.value,
+                'desc': this.categoryDescInput.current.value
+            }
+            const response = createCategory(payload)
+            response.then(res => {
+                this.props.updateList()
+                this.hideModal()
+            })
         }
     }
     render() {

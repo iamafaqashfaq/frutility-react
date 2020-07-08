@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Modal } from 'react-bootstrap'
-import axios from 'axios'
+import { getCategory, updateCategory, deleteCategory } from '../Requests/RequestPayloads'
 import Aux from '../../../../hoc/auxillary'
 
 export default class categorylist extends Component {
@@ -24,15 +24,10 @@ export default class categorylist extends Component {
     }
 
     repost() {
-        axios({
-            method: 'get',
-            url: `https://localhost:44376/api/category`,
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
-            }
-        }).then(res => {
+        const respone = getCategory()
+        respone.then(res => {
             this.setState({ categoryData: res.data })
-        }).catch(err => console.error(err))
+        })
     }
 
     showModal(category) {
@@ -44,43 +39,33 @@ export default class categorylist extends Component {
         this.setState({ modalShow: false })
     }
 
-    updateCategory() {
+    update() {
         if (this.categoryNameInput.current.value !== '' && this.categoryDescInput.current.value !== '') {
-            axios({
-                method: 'put',
-                url: `https://localhost:44376/api/category/${this.state.currentCategories.id}`,
-                data: {
-                    id: this.state.currentCategories.id,
-                    categoryName: this.categoryNameInput.current.value,
-                    categoryDescription: this.categoryDescInput.current.value
-                },
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
-                }
-            }).then(res => {
+            const payload = {
+                id: this.state.currentCategories.id,
+                categoryName: this.categoryNameInput.current.value,
+                categoryDescription: this.categoryDescInput.current.value
+            }
+            const response = updateCategory(payload)
+            response.then(res => {
                 if (res.data === true) {
                     this.repost()
                     this.hideModal()
                 }
-            }).catch(err => console.error(err))
+            })
         }
     }
 
-    deleteCategory(id) {
+    delete(id) {
         if (id !== null) {
             let result = window.confirm('Are you sure you want to delete this category?')
             if (result) {
-                axios({
-                    method: 'delete',
-                    url: `https://localhost:44376/api/category/${id}`,
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
-                    }
-                }).then(res => {
+                const response = deleteCategory(id)
+                response.then(res => {
                     if (res.data === true) {
                         this.repost()
                     }
-                }).catch(err => console.error(err))
+                })
             }
 
         }
@@ -92,12 +77,12 @@ export default class categorylist extends Component {
                 <tr key={category.id}>
                     <td>{category.id}</td>
                     <td>{category.categoryName}</td>
-                    <td>{category.categoryDescription}</td>
+                    <td>{category.description}</td>
                     <td>{category.creationDate}</td>
                     <td>{category.updationDate}</td>
                     <td><i onClick={() => this.showModal(category)}
                         className="fa fa-pencil-square-o fa-lg btn"></i>&nbsp;|&nbsp;
-                    <i onClick={() => this.deleteCategory(category.id)} className="fa fa-trash-o fa-lg btn">
+                    <i onClick={() => this.delete(category.id)} className="fa fa-trash-o fa-lg btn">
                         </i>
                     </td>
                 </tr>
@@ -120,7 +105,7 @@ export default class categorylist extends Component {
                             <div className="form-group">
                                 <label htmlFor="CategoryDescription">Category Description</label>
                                 <input type="text" className="form-control"
-                                    defaultValue={this.state.currentCategories.categoryDescription}
+                                    defaultValue={this.state.currentCategories.description}
                                     ref={this.categoryDescInput} />
                             </div>
                         </form>
@@ -130,7 +115,7 @@ export default class categorylist extends Component {
                             className="btn btn-outline-secondary pl-4 pr-4">
                             <b>Exit</b>
                         </button>
-                        <button onClick={() => this.updateCategory()}
+                        <button onClick={() => this.update()}
                             className="btn btn-outline-success pl-5 pr-5 ml-3">
                             <b>Update</b>
                         </button>

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Modal } from 'react-bootstrap'
 import Aux from '../../../../hoc/auxillary'
-import axios from 'axios'
-
+import { getCategory, getSubcategory, updateSubcategory, deleteSubcategory } from '../Requests/RequestPayloads'
 class SubCategoryList extends Component {
     constructor(props) {
         super(props)
@@ -18,7 +17,8 @@ class SubCategoryList extends Component {
     }
     componentDidMount() {
         this.repost()
-        axios.get(`https://localhost:44376/api/category`).then(res => {
+        const response = getCategory()
+        response.then(res => {
             this.setState({ categories: res.data })
         })
     }
@@ -29,15 +29,10 @@ class SubCategoryList extends Component {
         }
     }
     repost() {
-        axios({
-            method: 'get',
-            url: `https://localhost:44376/api/subcategory`,
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
-            }
-        }).then(res => {
+        const response = getSubcategory()
+        response.then(res => {
             this.setState({ subCategory: res.data })
-        }).catch(err => console.error(err))
+        })
     }
     showModal(subcategory) {
         this.setState({ currentsub: subcategory })
@@ -47,44 +42,34 @@ class SubCategoryList extends Component {
         this.setState({ modalShow: false })
     }
 
-    updateCategory() {
+    update() {
         if (this.subcategoryNameInput.current.value !== '' && this.categoryidSelect.current.value !== '') {
             let categoryid = parseInt(this.categoryidSelect.current.value)
-            axios({
-                method: 'put',
-                url: `https://localhost:44376/api/subcategory/${this.state.currentsub.subCategoryID}`,
-                data: {
-                    "subCategoryID": this.state.currentsub.subCategoryID,
-                    "subCategoryName": this.subcategoryNameInput.current.value,
-                    "categoryID": categoryid
-                },
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
-                }
-            }).then(res => {
+            const payload = {
+                id: this.state.currentsub.id,
+                name: this.subcategoryNameInput.current.value,
+                'categoryid': categoryid
+            }
+            const response = updateSubcategory(payload)
+            response.then(res => {
                 if (res.data === true) {
                     this.repost()
                     this.hideModal()
                 }
-            }).catch(err => console.error(err))
+            })
         }
     }
 
-    deleteCategory(id) {
+    delete(id) {
         if (id !== null) {
             let result = window.confirm('Are you sure you want to delete this subcategory?')
             if (result) {
-                axios({
-                    method: 'delete',
-                    url: `https://localhost:44376/api/subcategory/${id}`,
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
-                    }
-                }).then(res => {
+                const response = deleteSubcategory(id)
+                response.then(res => {
                     if (res.data === true) {
                         this.repost()
                     }
-                }).catch(err => console.error(err))
+                })
             }
 
         }
@@ -93,15 +78,15 @@ class SubCategoryList extends Component {
     render() {
         const renderData = this.state.subCategory.map((subcategory) => {
             return (
-                <tr key={subcategory.subCategoryID}>
-                    <td>{subcategory.subCategoryID}</td>
-                    <td>{subcategory.subCategoryName}</td>
+                <tr key={subcategory.id}>
+                    <td>{subcategory.id}</td>
+                    <td>{subcategory.subcategoryName}</td>
                     <td>{subcategory.categoryName}</td>
                     <td>{subcategory.creationDate}</td>
                     <td>{subcategory.updationDate}</td>
                     <td><i onClick={() => this.showModal(subcategory)}
                         className="fa fa-pencil-square-o fa-lg btn"></i>&nbsp;|&nbsp;
-                    <i onClick={() => this.deleteCategory(subcategory.subCategoryID)} className="fa fa-trash-o fa-lg btn">
+                    <i onClick={() => this.delete(subcategory.id)} className="fa fa-trash-o fa-lg btn">
                         </i>
                     </td>
                 </tr>
@@ -120,7 +105,7 @@ class SubCategoryList extends Component {
                                 <label htmlFor="SubcategoryName">Subcategory Name</label>
 
                                 <input type="text" className="form-control"
-                                    defaultValue={this.state.currentsub.subCategoryName}
+                                    defaultValue={this.state.currentsub.subcategoryName}
                                     ref={this.subcategoryNameInput} />
                             </div>
                             <div className="form-group">
@@ -145,7 +130,7 @@ class SubCategoryList extends Component {
                             className="btn btn-outline-secondary pl-4 pr-4">
                             <b>Exit</b>
                         </button>
-                        <button onClick={() => this.updateCategory()}
+                        <button onClick={() => this.update()}
                             className="btn btn-outline-success pl-5 pr-5 ml-3">
                             <b>Update</b>
                         </button>

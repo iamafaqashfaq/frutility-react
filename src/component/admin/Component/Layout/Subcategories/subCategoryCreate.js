@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Modal } from 'react-bootstrap'
 import Aux from '../../../../hoc/auxillary'
-import Axios from 'axios'
-
+import { getCategory, createSubcategory } from '../Requests/RequestPayloads'
 class SubCategoryCreate extends Component {
     constructor(props) {
         super(props)
@@ -15,7 +14,8 @@ class SubCategoryCreate extends Component {
         this.categoryNameSelect = React.createRef();
     }
     getCategories() {
-        Axios.get(`https://localhost:44376/api/category`).then(res => {
+        const response = getCategory()
+        response.then(res => {
             this.setState({ categoriesData: res.data })
         })
     }
@@ -29,25 +29,20 @@ class SubCategoryCreate extends Component {
         this.props.update()
     }
 
-    createSubCategory(){
-        if(this.subCategoryNameInput.current.value !== '' && this.categoryNameSelect.current.value !== ''){
+    create() {
+        if (this.subCategoryNameInput.current.value !== '' && this.categoryNameSelect.current.value !== '') {
             let id = parseInt(this.categoryNameSelect.current.value)
-            Axios({
-                method: 'post',
-                url: `https://localhost:44376/api/subcategory`,
-                data: {
-                    SubCategoryName: this.subCategoryNameInput.current.value,
-                    CategoryID: id
-                },
-                headers:{
-                    'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
-                }
-            }).then(res => {
-                if(res.data){
+            const payload = {
+                name: this.subCategoryNameInput.current.value,
+                'id': id
+            }
+            const response = createSubcategory(payload)
+            response.then(res => {
+                if (res.data) {
                     this.props.update()
                     this.hideModal()
                 }
-            }).catch(err => console.error(err))
+            })
         }
     }
 
@@ -79,7 +74,7 @@ class SubCategoryCreate extends Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <button className="btn btn-outline-secondary" onClick={() => this.hideModal()}><b>Exit</b></button>
-                        <button className="btn btn-outline-success pl-5 pr-5" onClick={() => this.createSubCategory()}>
+                        <button className="btn btn-outline-success pl-5 pr-5" onClick={() => this.create()}>
                             <b>Save</b>
                         </button>
 
