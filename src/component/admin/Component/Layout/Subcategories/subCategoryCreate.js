@@ -60,11 +60,11 @@ class SubCategoryCreate extends Component {
                     <Modal.Body>
                         <form>
                             <div className="form-group">
-                                <label htmlFor="CategoryName">Subcategory Name</label>
+                                <label htmlFor="SubCategoryName">Subcategory Name</label>
                                 <input type="text" className="form-control" ref={this.subCategoryNameInput} />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="CategoryDescription">Category Description</label>
+                                <label htmlFor="Category">Category</label>
                                 <select className="custom-select" name="categoryselect" ref={this.categoryNameSelect}>
                                     {this.state.categoriesData.map(category => {
                                         return (
@@ -78,7 +78,7 @@ class SubCategoryCreate extends Component {
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <button className="btn btn-outline-dark" onClick={() => this.hideModal()}><b>Exit</b></button>
+                        <button className="btn btn-outline-secondary" onClick={() => this.hideModal()}><b>Exit</b></button>
                         <button className="btn btn-outline-success pl-5 pr-5" onClick={() => this.createSubCategory()}>
                             <b>Save</b>
                         </button>
@@ -92,12 +92,12 @@ class SubCategoryCreate extends Component {
                     <div className="card-header"><h3>SubCategories</h3></div>
                     <div className="card-body">
                         <h4 className="card-title text-capitalize text-center">
-                            add, update or create Subcategories here
+                            add, update or delete Subcategories here
                     </h4>
                     </div>
                     <div className="card-footer text-right">
                         <button onClick={() => this.showModal()}
-                            className="btn btn-dark pl-5 pr-5">Create</button>
+                            className="btn btn-light pl-5 pr-5"><b>Create</b></button>
                     </div>
                 </div>
             </Aux>

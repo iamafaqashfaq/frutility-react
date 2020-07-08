@@ -111,13 +111,13 @@ class SubCategoryList extends Component {
             <Aux>
                 <Modal show={this.state.modalShow} onHide={() => this.hideModal()}>
                     <Modal.Header>
-                        <h4>Create Category</h4>
+                        <h4>Update Category</h4>
                     </Modal.Header>
                     <Modal.Body>
                         <form>
                             <div className="form-group">
 
-                                <label htmlFor="CategoryName">Subcategory Name</label>
+                                <label htmlFor="SubcategoryName">Subcategory Name</label>
 
                                 <input type="text" className="form-control"
                                     defaultValue={this.state.currentsub.subCategoryName}
@@ -125,7 +125,7 @@ class SubCategoryList extends Component {
                             </div>
                             <div className="form-group">
 
-                                <label htmlFor="CategoryDescription">Category Description</label>
+                                <label htmlFor="Category">Category</label>
 
                                 <select className="custom-select" name="categoryselect"
                                 defaultValue={this.state.currentsub.categoryID} ref={this.categoryidSelect}>

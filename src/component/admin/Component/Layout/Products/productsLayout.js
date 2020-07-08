@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import ProductCreate from './productCreate';
+import ProductList from './productList';
 
 class ProductsLayout extends Component {
     constructor(props) {
@@ -11,8 +13,9 @@ class ProductsLayout extends Component {
 
     render() {
         return (
-            <div>
-                Hello
+            <div className="container ml-3">
+                <ProductCreate/>
+                <ProductList/>
             </div>
         )
     }

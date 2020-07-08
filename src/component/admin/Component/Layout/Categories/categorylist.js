@@ -107,7 +107,7 @@ export default class categorylist extends Component {
             <Aux>
                 <Modal show={this.state.modalShow} onHide={() => this.hideModal()}>
                     <Modal.Header>
-                        <h4>Create Category</h4>
+                        <h4>Update Category</h4>
                     </Modal.Header>
                     <Modal.Body>
                         <form>
