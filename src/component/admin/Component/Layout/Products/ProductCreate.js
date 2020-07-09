@@ -45,52 +45,54 @@ class ProductCreate extends Component {
         this.props.update()
     }
 
-    handleNameInput(e){
-        this.setState({createdata: {
-            ...this.state.createdata,
-             name: e.target.value
-        }})
+    handleNameInput(e) {
+        this.setState({
+            createdata: {
+                ...this.state.createdata,
+                name: e.target.value
+            }
+        })
     }
 
-    handleDescInput(e){
+    handleDescInput(e) {
         this.setState({
-            createdata:{
+            createdata: {
                 ...this.state.createdata,
                 description: e.target.value
             }
         })
     }
 
-    handleVendorInput(e){
+    handleVendorInput(e) {
         this.setState({
-            createdata:{
+            createdata: {
                 ...this.state.createdata,
                 vendor: e.target.value
             }
         })
     }
 
-    handlePriceInput(e){
+    handlePriceInput(e) {
         this.setState({
-            createdata:{
+            createdata: {
                 ...this.state.createdata,
                 price: e.target.value
             }
         })
     }
 
-    handleDiscountInput(e){
+    handleDiscountInput(e) {
         this.setState({
-            createdata:{
+            createdata: {
                 ...this.state.createdata,
                 beforeDiscount: e.target.value
             }
         })
     }
 
-    handleShippingInput(e){
+    handleShippingInput(e) {
         this.setState({
-            createdata:{
+            createdata: {
                 ...this.state.createdata,
                 shipping: e.target.value
             }
@@ -99,31 +101,53 @@ class ProductCreate extends Component {
 
     handleWeightInput(e) {
         this.setState({
-            createdata:{
+            createdata: {
                 ...this.state.createdata,
                 weight: e.target.value
             }
         })
     }
 
-    handleSubcategoryInput(e){
+    handleSubcategoryInput(e) {
         this.setState({
-            createdata:{
+            createdata: {
                 ...this.state.createdata,
                 subcategoryId: e.target.value
             }
         })
-        console.log(this.state.createdata.subcategoryId)
+    }
+    handleAvailabilityInput(e) {
+        this.setState({
+            createdata: {
+                ...this.state.createdata,
+                availability: e.target.value
+            }
+        })
     }
 
-    setImage1(e) {
-        this.setState({ image1: e.target.files[0] })
+    async setImage1(e) {
+        await this.setState({
+            createdata: {
+                ...this.state.createdata,
+                image1: e.target.files[0]
+            }
+        })
     }
-    setImage2(e) {
-        this.setState({ image2: e.target.files[0] })
+    async setImage2(e) {
+        await this.setState({
+            createdata: {
+                ...this.state.createdata,
+                image2: e.target.files[0]
+            }
+        })
     }
-    setImage3(e) {
-        this.setState({ image3: e.target.files[0] })
+    async setImage3(e) {
+        await this.setState({
+            createdata: {
+                ...this.state.createdata,
+                image3: e.target.files[0]
+            }
+        })
     }
 
 
@@ -132,15 +156,15 @@ class ProductCreate extends Component {
         formdata.append('name', this.state.createdata.name)
         formdata.append('description', this.state.createdata.description)
         formdata.append("vendor", this.state.createdata.vendor)
-        formdata.append("price", this.state.createdata.price)
-        formdata.append("PriceBeforeDiscount", this.state.createdata.beforeDiscount)
-        formdata.append("image1", this.state.createdata.image1, this.state.createdata.image1.name)
-        formdata.append("image2", this.state.createdata.image2, this.state.createdata.image2.name)
-        formdata.append("image3", this.state.createdata.image3, this.state.createdata.image3.name)
-        formdata.append('shippingCharges', this.state.createdata.shipping)
+        formdata.append("price", parseFloat(this.state.createdata.price))
+        formdata.append("PriceBeforeDiscount", parseFloat(this.state.createdata.beforeDiscount))
+        formdata.append("image1", this.state.createdata.image1)
+        formdata.append("image2", this.state.createdata.image2)
+        formdata.append("image3", this.state.createdata.image3)
+        formdata.append('shippingCharges', parseFloat(this.state.createdata.shipping))
         formdata.append('availability', this.state.createdata.availability)
-        formdata.append('packageWeight', this.state.createdata.weight)
-        formdata.append('subCategoryID', this.state.createdata.subcategoryId)
+        formdata.append('packageWeight', parseFloat(this.state.createdata.weight))
+        formdata.append('subCategoryID', parseInt(this.state.createdata.subcategoryId))
         console.log(formdata)
         // const response = createProducts(formdata)
         // response.then(res => {
@@ -161,19 +185,19 @@ class ProductCreate extends Component {
                         <form>
                             <div className="form-group">
                                 <label htmlFor="Name">Product Name</label>
-                                <input type="text" className="form-control" 
-                                onChange={(e) => this.handleNameInput(e)}/>
+                                <input type="text" className="form-control"
+                                    onChange={(e) => this.handleNameInput(e)} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="Description">Description</label>
-                                <textarea type="text" cols="30" rows="5" className="form-control" 
-                                onChange={(e) => this.handleDescInput(e)}/>
+                                <textarea type="text" cols="30" rows="5" className="form-control"
+                                    onChange={(e) => this.handleDescInput(e)} />
                             </div>
                             <div className="row">
                                 <div className="form-group col-sm-7 col-md-8">
                                     <label htmlFor="Vendor">Vendor</label>
                                     <input type="text" className="form-control"
-                                    onChange={(e)=> this.handleVendorInput(e)}/>
+                                        onChange={(e) => this.handleVendorInput(e)} />
                                 </div>
                                 <div className="col-sm-5 col-md-4">
                                     <label htmlFor="Price">Price</label>
@@ -181,8 +205,8 @@ class ProductCreate extends Component {
                                         <div className="input-group-prepend">
                                             <div className="input-group-text">PKR</div>
                                         </div>
-                                        <input type="text" className="form-control" 
-                                        onChange={(e) => this.handlePriceInput(e)}/>
+                                        <input type="text" className="form-control"
+                                            onChange={(e) => this.handlePriceInput(e)} />
                                     </div>
                                 </div>
                             </div>
@@ -193,8 +217,8 @@ class ProductCreate extends Component {
                                         <div className="input-group-prepend">
                                             <div className="input-group-text">PKR</div>
                                         </div>
-                                        <input type="text" className="form-control" 
-                                        onChange={(e) => this.handleDiscountInput(e)}/>
+                                        <input type="text" className="form-control"
+                                            onChange={(e) => this.handleDiscountInput(e)} />
                                     </div>
                                 </div>
                                 <div className="col-sm-4 col-md-4">
@@ -203,8 +227,8 @@ class ProductCreate extends Component {
                                         <div className="input-group-prepend">
                                             <div className="input-group-text">PKR</div>
                                         </div>
-                                        <input type="text" className="form-control" 
-                                        onChange={(e) => this.handleShippingInput(e)}/>
+                                        <input type="text" className="form-control"
+                                            onChange={(e) => this.handleShippingInput(e)} />
                                     </div>
                                 </div>
                                 <div className="col-sm-4 col-md-4">
@@ -213,8 +237,8 @@ class ProductCreate extends Component {
                                         <div className="input-group-prepend">
                                             <div className="input-group-text">KG</div>
                                         </div>
-                                        <input type="text" className="form-control" 
-                                        onChange={(e) => this.handleWeightInput(e)}/>
+                                        <input type="text" className="form-control"
+                                            onChange={(e) => this.handleWeightInput(e)} />
                                     </div>
                                 </div>
 
@@ -244,7 +268,8 @@ class ProductCreate extends Component {
                                         </select>
                                     </div>
                                     <div className="custom-control custom-switch">
-                                        <input type="checkbox" className="custom-control-input" id="avail"/>
+                                        <input type="checkbox" className="custom-control-input"
+                                            onChange={(e) => this.handleAvailabilityInput(e)} id="avail" />
                                         <label className="custom-control-label"
                                             htmlFor="avail">Availability</label>
                                     </div>
@@ -253,16 +278,19 @@ class ProductCreate extends Component {
                             </div>
 
 
-                            <div className="form-group text-right">
-                                <button className="btn btn-outline-secondary mr-2"
-                                    onClick={() => this.hideModal()}><b>Exit</b></button>
-                                <button className="btn btn-outline-success pl-5 pr-5 mr-5"
-                                    onClick={() => this.create()}>
-                                    <b>Save</b>
-                                </button>
-                            </div>
+
                         </form>
                     </Modal.Body>
+                    <Modal.Footer>
+                        <div className="form-group">
+                            <button className="btn btn-outline-secondary mr-2"
+                                onClick={() => this.hideModal()}><b>Exit</b></button>
+                            <button className="btn btn-outline-success pl-5 pr-5 mr-5"
+                                onClick={() => this.create()}>
+                                <b>Save</b>
+                            </button>
+                        </div>
+                    </Modal.Footer>
                 </Modal>
 
 
