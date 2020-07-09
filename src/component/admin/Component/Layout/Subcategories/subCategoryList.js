@@ -19,8 +19,10 @@ class SubCategoryList extends Component {
         this.repost()
         const response = getCategory()
         response.then(res => {
-            this.setState({ categories: res.data })
-        })
+            if (res.data !== undefined) {
+                this.setState({ categories: res.data })
+            }
+        }).catch(err => console.error(err))
     }
 
     componentDidUpdate() {
@@ -31,8 +33,10 @@ class SubCategoryList extends Component {
     repost() {
         const response = getSubcategory()
         response.then(res => {
-            this.setState({ subCategory: res.data })
-        })
+            if (res.data !== undefined) {
+                this.setState({ subCategory: res.data })
+            }
+        }).catch(err => console.error(err))
     }
     showModal(subcategory) {
         this.setState({ currentsub: subcategory })
@@ -113,7 +117,7 @@ class SubCategoryList extends Component {
                                 <label htmlFor="Category">Category</label>
 
                                 <select className="custom-select" name="categoryselect"
-                                defaultValue={this.state.currentsub.categoryID} ref={this.categoryidSelect}>
+                                    defaultValue={this.state.currentsub.categoryID} ref={this.categoryidSelect}>
                                     {this.state.categories.map(category => {
                                         return (
                                             <option key={category.id} value={category.id}>
