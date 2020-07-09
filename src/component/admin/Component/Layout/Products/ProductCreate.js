@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getCategory, createProducts } from '../Requests/RequestPayloads'
+import { getSubcategory, createProducts } from '../Requests/RequestPayloads'
 import { Modal } from 'react-bootstrap'
 import Aux from './../../../../hoc/auxillary';
 
@@ -9,27 +9,30 @@ class ProductCreate extends Component {
 
         this.state = {
             modalShow: false,
-            categoriesData: [],
-            image1: null,
-            image2: null,
-            image3: null
+            subcategoriesData: [],
+            createdata: {
+                name: '',
+                description: '',
+                vendor: '',
+                price: 0,
+                beforeDiscount: 0,
+                image1: null,
+                image2: null,
+                image3: null,
+                shipping: 0,
+                availability: false,
+                stock: 0,
+                weight: 0,
+                subcategoryId: 1
+            }
         }
-        this.NameInput = React.createRef()
-        this.DescriptionInput = React.createRef()
-        this.VendorInput = React.createRef()
-        this.PriceInput = React.createRef()
-        this.PriceBeforeDiscountInput = React.createRef()
-        this.ShippingChargesInput = React.createRef()
-        this.AvailabilityInput = React.createRef()
-        this.StockInput = React.createRef()
-        this.PackageWeightInput = React.createRef()
         this.SubcategoryIDInput = React.createRef()
     }
     getCategories() {
-        const response = getCategory()
+        const response = getSubcategory()
         response.then(res => {
             if (res.data !== undefined) {
-                this.setState({ categoriesData: res.data })
+                this.setState({ subcategoriesData: res.data })
             }
         }).catch(err => console.error(err))
     }
@@ -37,6 +40,82 @@ class ProductCreate extends Component {
         this.getCategories()
         this.setState({ modalShow: true })
     }
+    hideModal() {
+        this.setState({ modalShow: false })
+        this.props.update()
+    }
+
+    handleNameInput(e){
+        this.setState({createdata: {
+            ...this.state.createdata,
+             name: e.target.value
+        }})
+    }
+
+    handleDescInput(e){
+        this.setState({
+            createdata:{
+                ...this.state.createdata,
+                description: e.target.value
+            }
+        })
+    }
+
+    handleVendorInput(e){
+        this.setState({
+            createdata:{
+                ...this.state.createdata,
+                vendor: e.target.value
+            }
+        })
+    }
+
+    handlePriceInput(e){
+        this.setState({
+            createdata:{
+                ...this.state.createdata,
+                price: e.target.value
+            }
+        })
+    }
+
+    handleDiscountInput(e){
+        this.setState({
+            createdata:{
+                ...this.state.createdata,
+                beforeDiscount: e.target.value
+            }
+        })
+    }
+
+    handleShippingInput(e){
+        this.setState({
+            createdata:{
+                ...this.state.createdata,
+                shipping: e.target.value
+            }
+        })
+    }
+
+    handleWeightInput(e) {
+        this.setState({
+            createdata:{
+                ...this.state.createdata,
+                weight: e.target.value
+            }
+        })
+    }
+
+    handleSubcategoryInput(e){
+        this.setState({
+            createdata:{
+                ...this.state.createdata,
+                subcategoryId: e.target.value
+            }
+        })
+        console.log(this.state.createdata.subcategoryId)
+    }
+
     setImage1(e) {
         this.setState({ image1: e.target.files[0] })
     }
@@ -46,103 +125,144 @@ class ProductCreate extends Component {
     setImage3(e) {
         this.setState({ image3: e.target.files[0] })
     }
-    hideModal() {
-        this.setState({ modalShow: false })
-        this.props.update()
-    }
+
 
     create() {
-        if (this.NameInput.current.value !== '' &&
-            this.DescriptionInput.current.value !== '' && this.VendorInput.current.value !== ''
-            && this.PriceInput.current.value !== '' && this.ShippingChargesInput.current.value !== ''
-            && this.StockInput.current.value !== ''
-            && this.PackageWeightInput.current.value !== '') {
-            let parseprice = parseFloat(this.PriceInput.current.value)
-            let discountparse = 0
-            let shipping = parseFloat(this.ShippingChargesInput.current.value)
-            let weight = parseFloat(this.PackageWeightInput.current.value)
-            let subcategoryid = parseInt(this.SubcategoryIDInput.current.value)
-            if (this.PriceBeforeDiscountInput.current.value !== '') {
-                discountparse = parseFloat(this.PriceBeforeDiscountInput.current.value)
-            }
-            let formdata = new FormData()
-            formdata.append('name', this.NameInput.current.value)
-            formdata.append('description', this.DescriptionInput.current.value)
-            formdata.append("vendor", this.VendorInput.current.value)
-            formdata.append("price", parseprice)
-            formdata.append("PriceBeforeDiscount", discountparse)
-            if (this.state.image1 !== null) {
-                formdata.append("image1", this.state.image1, this.state.image1.name)
-            }
-            if (this.state.image2 !== null) {
-                formdata.append("image2", this.state.image2, this.state.image2.name)
-            }
-            if (this.state.image3 !== null) {
-                formdata.append("image3", this.state.image3, this.state.image3.name)
-            }
-            formdata.append('shippingCharges', shipping)
-            formdata.append('availability', this.AvailabilityInput.current.value)
-            formdata.append('packageWeight', weight)
-            formdata.append('subCategoryID', subcategoryid)
-            const response = createProducts(formdata)
-            response.then(res => {
-                if (res.data) {
-                    this.props.update()
-                    this.hideModal()
-                }
-            })
-        }
+        let formdata = new FormData()
+        formdata.append('name', this.state.createdata.name)
+        formdata.append('description', this.state.createdata.description)
+        formdata.append("vendor", this.state.createdata.vendor)
+        formdata.append("price", this.state.createdata.price)
+        formdata.append("PriceBeforeDiscount", this.state.createdata.beforeDiscount)
+        formdata.append("image1", this.state.createdata.image1, this.state.createdata.image1.name)
+        formdata.append("image2", this.state.createdata.image2, this.state.createdata.image2.name)
+        formdata.append("image3", this.state.createdata.image3, this.state.createdata.image3.name)
+        formdata.append('shippingCharges', this.state.createdata.shipping)
+        formdata.append('availability', this.state.createdata.availability)
+        formdata.append('packageWeight', this.state.createdata.weight)
+        formdata.append('subCategoryID', this.state.createdata.subcategoryId)
+        console.log(formdata)
+        // const response = createProducts(formdata)
+        // response.then(res => {
+        //     if (res.data) {
+        //         this.props.update()
+        //         this.hideModal()
+        //     }
+        // })
     }
 
     render() {
         return (
             <Aux>
                 {/* MODAL FOR CREATION  */}
-                <Modal show={this.state.modalShow} onHide={() => this.hideModal()}>
+                <Modal show={this.state.modalShow} onHide={() => this.hideModal()} size="lg" centered>
                     <Modal.Header><h4>Add Products</h4></Modal.Header>
                     <Modal.Body>
                         <form>
                             <div className="form-group">
                                 <label htmlFor="Name">Product Name</label>
-                                <input type="text" className="form-control" ref={this.NameInput} />
+                                <input type="text" className="form-control" 
+                                onChange={(e) => this.handleNameInput(e)}/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="Description">Description</label>
-                                <textarea type="text" cols="30" rows="10" className="form-control"
-                                    ref={this.DescriptionInput} />
+                                <textarea type="text" cols="30" rows="5" className="form-control" 
+                                onChange={(e) => this.handleDescInput(e)}/>
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="Vendor">Vender</label>
-                                <input type="text" className="form-control" ref={this.VendorInput} />
+                            <div className="row">
+                                <div className="form-group col-sm-7 col-md-8">
+                                    <label htmlFor="Vendor">Vendor</label>
+                                    <input type="text" className="form-control"
+                                    onChange={(e)=> this.handleVendorInput(e)}/>
+                                </div>
+                                <div className="col-sm-5 col-md-4">
+                                    <label htmlFor="Price">Price</label>
+                                    <div className="input-group">
+                                        <div className="input-group-prepend">
+                                            <div className="input-group-text">PKR</div>
+                                        </div>
+                                        <input type="text" className="form-control" 
+                                        onChange={(e) => this.handlePriceInput(e)}/>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="Price">Price</label>
-                                <input type="text" className="form-control" ref={this.PriceInput} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="BeforeDiscount">Before Discount</label>
-                                <input type="text" className="form-control" ref={this.PriceBeforeDiscountInput} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="Image">Upload Image</label>
-                                <input type="file" className="form-control-file mb-1" onChange={this.setImage1} />
-                                <input type="file" className="form-control-file mb-1" onChange={this.setImage2} />
-                                <input type="file" className="form-control-file mb-1" onChange={this.setImage3} />
+                            <div className="row">
+                                <div className="col-sm-4 col-md-4">
+                                    <label htmlFor="BeforeDiscount">Before Discount</label>
+                                    <div className="input-group">
+                                        <div className="input-group-prepend">
+                                            <div className="input-group-text">PKR</div>
+                                        </div>
+                                        <input type="text" className="form-control" 
+                                        onChange={(e) => this.handleDiscountInput(e)}/>
+                                    </div>
+                                </div>
+                                <div className="col-sm-4 col-md-4">
+                                    <label htmlFor="Shipping">Shipping Charges</label>
+                                    <div className="input-group">
+                                        <div className="input-group-prepend">
+                                            <div className="input-group-text">PKR</div>
+                                        </div>
+                                        <input type="text" className="form-control" 
+                                        onChange={(e) => this.handleShippingInput(e)}/>
+                                    </div>
+                                </div>
+                                <div className="col-sm-4 col-md-4">
+                                    <label htmlFor="weight">Package Weight</label>
+                                    <div className="input-group">
+                                        <div className="input-group-prepend">
+                                            <div className="input-group-text">KG</div>
+                                        </div>
+                                        <input type="text" className="form-control" 
+                                        onChange={(e) => this.handleWeightInput(e)}/>
+                                    </div>
+                                </div>
 
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="Shipping">Shipping Charges</label>
-                                <input type="text" className="form-control" ref={this.ShippingChargesInput} />
+                            <div className="row">
+                                <div className="form-group col-sm-6 col-md-6">
+                                    <label htmlFor="Image">Upload Image</label>
+                                    <input type="file" className="form-control-file mb-1"
+                                        onChange={(e) => this.setImage1(e)} />
+                                    <input type="file" className="form-control-file mb-1"
+                                        onChange={(e) => this.this.setImage2(e)} />
+                                    <input type="file" className="form-control-file mb-1"
+                                        onChange={(e) => this.setImage3(e)} />
+                                </div>
+                                <div className="col-sm-6 col-md-6">
+                                    <div className="form-group">
+                                        <label htmlFor="Subcategory">Subcategory</label>
+                                        <select className="custom-select" name="subcategoryselect"
+                                            onChange={(e) => this.handleSubcategoryInput(e)}>
+                                            {this.state.subcategoriesData.map(subcategory => {
+                                                return (
+                                                    <option key={subcategory.id} value={subcategory.id}>
+                                                        {subcategory.subcategoryName}
+                                                    </option>
+                                                )
+                                            })}
+                                        </select>
+                                    </div>
+                                    <div className="custom-control custom-switch">
+                                        <input type="checkbox" className="custom-control-input" id="avail"/>
+                                        <label className="custom-control-label"
+                                            htmlFor="avail">Availability</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div className="form-group text-right">
+                                <button className="btn btn-outline-secondary mr-2"
+                                    onClick={() => this.hideModal()}><b>Exit</b></button>
+                                <button className="btn btn-outline-success pl-5 pr-5 mr-5"
+                                    onClick={() => this.create()}>
+                                    <b>Save</b>
+                                </button>
                             </div>
                         </form>
                     </Modal.Body>
-                    <Modal.Footer>
-                        <button className="btn btn-outline-secondary" onClick={() => this.hideModal()}><b>Exit</b></button>
-                        <button className="btn btn-outline-success pl-5 pr-5" onClick={() => this.create()}>
-                            <b>Save</b>
-                        </button>
-
-                    </Modal.Footer>
                 </Modal>
 
 

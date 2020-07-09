@@ -123,6 +123,7 @@ export const createProducts = (payload) => {
         //     categoryID: payload.categoryID
         // },
         headers: {
+            'Content-Type': 'multipart/form-data',
             'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
         }
     }).catch(err => console.error(err))
