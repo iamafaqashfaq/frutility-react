@@ -109,3 +109,14 @@ export const createProducts = (payload) => {
         }
     }).catch(err => console.error(err))
 }
+
+export const getProductImage = (payload) => {
+    return axios({
+        method: 'get',
+        url: `https://localhost:44376/api/products/image/${payload}`,
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
+        },
+        responseType: 'blob'
+    }).catch(err => console.error(err))
+}
