@@ -11,20 +11,18 @@ class ProductList extends Component {
     }
 
     downloadImage() {
-        const respone = getProductImage(3)
+        const respone = getProductImage(4)
         respone.then(res => {
-            console.log(res)
-            return res.config.url
-        }).then(alldata => {
-            this.setState({image: alldata})
+            this.setState({image: res.data[0]})
         })
     }
 
     render() {
+        const renderdata = "data:image/png;base64,"+this.state.image
         return (
             <div onClick={() => this.downloadImage()}>
                 Hello Click Me
-                <img src={this.state.image} alt="Here is ima" height="100" width="50"/>
+                <img src={renderdata} alt="Here is ima" height="100" width="50"/>
             </div>
         )
     }

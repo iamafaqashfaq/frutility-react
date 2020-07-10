@@ -116,7 +116,6 @@ export const getProductImage = (payload) => {
         url: `https://localhost:44376/api/products/image/${payload}`,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
-        },
-        responseType: 'blob'
+        }
     }).catch(err => console.error(err))
 }
