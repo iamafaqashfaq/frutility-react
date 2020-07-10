@@ -102,26 +102,7 @@ export const createProducts = (payload) => {
     return axios({
         method: 'post',
         url: `https://localhost:44376/api/products`,
-         data: payload,
-        //{
-        //     id: payload.id,
-        //     name: payload.name,
-        //     description: payload.description,
-        //     vendor: payload.vendor,
-        //     price: payload.price,
-        //     priceBeforeDiscount: payload.priceBeforeDiscount,
-        //     image1: payload.image1,
-        //     image2: payload.image2,
-        //     image3: payload.image3,
-        //     shippingCharges: payload.shippingCharges,
-        //     availability: payload.availability,
-        //     stock: payload.stock,
-        //     postingDate: payload.postingDate,
-        //     updationDate: payload.updationDate,
-        //     packageWeight: payload.packageWeight,
-        //     subCategoryID: payload.subCategoryID,
-        //     categoryID: payload.categoryID
-        // },
+        data: payload,
         headers: {
             'Content-Type': 'multipart/form-data',
             'Authorization': `Bearer ${localStorage.getItem('admintoken')}`

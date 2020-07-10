@@ -120,7 +120,7 @@ class ProductCreate extends Component {
         this.setState({
             createdata: {
                 ...this.state.createdata,
-                availability: e.target.value
+                availability: e.target.checked
             }
         })
     }
@@ -153,26 +153,28 @@ class ProductCreate extends Component {
 
     create() {
         let formdata = new FormData()
-        formdata.append('name', this.state.createdata.name)
-        formdata.append('description', this.state.createdata.description)
-        formdata.append("vendor", this.state.createdata.vendor)
-        formdata.append("price", parseFloat(this.state.createdata.price))
+        formdata.append('Name', this.state.createdata.name)
+        formdata.append('Description', this.state.createdata.description)
+        formdata.append("Vendor", this.state.createdata.vendor)
+        formdata.append("Price", parseFloat(this.state.createdata.price))
         formdata.append("PriceBeforeDiscount", parseFloat(this.state.createdata.beforeDiscount))
-        formdata.append("image1", this.state.createdata.image1)
-        formdata.append("image2", this.state.createdata.image2)
-        formdata.append("image3", this.state.createdata.image3)
-        formdata.append('shippingCharges', parseFloat(this.state.createdata.shipping))
-        formdata.append('availability', this.state.createdata.availability)
-        formdata.append('packageWeight', parseFloat(this.state.createdata.weight))
-        formdata.append('subCategoryID', parseInt(this.state.createdata.subcategoryId))
+        formdata.append("Image1", this.state.createdata.image1)
+        formdata.append("Image2", this.state.createdata.image2)
+        formdata.append("Image3", this.state.createdata.image3)
+        formdata.append('ShippingCharges', parseFloat(this.state.createdata.shipping))
+        formdata.append('Availability', this.state.createdata.availability)
+        formdata.append('PackageWeight', parseFloat(this.state.createdata.weight))
+        formdata.append('SubCategoryID', parseInt(this.state.createdata.subcategoryId))
         console.log(formdata)
-        // const response = createProducts(formdata)
-        // response.then(res => {
-        //     if (res.data) {
-        //         this.props.update()
-        //         this.hideModal()
-        //     }
-        // })
+        const response = createProducts(formdata)
+        response.then(res => {
+            console.log(res)
+            if (res.data) {
+                console.log(res.data)
+                this.props.update()
+                this.hideModal()
+            }
+        })
     }
 
     render() {
@@ -249,7 +251,7 @@ class ProductCreate extends Component {
                                     <input type="file" className="form-control-file mb-1"
                                         onChange={(e) => this.setImage1(e)} />
                                     <input type="file" className="form-control-file mb-1"
-                                        onChange={(e) => this.this.setImage2(e)} />
+                                        onChange={(e) => this.setImage2(e)} />
                                     <input type="file" className="form-control-file mb-1"
                                         onChange={(e) => this.setImage3(e)} />
                                 </div>
@@ -276,9 +278,6 @@ class ProductCreate extends Component {
                                 </div>
 
                             </div>
-
-
-
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
