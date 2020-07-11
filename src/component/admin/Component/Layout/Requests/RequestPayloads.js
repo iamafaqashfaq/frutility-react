@@ -97,7 +97,7 @@ export const deleteSubcategory = (payload) => {
     }).catch(err => console.error(err))
 }
 
-// Product Controller Requests
+// Product Controller Create Requests
 export const createProducts = (payload) => {
     return axios({
         method: 'post',
@@ -110,12 +110,18 @@ export const createProducts = (payload) => {
     }).catch(err => console.error(err))
 }
 
-export const getProductImage = (payload) => {
+// Product Controller Get Request
+export const getProducts = () => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/products/image/${payload}`,
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
-        }
+        url: `https://localhost:44376/api/products`
+    }).catch(err => console.error(err))
+}
+
+// Product Controller Get Request By ID
+export const getProductById = (payload) => {
+    return axios({
+        method: 'get',
+        url: `https://localhost:44376/api/products${payload}`
     }).catch(err => console.error(err))
 }
