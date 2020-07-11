@@ -119,16 +119,17 @@ export const getProducts = () => {
 }
 
 // Product Controller Get Request By ID
-export const getProductById = (payload) => {
-    return axios({
-        method: 'get',
-        url: `https://localhost:44376/api/products/${payload}`
-    }).catch(err => console.error(err))
-}
-
-export const getProductImageById = (payload) => {
+export const getProductMinById = (payload) => {
     return axios({
         method: 'get',
         url: `https://localhost:44376/api/products/productmin/${payload}`
+    }).catch(err => console.error(err))
+}
+
+//Product Controller Get Request Single Image
+export const getProductMin = (payload) => {
+    return axios({
+        method: 'get',
+        url: `https://localhost:44376/api/products/productmin`
     }).catch(err => console.error(err))
 }
