@@ -6,28 +6,32 @@ class ProductList extends Component {
         super(props)
 
         this.state = {
-                 products: [],
-                 image: null
+            products: [],
         }
     }
-    componentDidMount(){
+    componentWillMount() {
+        this.fetchProducts()
+    }
+
+    fetchProducts() {
         const response = getProducts()
         response.then(res => {
-            // console.log(res)
             this.setState({products: res.data})
-            console.log(this.state.products[0].imageBytes)
-            this.setState({image: this.state.products[2].imageBytes})
-            console.log(this.state.products['0'].id)
-        })
+        }).catch(err => console.error(err))
+    }
+
+    componentDidMount(){
+        console.log(this.state.products)
     }
 
     render() {
-        const renderdata = "data:image/png;base64,"+this.state.image
+        const renderdata = "data:image/png;base64," + this.state.products[0].imageBytes[0]
         return (
             <div>
                 Hello Click Me
-                <img src={renderdata} alt="Here is ima" height="100" width="50"/>
+                <img src={renderdata} alt="Here is ima" height="100" width="50" />
                 {/* <h1>{this.state.products['0'].['id']}</h1> */}
+        {/* <p>{this.state.products[0].id}</p> */}
             </div>
         )
     }

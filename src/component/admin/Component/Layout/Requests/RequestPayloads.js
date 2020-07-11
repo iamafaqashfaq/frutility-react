@@ -115,13 +115,20 @@ export const getProducts = () => {
     return axios({
         method: 'get',
         url: `https://localhost:44376/api/products`
-    }).catch(err => console.error(err))
+    })
 }
 
 // Product Controller Get Request By ID
 export const getProductById = (payload) => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/products${payload}`
+        url: `https://localhost:44376/api/products/${payload}`
+    }).catch(err => console.error(err))
+}
+
+export const getProductImageById = (payload) => {
+    return axios({
+        method: 'get',
+        url: `https://localhost:44376/api/products/productmin/${payload}`
     }).catch(err => console.error(err))
 }
