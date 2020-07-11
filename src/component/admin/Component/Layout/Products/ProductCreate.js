@@ -108,6 +108,15 @@ class ProductCreate extends Component {
         })
     }
 
+    handleStockInput(e){
+        this.setState({
+            createdata:{
+                ...this.state.createdata,
+                stock: e.target.value
+            }
+        })
+    }
+
     handleSubcategoryInput(e) {
         this.setState({
             createdata: {
@@ -163,6 +172,7 @@ class ProductCreate extends Component {
         formdata.append("Image3", this.state.createdata.image3)
         formdata.append('ShippingCharges', parseFloat(this.state.createdata.shipping))
         formdata.append('Availability', this.state.createdata.availability)
+        formdata.append('Stock',parseInt(this.state.createdata.stock))
         formdata.append('PackageWeight', parseFloat(this.state.createdata.weight))
         formdata.append('SubCategoryID', parseInt(this.state.createdata.subcategoryId))
         console.log(formdata)
@@ -196,12 +206,17 @@ class ProductCreate extends Component {
                                     onChange={(e) => this.handleDescInput(e)} />
                             </div>
                             <div className="row">
-                                <div className="form-group col-sm-7 col-md-8">
+                                <div className="form-group col-sm-4 col-md-4">
                                     <label htmlFor="Vendor">Vendor</label>
                                     <input type="text" className="form-control"
                                         onChange={(e) => this.handleVendorInput(e)} />
                                 </div>
-                                <div className="col-sm-5 col-md-4">
+                                <div className="form-group col-sm-4 col-md-4">
+                                    <label htmlFor="Stock">Stock</label>
+                                    <input type="text" className="form-control"
+                                        onChange={(e) => this.handleStockInput(e)} />
+                                </div>
+                                <div className="col-sm-4 col-md-4">
                                     <label htmlFor="Price">Price</label>
                                     <div className="input-group">
                                         <div className="input-group-prepend">
