@@ -15,39 +15,60 @@ export default class Todayorderdetail extends Component {
             spinner: ["fa", "fa-refresh", "fa-lg", "fa-fw"]
         }
     }
+    signal = axios.CancelToken.source()
     componentDidMount() {
-        axios({
-            method: "post",
-            url: 'https://localhost:44376/api/orders/todayorders',
-            data: {
-                'entoken': localStorage.getItem('admintoken')
-            },
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
+        try {
+            axios({
+                method: "post",
+                url: 'https://localhost:44376/api/orders/todayorders',
+                data: {
+                    'entoken': localStorage.getItem('admintoken')
+                },
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
+                },
+                cancelToken: this.signal.token
+            }).then((response) => {
+                this.setState({ orderDetails: response.data })
+            }).catch(err => console.error(err))
+        }
+        catch (error) {
+            if (axios.isCancel(error)) {
+                console.error(error)
             }
-        }).then((response) => {
-            this.setState({ orderDetails: response.data })
-        }).catch(err => console.error(err))
+        }
+    }
+
+    componentWillUnmount(){
+        this.signal.cancel('Today Orders Requests Canceled')
     }
 
     repost() {
         let addSpin = this.state.spinner
         addSpin.push('fa-spin')
-        this.setState({spinner: addSpin})
-        axios({
-            method: "post",
-            url: 'https://localhost:44376/api/orders/todayorders',
-            data: {
-                'entoken': localStorage.getItem('admintoken')
-            },
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
+        this.setState({ spinner: addSpin })
+        try {
+            axios({
+                method: "post",
+                url: 'https://localhost:44376/api/orders/todayorders',
+                data: {
+                    'entoken': localStorage.getItem('admintoken')
+                },
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
+                },
+                cancelToken: this.signal.token
+            }).then((response) => {
+                this.setState({ orderDetails: response.data })
+                addSpin.pop('fa-spin')
+                this.setState({ spinner: addSpin })
+            }).catch(err => console.error(err))
+        }
+        catch (error) {
+            if (axios.isCancel(error)) {
+                console.error(error)
             }
-        }).then((response) => {
-            this.setState({ orderDetails: response.data })
-            addSpin.pop('fa-spin')
-            this.setState({spinner: addSpin})
-        }).catch(err => console.error(err))
+        }
     }
     //To Show Bootstrap Modal and Populating State in it
     showModal(order) {
@@ -79,8 +100,8 @@ export default class Todayorderdetail extends Component {
                     <td>{order.orderDate}</td>
                     <td><i className="fa fa-clock-o fa-lg"></i> {order.orderStatus}</td>
                     <td>{order.paymentMethod}</td>
-                    <td><i onClick={() => this.showModal(order)} 
-                    className="fa fa-pencil-square-o fa-lg btn"></i></td>
+                    <td><i onClick={() => this.showModal(order)}
+                        className="fa fa-pencil-square-o fa-lg btn"></i></td>
                 </tr>
             )
         })
@@ -144,8 +165,8 @@ export default class Todayorderdetail extends Component {
 
                     <div className="m-auto text-center p-2">
                         <h5>Today Orders&emsp;
-                            <span className="text-primary"><i onClick={() => this.repost()} className={this.state.spinner.join(' ')} 
-                            aria-hidden="true"></i></span>
+                            <span className="text-primary"><i onClick={() => this.repost()} className={this.state.spinner.join(' ')}
+                                aria-hidden="true"></i></span>
                         </h5>
                     </div>
                     <div className="table-responsive-md">

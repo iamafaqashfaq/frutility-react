@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { getProducts, getSubcategory } from '../Requests/RequestPayloads'
 import { Modal } from 'react-bootstrap'
 import Aux from '../../../../hoc/auxillary'
+import axios from 'axios'
 
 class ProductList extends Component {
     constructor(props) {
@@ -10,17 +11,22 @@ class ProductList extends Component {
         this.state = {
             products: [],
             modalShow: false,
+            originalProduct: [],
             selectedProduct: [],
             subcategoriesData: []
         }
+        this.searchInput = React.createRef()
     }
-
+    signal = axios.CancelToken.source()
     componentDidMount() {
-        this.fetchProducts()
+        this.fetchProducts(this.signal)
     }
 
     componentDidUpdate() {
-        this.fetchProducts()
+        this.fetchProducts(this.signal)
+    }
+    componentWillUnmount() {
+        this.signal.cancel('Cancelling All Product Requests')
     }
     fetchSubcategory() {
         const response = getSubcategory();
@@ -28,21 +34,40 @@ class ProductList extends Component {
             this.setState({ subcategoriesData: res.data })
         }).catch(err => console.error(err))
     }
-    fetchProducts() {
-        const response = getProducts()
-        response.then(res => {
-            this.setState({ ...this.state, products: res.data })
-        }).catch(err => console.error(err))
+    fetchProducts(signal) {
+        if (this.state.originalProduct.length <= 0) {
+            const response = getProducts(signal)
+            response.then(res => {
+                this.setState({ originalProduct: res.data })
+            }).catch(err => console.error(err))
+        }
+        if (this.searchInput.current.value === '') {
+            this.setState({products: this.state.originalProduct})
+        }
     }
-    async showModal(product) {
-        await this.setState({ selectedProduct: product })
+    showModal(product) {
+        this.setState({ selectedProduct: product, modalShow: !this.state.modalShow })
         this.fetchSubcategory()
         console.log(this.state.selectedProduct)
-        this.setState({ modalShow: !this.state.modalShow })
     }
-    hideModal(){
-        this.fetchProducts()
-        this.setState({modalShow: false})
+    handleSearchInput() {
+        if (this.searchInput.current.value !== '') {
+            const newList = this.state.originalProduct.filter(item => {
+                const lc = item.name.toLowerCase()
+                const filter = this.searchInput.current.value.toLowerCase()
+                return lc.includes(filter)
+            })
+            this.setState({ products: newList })
+        }
+    }
+    changeSearchInput(e) {
+        if (e.target.value === '') {
+            this.fetchProducts(this.signal)
+        }
+    }
+    hideModal() {
+        this.fetchProducts(this.signal)
+        this.setState({ modalShow: false })
     }
 
     render() {
@@ -188,6 +213,16 @@ class ProductList extends Component {
                         </div>
                     </Modal.Footer>
                 </Modal>
+
+                <div className="my-3">
+                    <div className="form-inline">
+                        <input type="text" className="form-control form-control-lg mr-2" placeholder="Search Product"
+                            ref={this.searchInput} onChange={(e) => this.changeSearchInput(e)} />
+                        <button className="btn btn-lg btn-outline-success" onClick={() => this.handleSearchInput()}>
+                            Search
+                        </button>
+                    </div>
+                </div>
                 <div className="row mt-3">
                     {this.state.products.map(product => {
                         return (

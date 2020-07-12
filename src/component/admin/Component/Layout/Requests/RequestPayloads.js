@@ -68,7 +68,8 @@ export const getSubcategory = () => {
         url: `https://localhost:44376/api/subcategory`,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
-        }
+        },
+
     })
 }
 
@@ -106,16 +107,24 @@ export const createProducts = (payload) => {
         headers: {
             'Content-Type': 'multipart/form-data',
             'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
-        }
+        },
     }).catch(err => console.error(err))
 }
 
 // Product Controller Get Request
-export const getProducts = () => {
-    return axios({
-        method: 'get',
-        url: `https://localhost:44376/api/products`
-    })
+export const getProducts = (signal) => {
+    try {
+        return axios({
+            method: 'get',
+            url: `https://localhost:44376/api/products`,
+            cancelToken: signal.token
+        })
+    }
+    catch (error) {
+        if (axios.isCancel(error)) {
+            console.log(error)
+        }
+    }
 }
 
 // Product Controller Get Request By ID
@@ -127,9 +136,17 @@ export const getProductMinById = (payload) => {
 }
 
 //Product Controller Get Request Single Image
-export const getProductMin = (payload) => {
-    return axios({
-        method: 'get',
-        url: `https://localhost:44376/api/products/productmin`
-    }).catch(err => console.error(err))
+export const getProductMin = (signal) => {
+    try {
+        return axios({
+            method: 'get',
+            url: `https://localhost:44376/api/products/productmin`,
+            cancelToken: signal.token
+        }).catch(err => console.error(err))
+    }
+    catch (error) {
+        if (axios.isCancel(error)) {
+            console.log(error)
+        }
+    }
 }

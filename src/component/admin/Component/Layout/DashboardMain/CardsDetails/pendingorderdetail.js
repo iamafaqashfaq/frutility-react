@@ -15,47 +15,67 @@ export default class Pendingorderdetail extends Component {
             spinner: ["fa", "fa-refresh", "fa-lg", "fa-fw"]
         }
     }
+    signal = axios.CancelToken.source()
     componentDidMount() {
-        axios({
-            method: "post",
-            url: 'https://localhost:44376/api/orders/pendingorders',
-            data: {
-                'entoken': localStorage.getItem('admintoken')
-            },
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
+        try {
+            axios({
+                method: "post",
+                url: 'https://localhost:44376/api/orders/pendingorders',
+                data: {
+                    'entoken': localStorage.getItem('admintoken')
+                },
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
+                },
+                cancelToken: this.signal.token
+            }).then((response) => {
+                this.setState({ orderDetails: response.data })
+            }).catch(err => console.error(err))
+        }
+        catch (error) {
+            if (axios.isCancel(error)) {
+                console.error(error)
             }
-        }).then((response) => {
-            this.setState({ orderDetails: response.data })
-        }).catch(err => console.error(err))
+        }
+    }
+    componentWillUnmount() {
+        this.signal.cancel("Pending Order Details Requests Canceled")
     }
 
-    repost(){
+    repost() {
         let addSpin = this.state.spinner
         addSpin.push('fa-spin')
-        this.setState({spinner: addSpin})
-        axios({
-            method: "post",
-            url: 'https://localhost:44376/api/orders/pendingorders',
-            data: {
-                'entoken': localStorage.getItem('admintoken')
-            },
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
+        this.setState({ spinner: addSpin })
+        try {
+            axios({
+                method: "post",
+                url: 'https://localhost:44376/api/orders/pendingorders',
+                data: {
+                    'entoken': localStorage.getItem('admintoken')
+                },
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
+                },
+                cancelToken: this.signal.token
+            }).then((response) => {
+                this.setState({ orderDetails: response.data })
+                addSpin.pop('fa-spin')
+                this.setState({ spinner: addSpin })
+            }).catch(err => console.error(err))
+        }
+        catch (error) {
+            if (axios.isCancel(error)) {
+                console.error(error)
             }
-        }).then((response) => {
-            this.setState({ orderDetails: response.data })
-            addSpin.pop('fa-spin')
-            this.setState({spinner: addSpin})
-        }).catch(err => console.error(err))
+        }
     }
     showModal(order) {
-        this.setState({ currentOrder: order})
-        this.setState({modalShow: !this.setState.modalShow})
+        this.setState({ currentOrder: order })
+        this.setState({ modalShow: !this.setState.modalShow })
     }
 
-    hideModal(){
-        this.setState({modalShow: !this.state.modalShow})
+    hideModal() {
+        this.setState({ modalShow: !this.state.modalShow })
     }
 
     updateOrder() {
@@ -140,8 +160,8 @@ export default class Pendingorderdetail extends Component {
                     <div className="m-auto text-center p-2">
                         <h5>Pending Orders&emsp;
                             <span className="text-primary">
-                                <i onClick={() => this.repost()} className={this.state.spinner.join(' ')} 
-                                aria-hidden="true"></i>
+                                <i onClick={() => this.repost()} className={this.state.spinner.join(' ')}
+                                    aria-hidden="true"></i>
                             </span>
                         </h5>
                     </div>

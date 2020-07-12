@@ -26,7 +26,7 @@ function OrderCardLayout(props) {
         }, 3000);
 
         return() => {
-            source.cancel()
+            source.cancel('Cancelling Order Requests')
         }
     }, [Orders,props.api])
     return (
