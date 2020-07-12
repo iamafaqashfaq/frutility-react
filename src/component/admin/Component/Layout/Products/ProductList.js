@@ -18,38 +18,40 @@ class ProductList extends Component {
         this.searchInput = React.createRef()
     }
     signal = axios.CancelToken.source()
+    //On First load Fetch products to show 
     componentDidMount() {
         this.fetchProducts(this.signal)
     }
-
-    componentDidUpdate() {
-        this.fetchProducts(this.signal)
-    }
+    // Destroy All Axios Requests
     componentWillUnmount() {
         this.signal.cancel('Cancelling All Product Requests')
     }
+    // Fetch Subcategories for Update Menu
     fetchSubcategory() {
         const response = getSubcategory();
         response.then(res => {
             this.setState({ subcategoriesData: res.data })
         }).catch(err => console.error(err))
     }
+    //Method to fetch Products from server
     fetchProducts(signal) {
-        if (this.state.originalProduct.length <= 0) {
+        if (this.state.originalProduct.length <= 0 && this.searchInput.current.value === '') {
             const response = getProducts(signal)
-            response.then(res => {
-                this.setState({ originalProduct: res.data })
-            }).catch(err => console.error(err))
+                response.then(res => {
+                    this.setState({ originalProduct: res.data, products: res.data })
+                }).catch(err => console.error(err))
         }
-        if (this.searchInput.current.value === '') {
-            this.setState({products: this.state.originalProduct})
+        if(this.state.originalProduct.length > 0 && this.searchInput.current.value === ''){
+            this.setState({products: this.state.originalProduct},()=>console.log("Enter Second Condition"))
         }
     }
+    //Show Bootstrap Modal and setting states to poulate it
     showModal(product) {
         this.setState({ selectedProduct: product, modalShow: !this.state.modalShow })
         this.fetchSubcategory()
         console.log(this.state.selectedProduct)
     }
+    //Search Button Click Event
     handleSearchInput() {
         if (this.searchInput.current.value !== '') {
             const newList = this.state.originalProduct.filter(item => {
@@ -60,11 +62,13 @@ class ProductList extends Component {
             this.setState({ products: newList })
         }
     }
+    //Search Field Input Change Event
     changeSearchInput(e) {
         if (e.target.value === '') {
             this.fetchProducts(this.signal)
         }
     }
+    //Hide Bootstrap Modal
     hideModal() {
         this.fetchProducts(this.signal)
         this.setState({ modalShow: false })
@@ -216,9 +220,11 @@ class ProductList extends Component {
 
                 <div className="my-3">
                     <div className="form-inline">
-                        <input type="text" className="form-control form-control-lg mr-2" placeholder="Search Product"
-                            ref={this.searchInput} onChange={(e) => this.changeSearchInput(e)} />
-                        <button className="btn btn-lg btn-outline-success" onClick={() => this.handleSearchInput()}>
+                        <input type="text" className="form-control form-control-lg mr-2" 
+                        placeholder="Search Product" ref={this.searchInput} 
+                        onChange={(e) => this.changeSearchInput(e)} />
+                        <button className="btn btn-lg btn-outline-success" 
+                        onClick={() => this.handleSearchInput()}>
                             Search
                         </button>
                     </div>
