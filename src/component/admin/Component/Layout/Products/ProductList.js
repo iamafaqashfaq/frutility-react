@@ -13,9 +13,29 @@ class ProductList extends Component {
             modalShow: false,
             originalProduct: [],
             selectedProduct: [],
-            subcategoriesData: []
+            subcategoriesData: [],
+            createdata: {
+                name: '',
+                description: '',
+                vendor: '',
+                price: 0,
+                beforeDiscount: 0,
+                image1: null,
+                image2: null,
+                image3: null,
+                shipping: 0,
+                availability: false,
+                stock: 0,
+                weight: 0,
+                subcategoryId: 1,
+                imageNo1: false,
+                imageNo2: false,
+                imageNo3: false,
+            },
+            errors: {}
         }
         this.searchInput = React.createRef()
+        this.subcategorySelect = React.createRef()
     }
     signal = axios.CancelToken.source()
     //On First load Fetch products to show 
@@ -26,6 +46,12 @@ class ProductList extends Component {
     componentWillUnmount() {
         this.signal.cancel('Cancelling All Product Requests')
     }
+    componentDidUpdate(prevProps) {
+        if (this.props.change !== prevProps.change) {
+            this.fetchProducts(this.signal)
+            console.log("Component Did Update")
+        }
+    }
     // Fetch Subcategories for Update Menu
     fetchSubcategory() {
         const response = getSubcategory();
@@ -34,22 +60,18 @@ class ProductList extends Component {
         }).catch(err => console.error(err))
     }
     //Method to fetch Products from server
-    fetchProducts(signal) {
-        if (this.state.originalProduct.length <= 0 && this.searchInput.current.value === '') {
+    async fetchProducts(signal) {
+        if (this.searchInput.current.value === '') {
             const response = getProducts(signal)
-                response.then(res => {
-                    this.setState({ originalProduct: res.data, products: res.data })
-                }).catch(err => console.error(err))
-        }
-        if(this.state.originalProduct.length > 0 && this.searchInput.current.value === ''){
-            this.setState({products: this.state.originalProduct},()=>console.log("Enter Second Condition"))
+            response.then(res => {
+                this.setState({ originalProduct: res.data, products: res.data })
+            }).catch(err => console.error(err))
         }
     }
     //Show Bootstrap Modal and setting states to poulate it
     showModal(product) {
         this.setState({ selectedProduct: product, modalShow: !this.state.modalShow })
         this.fetchSubcategory()
-        console.log(this.state.selectedProduct)
     }
     //Search Button Click Event
     handleSearchInput() {
@@ -74,6 +96,51 @@ class ProductList extends Component {
         this.setState({ modalShow: false })
     }
 
+    //Handles Update Form Input Fields Data On Change
+    handleInputChange(e) {
+        const target = e.target
+        const value = target.name === 'availability' ? target.checked : target.value
+        const name = target.name
+        this.setState({
+            createdata: {
+                ...this.state.createdata,
+                [name]: value
+            }
+        })
+    }
+
+    //Handles Newly changed pics
+    async handleImageChange(e) {
+        const target = e.target
+        const file = target.files[0]
+        const name = target.name
+        if (name.endsWith("1")) {
+            this.setState({
+                createdata: {
+                    imageNo1: true
+                }
+            })
+        } else if (name.endsWith("2")) {
+            this.setState({ 
+                createdata: {
+                    imageNo2: true
+                }
+            })
+        } else if (name.endsWith("3")) {
+            this.setState({
+                createdata: {
+                    imageNo3: true
+                }
+            })
+        }
+        await this.setState({
+            createdata: {
+                ...this.state.createdata,
+                [name]: file
+            }
+        })
+    }
+
     render() {
         return (
             <Aux>
@@ -86,23 +153,30 @@ class ProductList extends Component {
                             <div className="form-group">
                                 <label htmlFor="Name">Product Name</label>
                                 <input type="text" className="form-control"
-                                    defaultValue={this.state.selectedProduct.name} />
+                                    defaultValue={this.state.selectedProduct.name}
+                                    name="name" onChange={(e) => this.handleInputChange(e)} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="Description">Description</label>
                                 <textarea type="text" cols="30" rows="5" className="form-control"
-                                    defaultValue={this.state.selectedProduct.description} />
+                                    defaultValue={this.state.selectedProduct.description}
+                                    onChange={(e) => this.handleInputChange(e)}
+                                    name="description" />
                             </div>
                             <div className="row">
                                 <div className="form-group col-sm-4 col-md-4">
                                     <label htmlFor="Vendor">Vendor</label>
                                     <input type="text" className="form-control"
-                                        defaultValue={this.state.selectedProduct.vendor} />
+                                        defaultValue={this.state.selectedProduct.vendor}
+                                        onChange={(e) => this.handleInputChange(e)}
+                                        name="vendor" />
                                 </div>
                                 <div className="form-group col-sm-4 col-md-4">
                                     <label htmlFor="Stock">Stock</label>
                                     <input type="text" className="form-control"
-                                        defaultValue={this.state.selectedProduct.stock} />
+                                        defaultValue={this.state.selectedProduct.stock}
+                                        onChange={(e) => this.handleInputChange(e)}
+                                        name="stock" />
                                 </div>
                                 <div className="col-sm-4 col-md-4">
                                     <label htmlFor="Price">Price</label>
@@ -111,7 +185,9 @@ class ProductList extends Component {
                                             <div className="input-group-text">PKR</div>
                                         </div>
                                         <input type="text" className="form-control"
-                                            defaultValue={this.state.selectedProduct.price} />
+                                            defaultValue={this.state.selectedProduct.price}
+                                            onChange={(e) => this.handleInputChange(e)}
+                                            name="price" />
                                     </div>
                                 </div>
                             </div>
@@ -123,7 +199,9 @@ class ProductList extends Component {
                                             <div className="input-group-text">PKR</div>
                                         </div>
                                         <input type="text" className="form-control"
-                                            defaultValue={this.state.selectedProduct.priceBeforeDiscount} />
+                                            defaultValue={this.state.selectedProduct.priceBeforeDiscount}
+                                            onChange={(e) => this.handleInputChange(e)}
+                                            name="beforeDiscount" />
                                     </div>
                                 </div>
                                 <div className="col-sm-4 col-md-4">
@@ -133,7 +211,9 @@ class ProductList extends Component {
                                             <div className="input-group-text">PKR</div>
                                         </div>
                                         <input type="text" className="form-control"
-                                            defaultValue={this.state.selectedProduct.shippingCharges} />
+                                            defaultValue={this.state.selectedProduct.shippingCharges}
+                                            onChange={(e) => this.handleInputChange(e)}
+                                            name="shipping" />
                                     </div>
                                 </div>
                                 <div className="col-sm-4 col-md-4">
@@ -143,13 +223,16 @@ class ProductList extends Component {
                                             <div className="input-group-text">KG</div>
                                         </div>
                                         <input type="text" className="form-control"
-                                            defaultValue={this.state.selectedProduct.packageWeight} />
+                                            defaultValue={this.state.selectedProduct.packageWeight}
+                                            onChange={(e) => this.handleInputChange(e)}
+                                            name="weight" />
                                     </div>
                                 </div>
                             </div>
                             <div className="form-group mt-1">
                                 <label htmlFor="Subcategory">Subcategory</label>
-                                <select className="custom-select" name="subcategoryselect">
+                                <select className="custom-select" name="subcategoryId"
+                                    onChange={(e) => this.handleInputChange(e)}>
                                     {this.state.subcategoriesData.map(subcategory => {
                                         return (
                                             <option key={subcategory.id} value={subcategory.id}>
@@ -170,7 +253,9 @@ class ProductList extends Component {
                                             <img src={"data:image/jpeg;base64," +
                                                 this.state.selectedProduct.imageBytes[0]}
                                                 className="img-thumbnail" alt="img1" />
-                                            <input type="file" className="form-control-file mb-1" />
+                                            <input type="file" className="form-control-file mb-1"
+                                                onChange={(e) => this.handleImageChange(e)}
+                                                name="image1" />
                                         </div>)
                                 }
 
@@ -181,7 +266,9 @@ class ProductList extends Component {
                                             <img src={"data:image/jpeg;base64," +
                                                 this.state.selectedProduct.imageBytes[1]}
                                                 className="img-thumbnail img-fluid" alt="img2" />
-                                            <input type="file" className="form-control-file mb-1" />
+                                            <input type="file" className="form-control-file mb-1"
+                                                onChange={(e) => this.handleImageChange(e)}
+                                                name="image2" />
                                         </div>)
                                 }
 
@@ -192,14 +279,18 @@ class ProductList extends Component {
                                             <img src={"data:image/jpeg;base64," +
                                                 this.state.selectedProduct.imageBytes[2]}
                                                 className="img-thumbnail img-fluid" alt="img1" />
-                                            <input type="file" className="form-control-file mb-1" />
+                                            <input type="file" className="form-control-file mb-1"
+                                                onChange={(e) => this.handleImageChange(e)}
+                                                name="image3" />
                                         </div>)
                                 }
                             </div>
                             <div className="form-group col-sm-6 col-md-6 mt-3">
                                 <div className="custom-control custom-switch">
                                     <input type="checkbox" className="custom-control-input"
-                                        defaultChecked={this.state.selectedProduct.availability} id="avail" />
+                                        defaultChecked={this.state.selectedProduct.availability} id="avail"
+                                        onChange={(e) => this.handleInputChange(e)}
+                                        name="availability" />
                                     <label className="custom-control-label"
                                         htmlFor="avail"><h6>Availability</h6></label>
                                 </div>
@@ -220,11 +311,11 @@ class ProductList extends Component {
 
                 <div className="my-3">
                     <div className="form-inline">
-                        <input type="text" className="form-control form-control-lg mr-2" 
-                        placeholder="Search Product" ref={this.searchInput} 
-                        onChange={(e) => this.changeSearchInput(e)} />
-                        <button className="btn btn-lg btn-outline-success" 
-                        onClick={() => this.handleSearchInput()}>
+                        <input type="text" className="form-control form-control-lg mr-2"
+                            placeholder="Search Product" ref={this.searchInput}
+                            onChange={(e) => this.changeSearchInput(e)} />
+                        <button className="btn btn-lg btn-outline-success"
+                            onClick={() => this.handleSearchInput()}>
                             Search
                         </button>
                     </div>
@@ -234,8 +325,8 @@ class ProductList extends Component {
                         return (
                             <div className="col-4 my-2" key={product.id}>
                                 <div className="card h-100">
-                                    <img src={"data:image/jpeg;base64," + product.imageBytes[0]}
-                                        alt="Product" className="card-img-top img-fluid img-thumbnail h-50" />
+                                    <img src={"data:image/jpeg;base64," + product.imageBytes[0]} height="200px" width="200px"
+                                        alt="Product" className="card-img-top" />
                                     <div className="card-body">
                                         <div className="card-title text-center">
                                             <h5>{product.name}</h5>

@@ -25,8 +25,8 @@ class SubCategoryList extends Component {
         }).catch(err => console.error(err))
     }
 
-    componentDidUpdate() {
-        if (this.props.change === true) {
+    componentDidUpdate(prevProps) {
+        if (this.props.change !== prevProps.change) {
             this.repost()
         }
     }

@@ -17,8 +17,8 @@ export default class categorylist extends Component {
     componentDidMount() {
         this.repost()
     }
-    componentDidUpdate() {
-        if (this.props.change === true) {
+    componentDidUpdate(prevProps) {
+        if (this.props.change !== prevProps.change) {
             this.repost()
         }
     }
