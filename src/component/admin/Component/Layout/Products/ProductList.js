@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getProducts, getSubcategory } from '../Requests/RequestPayloads'
+import { getProducts, getSubcategory, updateProduct, deleteProduct } from '../Requests/RequestPayloads'
 import { Modal } from 'react-bootstrap'
 import Aux from '../../../../hoc/auxillary'
 import axios from 'axios'
@@ -25,7 +25,7 @@ class ProductList extends Component {
                 image3: null,
                 shipping: 0,
                 availability: false,
-                stock: 0,
+                stock: null,
                 weight: 0,
                 subcategoryId: 1,
                 imageNo1: false,
@@ -49,7 +49,6 @@ class ProductList extends Component {
     componentDidUpdate(prevProps) {
         if (this.props.change !== prevProps.change) {
             this.fetchProducts(this.signal)
-            console.log("Component Did Update")
         }
     }
     // Fetch Subcategories for Update Menu
@@ -70,7 +69,23 @@ class ProductList extends Component {
     }
     //Show Bootstrap Modal and setting states to poulate it
     showModal(product) {
-        this.setState({ selectedProduct: product, modalShow: !this.state.modalShow })
+        this.setState({
+            selectedProduct: product,
+            modalShow: !this.state.modalShow,
+            createdata: {
+                ...this.state.createdata,
+                name: product.name,
+                description: product.description,
+                vendor: product.vendor,
+                price: parseFloat(product.price),
+                beforeDiscount: parseFloat(product.priceBeforeDiscount),
+                shipping: parseFloat(product.shippingCharges),
+                availability: product.availability,
+                stock: parseInt(product.stock),
+                weight: parseFloat(product.packageWeight),
+                subcategoryId: product.subCategoryID,
+            }
+        })
         this.fetchSubcategory()
     }
     //Search Button Click Event
@@ -114,21 +129,25 @@ class ProductList extends Component {
         const target = e.target
         const file = target.files[0]
         const name = target.name
-        if (name.endsWith("1")) {
-            this.setState({
+        const convert = String(name)
+        if (convert.endsWith("1")) {
+            await this.setState({
                 createdata: {
+                    ...this.state.createdata,
                     imageNo1: true
                 }
             })
-        } else if (name.endsWith("2")) {
-            this.setState({ 
+        } else if (convert.endsWith("2")) {
+            await this.setState({
                 createdata: {
+                    ...this.state.createdata,
                     imageNo2: true
                 }
             })
-        } else if (name.endsWith("3")) {
-            this.setState({
+        } else if (convert.endsWith("3")) {
+            await this.setState({
                 createdata: {
+                    ...this.state.createdata,
                     imageNo3: true
                 }
             })
@@ -141,12 +160,54 @@ class ProductList extends Component {
         })
     }
 
+    update() {
+        let formdata = new FormData()
+        formdata.append('Id', this.state.selectedProduct.id)
+        formdata.append('Name', this.state.createdata.name)
+        formdata.append('Description', this.state.createdata.description)
+        formdata.append("Vendor", this.state.createdata.vendor)
+        formdata.append("Price", parseFloat(this.state.createdata.price))
+        formdata.append("PriceBeforeDiscount", parseFloat(this.state.createdata.beforeDiscount))
+        formdata.append("Image1", this.state.createdata.image1)
+        formdata.append("Image2", this.state.createdata.image2)
+        formdata.append("Image3", this.state.createdata.image3)
+        formdata.append("ImageNo1", this.state.createdata.imageNo1)
+        formdata.append("ImageNo2", this.state.createdata.imageNo2)
+        formdata.append("ImageNo3", this.state.createdata.imageNo3)
+        formdata.append('ShippingCharges', parseFloat(this.state.createdata.shipping))
+        formdata.append('Availability', this.state.createdata.availability)
+        formdata.append('Stock', parseInt(this.state.createdata.stock))
+        formdata.append('PackageWeight', parseFloat(this.state.createdata.weight))
+        formdata.append('SubCategoryID', parseInt(this.state.createdata.subcategoryId))
+        const response = updateProduct(formdata, this.state.selectedProduct.id)
+        response.then(res => {
+            if (res.data) {
+                this.hideModal()
+            }
+        })
+    }
+
+    delete() {
+        const result = window.confirm('Are you sure to delete this product?')
+        if (result) {
+            const response = deleteProduct(this.state.selectedProduct.id)
+            response.then(res => {
+                this.hideModal()
+            })
+        }
+        else{
+            window.alert("Unable to delete Product!")
+        }
+    }
+
     render() {
         return (
             <Aux>
                 <Modal show={this.state.modalShow} size="lg" onHide={() => this.hideModal()}>
                     <Modal.Header>
-                        Product Details
+                        <h4>Product Details</h4>
+                        <i className="fa fa-trash-o fa-2x btn 
+                        btn-outline-danger text-right" onClick={() => this.delete()}></i>
                     </Modal.Header>
                     <Modal.Body>
                         <form>
@@ -252,7 +313,8 @@ class ProductList extends Component {
                                         (<div className="col-4 col-sm-4 col-md-4">
                                             <img src={"data:image/jpeg;base64," +
                                                 this.state.selectedProduct.imageBytes[0]}
-                                                className="img-thumbnail" alt="img1" />
+                                                height="200px"
+                                                width="200px" alt="img1" />
                                             <input type="file" className="form-control-file mb-1"
                                                 onChange={(e) => this.handleImageChange(e)}
                                                 name="image1" />
@@ -265,7 +327,8 @@ class ProductList extends Component {
                                         (<div className="col-4 col-sm-4 col-md-4">
                                             <img src={"data:image/jpeg;base64," +
                                                 this.state.selectedProduct.imageBytes[1]}
-                                                className="img-thumbnail img-fluid" alt="img2" />
+                                                height="200px"
+                                                width="200px" alt="img2" />
                                             <input type="file" className="form-control-file mb-1"
                                                 onChange={(e) => this.handleImageChange(e)}
                                                 name="image2" />
@@ -278,7 +341,8 @@ class ProductList extends Component {
                                         (<div className="col-4 col-sm-4 col-md-4">
                                             <img src={"data:image/jpeg;base64," +
                                                 this.state.selectedProduct.imageBytes[2]}
-                                                className="img-thumbnail img-fluid" alt="img1" />
+                                                height="200px"
+                                                width="200px" alt="img1" />
                                             <input type="file" className="form-control-file mb-1"
                                                 onChange={(e) => this.handleImageChange(e)}
                                                 name="image3" />
@@ -302,7 +366,7 @@ class ProductList extends Component {
                             <button className="btn btn-outline-secondary mr-2"
                                 onClick={() => this.hideModal()}><b>Exit</b></button>
                             <button className="btn btn-outline-success pl-5 pr-5 mr-5"
-                                onClick={() => this.create()}>
+                                onClick={() => this.update()}>
                                 <b>Save</b>
                             </button>
                         </div>

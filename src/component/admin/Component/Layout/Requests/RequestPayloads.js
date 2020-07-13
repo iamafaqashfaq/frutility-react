@@ -150,3 +150,25 @@ export const getProductMin = (signal) => {
         }
     }
 }
+
+export const updateProduct = (payload, id) => {
+    return axios({
+        method: 'put',
+        url: `https://localhost:44376/api/products/${id}`,
+        data: payload,
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
+        }
+    }).catch(err => console.error(err))
+}
+
+export const deleteProduct = (payload) => {
+    return axios({
+        method: 'delete',
+        url: `https://localhost:44376/api/products/${payload}`,
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
+        }
+    }).catch(err => console.error(err))
+}
