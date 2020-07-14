@@ -24,7 +24,48 @@ class ProductCreate extends Component {
                 stock: 0,
                 weight: 0,
                 subcategoryId: 1
-            }
+            },
+            name: {
+                error: null,
+                errorstyle: [],
+                fieldstyle: ['form-control']
+            },
+            description: {
+                error: null,
+                errorstyle: [],
+                fieldstyle: ['form-control']
+            },
+            vendor: {
+                error: null,
+                errorstyle: [],
+                fieldstyle: ['form-control']
+            },
+            price: {
+                error: null,
+                errorstyle: [],
+                fieldstyle: ['form-control']
+            },
+            beforeDiscount: {
+                error: null,
+                errorstyle: [],
+                fieldstyle: ['form-control']
+            },
+            shipping: {
+                error: null,
+                errorstyle: [],
+                fieldstyle: ['form-control']
+            },
+            stock: {
+                error: null,
+                errorstyle: [],
+                fieldstyle: ['form-control']
+            },
+            weight: {
+                error: null,
+                errorstyle: [],
+                fieldstyle: ['form-control']
+            },
+
         }
         this.SubcategoryIDInput = React.createRef()
     }
@@ -44,17 +85,36 @@ class ProductCreate extends Component {
         this.setState({ modalShow: false })
         this.props.update()
     }
-
+    handleBlur(e) {
+        if (e.target.value === '') {
+            this.setState({
+                [e.target.name]: {
+                    ...this.state[e.target.name],
+                    error: 'This field cannot be empty',
+                    errorstyle: ['alert', 'alert-danger'],
+                    fieldstyle: ['form-control', 'is-invalid']
+                }
+            })
+        }
+    }
     handleInputChange(e) {
         const target = e.target
         const value = target.name === 'availability' ? target.checked : target.value
         const name = target.name
-        this.setState({
-            createdata: {
-                ...this.state.createdata,
-                [name]: value
-            }
-        })
+        if (value !== '') {
+            this.setState({
+                [name]: {
+                    ...this.state[name],
+                    error: null,
+                    errorstyle: [],
+                    fieldstyle: ['form-control']
+                },
+                createdata: {
+                    ...this.state.createdata,
+                    [name]: value
+                }
+            })
+        }
     }
     async handleImageSet(e) {
         const target = e.target
@@ -104,28 +164,45 @@ class ProductCreate extends Component {
                         <form>
                             <div className="form-group">
                                 <label htmlFor="Name">Product Name</label>
-                                <input type="text" className="form-control"
+                                <input type="text" className={this.state.name.fieldstyle.join(' ')}
                                     onChange={(e) => this.handleInputChange(e)}
-                                    name="name" />
+                                    name="name" 
+                                    onBlur={(e) => this.handleBlur(e)}/>
+                                <div className={this.state.name.errorstyle.join(' ')}>
+                                    {this.state.name.error}
+                                </div>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="Description">Description</label>
-                                <textarea type="text" cols="30" rows="5" className="form-control"
+                                <textarea type="text" cols="30" rows="5"
+                                    className={this.state.description.fieldstyle.join(' ')}
                                     onChange={(e) => this.handleInputChange(e)}
-                                    name="description" />
+                                    name="description" 
+                                    onBlur={(e) => this.handleBlur(e)}/>
+                                <div className={this.state.description.errorstyle.join(' ')}>
+                                    {this.state.description.error}
+                                </div>
                             </div>
                             <div className="row">
                                 <div className="form-group col-sm-4 col-md-4">
                                     <label htmlFor="Vendor">Vendor</label>
-                                    <input type="text" className="form-control"
+                                    <input type="text" className={this.state.vendor.fieldstyle.join(' ')}
                                         onChange={(e) => this.handleInputChange(e)}
-                                        name="vendor" />
+                                        name="vendor" 
+                                        onBlur={(e) => this.handleBlur(e)}/>
+                                    <div className={this.state.vendor.errorstyle.join(' ')}>
+                                        {this.state.vendor.error}
+                                    </div>
                                 </div>
                                 <div className="form-group col-sm-4 col-md-4">
                                     <label htmlFor="Stock">Stock</label>
-                                    <input type="text" className="form-control"
+                                    <input type="text" className={this.state.stock.fieldstyle.join(' ')}
                                         onChange={(e) => this.handleInputChange(e)}
-                                        name="stock" />
+                                        name="stock"
+                                        onBlur={(e) => this.handleBlur(e)} />
+                                    <div className={this.state.stock.errorstyle.join(' ')}>
+                                        {this.state.stock.error}
+                                    </div>
                                 </div>
                                 <div className="col-sm-4 col-md-4">
                                     <label htmlFor="Price">Price</label>
@@ -133,9 +210,13 @@ class ProductCreate extends Component {
                                         <div className="input-group-prepend">
                                             <div className="input-group-text">PKR</div>
                                         </div>
-                                        <input type="text" className="form-control"
+                                        <input type="text" className={this.state.price.fieldstyle.join(' ')}
                                             onChange={(e) => this.handleInputChange(e)}
-                                            name="price" />
+                                            name="price"
+                                            onBlur={(e) => this.handleBlur(e)}/>
+                                        <div className={this.state.price.errorstyle.join(' ')}>
+                                            {this.state.price.error}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -146,9 +227,13 @@ class ProductCreate extends Component {
                                         <div className="input-group-prepend">
                                             <div className="input-group-text">PKR</div>
                                         </div>
-                                        <input type="text" className="form-control"
+                                        <input type="text" className={this.state.beforeDiscount.fieldstyle.join(' ')}
                                             onChange={(e) => this.handleInputChange(e)}
-                                            name="beforeDiscount" />
+                                            name="beforeDiscount"
+                                            onBlur={(e) => this.handleBlur(e)} />
+                                        <div className={this.state.beforeDiscount.errorstyle.join(' ')}>
+                                            {this.state.beforeDiscount.error}
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="col-sm-4 col-md-4">
@@ -157,9 +242,13 @@ class ProductCreate extends Component {
                                         <div className="input-group-prepend">
                                             <div className="input-group-text">PKR</div>
                                         </div>
-                                        <input type="text" className="form-control"
+                                        <input type="text" className={this.state.shipping.fieldstyle.join(' ')}
                                             onChange={(e) => this.handleInputChange(e)}
-                                            name="shipping" />
+                                            name="shipping"
+                                            onBlur={(e) => this.handleBlur(e)} />
+                                        <div className={this.state.shipping.errorstyle.join(' ')}>
+                                            {this.state.shipping.error}
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="col-sm-4 col-md-4">
@@ -168,9 +257,13 @@ class ProductCreate extends Component {
                                         <div className="input-group-prepend">
                                             <div className="input-group-text">KG</div>
                                         </div>
-                                        <input type="text" className="form-control"
+                                        <input type="text" className={this.state.weight.fieldstyle.join(' ')}
                                             onChange={(e) => this.handleInputChange(e)}
-                                            name="weight" />
+                                            name="weight"
+                                            onBlur={(e) => this.handleBlur(e)} />
+                                        <div className={this.state.weight.errorstyle.join(' ')}>
+                                            {this.state.weight.error}
+                                        </div>
                                     </div>
                                 </div>
 
@@ -218,7 +311,7 @@ class ProductCreate extends Component {
                         <div className="form-group">
                             <button className="btn btn-outline-secondary mr-2"
                                 onClick={() => this.hideModal()}><b>Exit</b></button>
-                            <button className="btn btn-outline-success pl-5 pr-5 mr-5"
+                            <button className="btn btn-outline-dark pl-5 pr-5 mr-5"
                                 onClick={() => this.create()}>
                                 <b>Save</b>
                             </button>

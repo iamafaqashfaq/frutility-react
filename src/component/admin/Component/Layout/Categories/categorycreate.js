@@ -9,7 +9,17 @@ export default class categorycreate extends Component {
         this.categoryNameInput = React.createRef()
         this.categoryDescInput = React.createRef()
         this.state = {
-            modalShow: false
+            modalShow: false,
+            name: {
+                error: null,
+                style: [],
+                field: ['form-control']
+            },
+            desc: {
+                error: null,
+                style: [],
+                field: ['form-control']
+            }
         }
     }
     showModal() {
@@ -19,9 +29,35 @@ export default class categorycreate extends Component {
         this.setState({ modalShow: false })
         this.props.updateList()
     }
+    handleBlur(e) {
+        if (e.target.value === '') {
+            const fieldname = e.target.name
+            this.setState({
+                [fieldname]: {
+                    ...this.state[fieldname],
+                    error: 'This field cannot be empty',
+                    style: ['alert', 'alert-danger'],
+                    field: ['form-control', 'is-invalid']
+                }
+            })
+        }
+    }
+    handleChange(e){
+        if(e.target.value !== ''){
+            const fieldname = e.target.name 
+            this.setState({
+                [fieldname]:{
+                    ...this.state[fieldname],
+                    error: null,
+                    style: [],
+                    field: ['form-control']
+                }
+            })
+        }
+    }
 
     createCategory() {
-        if (this.categoryNameInput.current.value !== '' && this.categoryDescInput.current.value !== '') { 
+        if (this.categoryNameInput.current.value !== '' && this.categoryDescInput.current.value !== '') {
             const payload = {
                 'name': this.categoryNameInput.current.value,
                 'desc': this.categoryDescInput.current.value
@@ -31,6 +67,9 @@ export default class categorycreate extends Component {
                 this.props.updateList()
                 this.hideModal()
             })
+        }
+        else{
+            window.alert('Please fill all the fields')
         }
     }
     render() {
@@ -44,11 +83,26 @@ export default class categorycreate extends Component {
                         <form>
                             <div className="form-group">
                                 <label htmlFor="CategoryName">Category Name</label>
-                                <input type="text" className="form-control" ref={this.categoryNameInput} />
+                                <input type="text" className={this.state.name.field.join(' ')}
+                                    ref={this.categoryNameInput}
+                                    onBlur={(e) => this.handleBlur(e)}
+                                    onChange={(e) => this.handleChange(e)}
+                                    name="name"/>
+                                <div className={this.state.name.style.join(' ')}>
+                                    {this.state.name.error}
+                                </div>
+
                             </div>
                             <div className="form-group">
                                 <label htmlFor="CategoryDescription">Category Description</label>
-                                <input type="text" className="form-control" ref={this.categoryDescInput} />
+                                <input type="text" className={this.state.desc.field.join(' ')}
+                                 ref={this.categoryDescInput}
+                                 onBlur={(e)=>this.handleBlur(e)}
+                                 onChange={(e)=>this.handleChange(e)}
+                                 name="desc" />
+                                 <div className={this.state.desc.style.join(' ')}>
+                                    {this.state.desc.error}
+                                </div>
                             </div>
                         </form>
                     </Modal.Body>
@@ -58,7 +112,7 @@ export default class categorycreate extends Component {
                             <b>Exit</b>
                         </button>
                         <button onClick={() => this.createCategory()}
-                            className="btn btn-outline-success pl-5 pr-5 ml-3">
+                            className="btn btn-outline-dark pl-5 pr-5 ml-3">
                             <b>Save</b>
                         </button>
                     </Modal.Footer>

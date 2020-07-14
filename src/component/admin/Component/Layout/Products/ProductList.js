@@ -32,7 +32,46 @@ class ProductList extends Component {
                 imageNo2: false,
                 imageNo3: false,
             },
-            errors: {}
+            name: {
+                error: null,
+                errorstyle: [],
+                fieldstyle: ['form-control']
+            },
+            description: {
+                error: null,
+                errorstyle: [],
+                fieldstyle: ['form-control']
+            },
+            vendor: {
+                error: null,
+                errorstyle: [],
+                fieldstyle: ['form-control']
+            },
+            price: {
+                error: null,
+                errorstyle: [],
+                fieldstyle: ['form-control']
+            },
+            beforeDiscount: {
+                error: null,
+                errorstyle: [],
+                fieldstyle: ['form-control']
+            },
+            shipping: {
+                error: null,
+                errorstyle: [],
+                fieldstyle: ['form-control']
+            },
+            stock: {
+                error: null,
+                errorstyle: [],
+                fieldstyle: ['form-control']
+            },
+            weight: {
+                error: null,
+                errorstyle: [],
+                fieldstyle: ['form-control']
+            }
         }
         this.searchInput = React.createRef()
         this.subcategorySelect = React.createRef()
@@ -41,6 +80,7 @@ class ProductList extends Component {
     //On First load Fetch products to show 
     componentDidMount() {
         this.fetchProducts(this.signal)
+        this.fetchSubcategory()
     }
     // Destroy All Axios Requests
     componentWillUnmount() {
@@ -86,7 +126,6 @@ class ProductList extends Component {
                 subcategoryId: product.subCategoryID,
             }
         })
-        this.fetchSubcategory()
     }
     //Search Button Click Event
     handleSearchInput() {
@@ -110,18 +149,35 @@ class ProductList extends Component {
         this.fetchProducts(this.signal)
         this.setState({ modalShow: false })
     }
-
     //Handles Update Form Input Fields Data On Change
     handleInputChange(e) {
         const target = e.target
         const value = target.name === 'availability' ? target.checked : target.value
         const name = target.name
-        this.setState({
-            createdata: {
-                ...this.state.createdata,
-                [name]: value
-            }
-        })
+        if (value !== '') {
+            this.setState({
+                [name]: {
+                    ...this.state[name],
+                    error: null,
+                    errorstyle: [],
+                    fieldstyle: ['form-control']
+                },
+                createdata: {
+                    ...this.state.createdata,
+                    [name]: value
+                }
+            })
+        }
+        else {
+            this.setState({
+                [e.target.name]: {
+                    ...this.state[e.target.name],
+                    error: 'This field cannot be empty',
+                    errorstyle: ['alert', 'alert-danger'],
+                    fieldstyle: ['form-control', 'is-invalid']
+                }
+            })
+        }
     }
 
     //Handles Newly changed pics
@@ -195,7 +251,7 @@ class ProductList extends Component {
                 this.hideModal()
             })
         }
-        else{
+        else {
             window.alert("Unable to delete Product!")
         }
     }
@@ -213,31 +269,44 @@ class ProductList extends Component {
                         <form>
                             <div className="form-group">
                                 <label htmlFor="Name">Product Name</label>
-                                <input type="text" className="form-control"
+                                <input type="text" className={this.state.name.fieldstyle.join(' ')}
                                     defaultValue={this.state.selectedProduct.name}
                                     name="name" onChange={(e) => this.handleInputChange(e)} />
+                                <div className={this.state.name.errorstyle.join(' ')}>
+                                    {this.state.name.error}
+                                </div>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="Description">Description</label>
-                                <textarea type="text" cols="30" rows="5" className="form-control"
+                                <textarea type="text" cols="30" rows="5"
+                                    className={this.state.description.fieldstyle.join(' ')}
                                     defaultValue={this.state.selectedProduct.description}
                                     onChange={(e) => this.handleInputChange(e)}
                                     name="description" />
+                                <div className={this.state.description.errorstyle.join(' ')}>
+                                    {this.state.description.error}
+                                </div>
                             </div>
                             <div className="row">
                                 <div className="form-group col-sm-4 col-md-4">
                                     <label htmlFor="Vendor">Vendor</label>
-                                    <input type="text" className="form-control"
+                                    <input type="text" className={this.state.vendor.fieldstyle.join(' ')}
                                         defaultValue={this.state.selectedProduct.vendor}
                                         onChange={(e) => this.handleInputChange(e)}
                                         name="vendor" />
+                                    <div className={this.state.vendor.errorstyle.join(' ')}>
+                                        {this.state.vendor.error}
+                                    </div>
                                 </div>
                                 <div className="form-group col-sm-4 col-md-4">
                                     <label htmlFor="Stock">Stock</label>
-                                    <input type="text" className="form-control"
+                                    <input type="text" className={this.state.stock.fieldstyle.join(' ')}
                                         defaultValue={this.state.selectedProduct.stock}
                                         onChange={(e) => this.handleInputChange(e)}
                                         name="stock" />
+                                    <div className={this.state.stock.errorstyle.join(' ')}>
+                                        {this.state.stock.error}
+                                    </div>
                                 </div>
                                 <div className="col-sm-4 col-md-4">
                                     <label htmlFor="Price">Price</label>
@@ -245,10 +314,13 @@ class ProductList extends Component {
                                         <div className="input-group-prepend">
                                             <div className="input-group-text">PKR</div>
                                         </div>
-                                        <input type="text" className="form-control"
+                                        <input type="text" className={this.state.price.fieldstyle.join(' ')}
                                             defaultValue={this.state.selectedProduct.price}
                                             onChange={(e) => this.handleInputChange(e)}
                                             name="price" />
+                                        <div className={this.state.price.errorstyle.join(' ')}>
+                                            {this.state.price.error}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -259,10 +331,13 @@ class ProductList extends Component {
                                         <div className="input-group-prepend">
                                             <div className="input-group-text">PKR</div>
                                         </div>
-                                        <input type="text" className="form-control"
+                                        <input type="text" className={this.state.beforeDiscount.fieldstyle.join(' ')}
                                             defaultValue={this.state.selectedProduct.priceBeforeDiscount}
                                             onChange={(e) => this.handleInputChange(e)}
                                             name="beforeDiscount" />
+                                        <div className={this.state.beforeDiscount.errorstyle.join(' ')}>
+                                            {this.state.beforeDiscount.error}
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="col-sm-4 col-md-4">
@@ -271,10 +346,13 @@ class ProductList extends Component {
                                         <div className="input-group-prepend">
                                             <div className="input-group-text">PKR</div>
                                         </div>
-                                        <input type="text" className="form-control"
+                                        <input type="text" className={this.state.shipping.fieldstyle.join(' ')}
                                             defaultValue={this.state.selectedProduct.shippingCharges}
                                             onChange={(e) => this.handleInputChange(e)}
                                             name="shipping" />
+                                        <div className={this.state.shipping.errorstyle.join(' ')}>
+                                            {this.state.shipping.error}
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="col-sm-4 col-md-4">
@@ -283,17 +361,21 @@ class ProductList extends Component {
                                         <div className="input-group-prepend">
                                             <div className="input-group-text">KG</div>
                                         </div>
-                                        <input type="text" className="form-control"
+                                        <input type="text" className={this.state.weight.fieldstyle.join(' ')}
                                             defaultValue={this.state.selectedProduct.packageWeight}
                                             onChange={(e) => this.handleInputChange(e)}
                                             name="weight" />
+                                        <div className={this.state.weight.errorstyle.join(' ')}>
+                                            {this.state.weight.error}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="form-group mt-1">
                                 <label htmlFor="Subcategory">Subcategory</label>
                                 <select className="custom-select" name="subcategoryId"
-                                    onChange={(e) => this.handleInputChange(e)}>
+                                    onChange={(e) => this.handleInputChange(e)}
+                                    defaultValue={this.state.selectedProduct.subCategoryID}>
                                     {this.state.subcategoriesData.map(subcategory => {
                                         return (
                                             <option key={subcategory.id} value={subcategory.id}>
@@ -365,7 +447,7 @@ class ProductList extends Component {
                         <div className="form-group">
                             <button className="btn btn-outline-secondary mr-2"
                                 onClick={() => this.hideModal()}><b>Exit</b></button>
-                            <button className="btn btn-outline-success pl-5 pr-5 mr-5"
+                            <button className="btn btn-outline-dark pl-5 pr-5 mr-5"
                                 onClick={() => this.update()}>
                                 <b>Save</b>
                             </button>
@@ -378,7 +460,7 @@ class ProductList extends Component {
                         <input type="text" className="form-control form-control-lg mr-2"
                             placeholder="Search Product" ref={this.searchInput}
                             onChange={(e) => this.changeSearchInput(e)} />
-                        <button className="btn btn-lg btn-outline-success"
+                        <button className="btn btn-lg btn-outline-secondary"
                             onClick={() => this.handleSearchInput()}>
                             Search
                         </button>
@@ -388,7 +470,7 @@ class ProductList extends Component {
                     {this.state.products.map(product => {
                         return (
                             <div className="col-4 my-2" key={product.id}>
-                                <div className="card h-100">
+                                <div className="card border-secondary text-secondary h-100">
                                     <img src={"data:image/jpeg;base64," + product.imageBytes[0]} height="200px" width="200px"
                                         alt="Product" className="card-img-top" />
                                     <div className="card-body">
@@ -397,18 +479,26 @@ class ProductList extends Component {
                                         </div>
                                         <div className="card-text">
                                             <p>
-                                                <b>Vendor: </b> {product.vendor}
+                                                <b>Vendor </b> {product.vendor}
                                             </p>
-                                            <p><b>Price:</b> {product.price}</p>
-                                            <p><b>Stock:</b> {product.stock}</p>
+                                            <p>
+                                                <b>Price </b> {product.price} &nbsp;
+                                                <h6 className="d-inline">
+                                                    <del>{product.priceBeforeDiscount}</del>
+                                                </h6>
+                                            </p>
+                                            <p>
+                                                <b>Stock </b> {product.stock} &emsp; 
+                                                <b>Shipping Charges </b> {product.shippingCharges}
+                                            </p>
                                         </div>
                                     </div>
-                                    <div className="card-footer bg-white">
-                                        <small className="text-muted">
+                                    <div className="card-footer text-secondary">
+                                        <small className="">
                                             {product.availability ? "Available" : "Out of Stock"}
                                         </small>
                                         <button onClick={() => this.showModal(product)}
-                                            className="btn btn-outline-success float-right">
+                                            className="btn btn-outline-dark float-right">
                                             Details
                                         </button>
                                     </div>

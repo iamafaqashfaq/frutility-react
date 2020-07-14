@@ -10,10 +10,37 @@ class SubCategoryList extends Component {
             modalShow: false,
             subCategory: [],
             currentsub: [],
-            categories: []
+            categories: [],
+            namefield: {
+                error: null,
+                errorstyle: [],
+                fieldstyle: ['form-control']
+            }
         }
         this.subcategoryNameInput = React.createRef()
         this.categoryidSelect = React.createRef()
+    }
+    handleChange(e) {
+        if (e.target.value === '') {
+            this.setState({
+                [e.target.name]: {
+                    ...this.state[e.target.name],
+                    error: 'This field cannot be empty',
+                    errorstyle: ['alert', 'alert-danger'],
+                    fieldstyle: ['form-control', 'is-invalid']
+                }
+            })
+        }
+        else {
+            this.setState({
+                [e.target.name]: {
+                    ...this.state[e.target.name],
+                    error: null,
+                    errorstyle: [],
+                    fieldstyle: ['form-control']
+                }
+            })
+        }
     }
     componentDidMount() {
         this.repost()
@@ -62,6 +89,9 @@ class SubCategoryList extends Component {
                 }
             })
         }
+        else {
+            window.alert('Please fill all the fields')
+        }
     }
 
     delete(id) {
@@ -86,10 +116,10 @@ class SubCategoryList extends Component {
                     <td>{subcategory.id}</td>
                     <td>{subcategory.subcategoryName}</td>
                     <td>{subcategory.categoryName}</td>
-                    <td>{subcategory.creationDate}</td>
-                    <td>{subcategory.updationDate}</td>
+                    <td>{Date(subcategory.creationDate)}</td>
+                    <td>{Date(subcategory.updationDate)}</td>
                     <td><i onClick={() => this.showModal(subcategory)}
-                        className="fa fa-pencil-square-o fa-lg btn"></i>&nbsp;|&nbsp;
+                        className="fa fa-pencil-square-o fa-lg btn"></i>&nbsp;&nbsp;
                     <i onClick={() => this.delete(subcategory.id)} className="fa fa-trash-o fa-lg btn">
                         </i>
                     </td>
@@ -108,9 +138,13 @@ class SubCategoryList extends Component {
 
                                 <label htmlFor="SubcategoryName">Subcategory Name</label>
 
-                                <input type="text" className="form-control"
+                                <input type="text" className={this.state.namefield.fieldstyle.join(' ')}
                                     defaultValue={this.state.currentsub.subcategoryName}
-                                    ref={this.subcategoryNameInput} />
+                                    ref={this.subcategoryNameInput}
+                                    name="namefield" onChange={(e) => this.handleChange(e)} />
+                                <div className={this.state.namefield.errorstyle.join(' ')}>
+                                    {this.state.namefield.error}
+                                </div>
                             </div>
                             <div className="form-group">
 
@@ -146,8 +180,8 @@ class SubCategoryList extends Component {
                     <table className="table table-hover">
                         <thead>
                             <tr>
-                                <th>Subcategory ID</th>
-                                <th>Subcategory Name</th>
+                                <th>ID</th>
+                                <th>Name</th>
                                 <th>Category</th>
                                 <th>Creation Date</th>
                                 <th>Updation Date</th>

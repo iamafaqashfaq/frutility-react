@@ -8,10 +8,39 @@ class SubCategoryCreate extends Component {
 
         this.state = {
             modalShow: false,
-            categoriesData: []
+            categoriesData: [],
+            namefield: {
+                error: null,
+                errorstyle: [],
+                fieldstyle: ['form-control']
+            }
         }
         this.subCategoryNameInput = React.createRef()
         this.categoryNameSelect = React.createRef();
+    }
+    handleBlur(e){
+        if(e.target.value === ''){
+            this.setState({
+                [e.target.name]:{
+                    ...this.state[e.target.name],
+                    error: 'This field cannot be empty',
+                    errorstyle: ['alert','alert-danger'],
+                    fieldstyle: ['form-control','is-invalid']
+                }
+            })
+        }
+    }
+    handleChange(e){
+        if(e.target.value !== ''){
+            this.setState({
+                [e.target.name]:{
+                    ...this.state[e.target.name],
+                    error: null,
+                    errorstyle: [],
+                    fieldstyle: ['form-control']
+                }
+            })
+        }
     }
     getCategories() {
         const response = getCategory()
@@ -44,6 +73,9 @@ class SubCategoryCreate extends Component {
                 }
             })
         }
+        else{
+            window.alert('Please fill all the fields')
+        }
     }
 
     render() {
@@ -56,7 +88,13 @@ class SubCategoryCreate extends Component {
                         <form>
                             <div className="form-group">
                                 <label htmlFor="SubCategoryName">Subcategory Name</label>
-                                <input type="text" className="form-control" ref={this.subCategoryNameInput} />
+                                <input type="text" className={this.state.namefield.fieldstyle.join(' ')}
+                                    ref={this.subCategoryNameInput}
+                                    name="namefield" onBlur={(e) => this.handleBlur(e)}
+                                    onChange={(e) => this.handleChange(e)} />
+                                <div className={this.state.namefield.errorstyle.join(' ')}>
+                                    {this.state.namefield.error}
+                                </div>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="Category">Category</label>

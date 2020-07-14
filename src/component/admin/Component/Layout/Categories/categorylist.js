@@ -9,7 +9,17 @@ export default class categorylist extends Component {
         this.state = {
             categoryData: [],
             modalShow: false,
-            currentCategories: []
+            currentCategories: [],
+            namefield: {
+                error: null,
+                style: [],
+                field: ['form-control']
+            },
+            descfield: {
+                error: null,
+                style: [],
+                field: ['form-control']
+            }
         }
         this.categoryNameInput = React.createRef();
         this.categoryDescInput = React.createRef();
@@ -20,6 +30,29 @@ export default class categorylist extends Component {
     componentDidUpdate(prevProps) {
         if (this.props.change !== prevProps.change) {
             this.repost()
+        }
+    }
+    handleChange(e) {
+        const fieldname = e.target.name
+        if (e.target.value === '') {
+            this.setState({
+                [fieldname]: {
+                    ...this.state[fieldname],
+                    error: 'This field cannot be empty',
+                    style: ['alert', 'alert-danger'],
+                    field: ['form-control', 'is-invalid']
+                }
+            })
+        }
+        else {
+            this.setState({
+                [fieldname]: {
+                    ...this.state[fieldname],
+                    error: null,
+                    style: [],
+                    field: ['form-control']
+                }
+            })
         }
     }
 
@@ -46,6 +79,7 @@ export default class categorylist extends Component {
                 categoryName: this.categoryNameInput.current.value,
                 categoryDescription: this.categoryDescInput.current.value
             }
+            console.log(payload)
             const response = updateCategory(payload)
             response.then(res => {
                 if (res.data === true) {
@@ -53,6 +87,9 @@ export default class categorylist extends Component {
                     this.hideModal()
                 }
             })
+        }
+        else{
+            window.alert("Please fill empty fields")
         }
     }
 
@@ -78,10 +115,10 @@ export default class categorylist extends Component {
                     <td>{category.id}</td>
                     <td>{category.categoryName}</td>
                     <td>{category.description}</td>
-                    <td>{category.creationDate}</td>
-                    <td>{category.updationDate}</td>
+                    <td>{Date(category.creationDate)}</td>
+                    <td>{Date(category.updationDate)}</td>
                     <td><i onClick={() => this.showModal(category)}
-                        className="fa fa-pencil-square-o fa-lg btn"></i>&nbsp;|&nbsp;
+                        className="fa fa-pencil-square-o fa-lg btn"></i>&nbsp;&nbsp;
                     <i onClick={() => this.delete(category.id)} className="fa fa-trash-o fa-lg btn">
                         </i>
                     </td>
@@ -98,15 +135,25 @@ export default class categorylist extends Component {
                         <form>
                             <div className="form-group">
                                 <label htmlFor="CategoryName">Category Name</label>
-                                <input type="text" className="form-control"
+                                <input type="text" className={this.state.namefield.field.join(' ')}
                                     defaultValue={this.state.currentCategories.categoryName}
-                                    ref={this.categoryNameInput} />
+                                    ref={this.categoryNameInput}
+                                    onChange={(e) => this.handleChange(e)}
+                                    name="namefield" />
+                                <div className={this.state.namefield.style.join(' ')}>
+                                    {this.state.namefield.error}
+                                </div>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="CategoryDescription">Category Description</label>
-                                <input type="text" className="form-control"
+                                <input type="text" className={this.state.descfield.field.join(' ')}
                                     defaultValue={this.state.currentCategories.description}
-                                    ref={this.categoryDescInput} />
+                                    ref={this.categoryDescInput}
+                                    onChange={(e) => this.handleChange(e)}
+                                    name="descfield" />
+                                <div className={this.state.descfield.style.join(' ')}>
+                                    {this.state.descfield.error}
+                                </div>
                             </div>
                         </form>
                     </Modal.Body>
@@ -116,7 +163,7 @@ export default class categorylist extends Component {
                             <b>Exit</b>
                         </button>
                         <button onClick={() => this.update()}
-                            className="btn btn-outline-success pl-5 pr-5 ml-3">
+                            className="btn btn-outline-dark pl-5 pr-5 ml-3">
                             <b>Update</b>
                         </button>
                     </Modal.Footer>
@@ -127,9 +174,9 @@ export default class categorylist extends Component {
                     <table className="table table-hover">
                         <thead>
                             <tr>
-                                <th>Category ID</th>
-                                <th>Category Name</th>
-                                <th>Category Description</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Description</th>
                                 <th>Creation Date</th>
                                 <th>Updation Date</th>
                                 <th>Action</th>
