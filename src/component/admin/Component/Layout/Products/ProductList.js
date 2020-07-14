@@ -499,14 +499,14 @@ class ProductList extends Component {
                                                 <b>Vendor </b> {product.vendor}
                                             </p>
                                             <p>
-                                                <b>Price </b> {product.price} &nbsp;
-                                                <h6 className="d-inline">
+                                                <b>Price </b> {product.price} PKR&nbsp;
+                                                <b>Before &nbsp;
                                                     <del>{product.priceBeforeDiscount}</del>
-                                                </h6>
+                                                </b>
                                             </p>
                                             <p>
                                                 <b>Stock </b> {product.stock} &emsp;
-                                                <b>Shipping Charges </b> {product.shippingCharges}
+                                                <b>Shipping Charges </b> {product.shippingCharges}&nbsp;PKR
                                             </p>
                                         </div>
                                     </div>
