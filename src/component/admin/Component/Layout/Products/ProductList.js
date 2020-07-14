@@ -3,6 +3,7 @@ import { getProducts, getSubcategory, updateProduct, deleteProduct } from '../Re
 import { Modal } from 'react-bootstrap'
 import Aux from '../../../../hoc/auxillary'
 import axios from 'axios'
+import Pagination from './../Pagination';
 
 class ProductList extends Component {
     constructor(props) {
@@ -71,7 +72,9 @@ class ProductList extends Component {
                 error: null,
                 errorstyle: [],
                 fieldstyle: ['form-control']
-            }
+            },
+            currentPage: 1,
+            postsPerPage: 6
         }
         this.searchInput = React.createRef()
         this.subcategorySelect = React.createRef()
@@ -216,6 +219,7 @@ class ProductList extends Component {
         })
     }
 
+    //Update the existing data
     update() {
         let formdata = new FormData()
         formdata.append('Id', this.state.selectedProduct.id)
@@ -243,6 +247,7 @@ class ProductList extends Component {
         })
     }
 
+    //Delete product
     delete() {
         const result = window.confirm('Are you sure to delete this product?')
         if (result) {
@@ -255,8 +260,20 @@ class ProductList extends Component {
             window.alert("Unable to delete Product!")
         }
     }
-
+    pagination(pageNumber) {
+        this.setState({ currentPage: pageNumber })
+    }
+    prevPage() {
+        this.setState({ currentPage: this.state.currentPage - 1 })
+    }
+    nextPage() {
+        this.setState({ currentPage: this.state.currentPage + 1 })
+    }
     render() {
+        const indexOfLastPage = this.state.currentPage * this.state.postsPerPage
+        const indexOfFirstPage = indexOfLastPage - this.state.postsPerPage
+        const currentData = this.state.products.slice(indexOfFirstPage, indexOfLastPage)
+
         return (
             <Aux>
                 <Modal show={this.state.modalShow} size="lg" onHide={() => this.hideModal()}>
@@ -467,7 +484,7 @@ class ProductList extends Component {
                     </div>
                 </div>
                 <div className="row mt-3">
-                    {this.state.products.map(product => {
+                    {currentData.map(product => {
                         return (
                             <div className="col-4 my-2" key={product.id}>
                                 <div className="card border-secondary text-secondary h-100">
@@ -488,7 +505,7 @@ class ProductList extends Component {
                                                 </h6>
                                             </p>
                                             <p>
-                                                <b>Stock </b> {product.stock} &emsp; 
+                                                <b>Stock </b> {product.stock} &emsp;
                                                 <b>Shipping Charges </b> {product.shippingCharges}
                                             </p>
                                         </div>
@@ -507,6 +524,8 @@ class ProductList extends Component {
                         )
                     })}
                 </div>
+                <Pagination postsPerPage={this.state.postsPerPage} totalPosts={this.state.products.length}
+                    paginate={this.pagination} prevPage={() => this.prevPage()} nextPage={() => this.nextPage()} />
             </Aux>
         )
     }

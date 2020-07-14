@@ -69,6 +69,7 @@ class ProductCreate extends Component {
         }
         this.SubcategoryIDInput = React.createRef()
     }
+    //Fetch Subcategories from webapi
     getCategories() {
         const response = getSubcategory()
         response.then(res => {
@@ -77,14 +78,17 @@ class ProductCreate extends Component {
             }
         }).catch(err => console.error(err))
     }
+    //To show Bootstrap MODAL
     showModal() {
         this.getCategories()
         this.setState({ modalShow: true })
     }
+    //To Hide Bootstrap modal and fetching new data to the view
     hideModal() {
         this.setState({ modalShow: false })
         this.props.update()
     }
+    //On focus out of input validations
     handleBlur(e) {
         if (e.target.value === '') {
             this.setState({
@@ -97,6 +101,7 @@ class ProductCreate extends Component {
             })
         }
     }
+    //To initialize state and validate fields
     handleInputChange(e) {
         const target = e.target
         const value = target.name === 'availability' ? target.checked : target.value
@@ -116,6 +121,7 @@ class ProductCreate extends Component {
             })
         }
     }
+    //To initialize states with images
     async handleImageSet(e) {
         const target = e.target
         const value = target.files[0]
@@ -128,7 +134,7 @@ class ProductCreate extends Component {
         })
     }
 
-
+    //To create newly entered data in the server
     create() {
         let formdata = new FormData()
         formdata.append('Name', this.state.createdata.name)

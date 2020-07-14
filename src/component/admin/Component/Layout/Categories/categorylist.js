@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Modal } from 'react-bootstrap'
 import { getCategory, updateCategory, deleteCategory } from '../Requests/RequestPayloads'
 import Aux from '../../../../hoc/auxillary'
+import Pagination from './../Pagination';
 
 export default class categorylist extends Component {
     constructor(props) {
@@ -19,11 +20,14 @@ export default class categorylist extends Component {
                 error: null,
                 style: [],
                 field: ['form-control']
-            }
+            },
+            currentPage: 1,
+            postsPerPage: 10
         }
         this.categoryNameInput = React.createRef();
         this.categoryDescInput = React.createRef();
     }
+
     componentDidMount() {
         this.repost()
     }
@@ -88,7 +92,7 @@ export default class categorylist extends Component {
                 }
             })
         }
-        else{
+        else {
             window.alert("Please fill empty fields")
         }
     }
@@ -107,9 +111,21 @@ export default class categorylist extends Component {
 
         }
     }
+    paginate = (pageNumber) => {
+        this.setState({currentPage: pageNumber})
+    }
+    pageNext() {
+        this.setState({currentPage: parseInt(this.state.currentPage + 1)})
+    }
+    pagePrev(){
+        this.setState({currentPage: parseInt(this.state.currentPage - 1)})
+    }
 
     render() {
-        const renderData = this.state.categoryData.map((category) => {
+        const indexOfLastPage = this.state.currentPage * this.state.postsPerPage
+        const indexOfFirstPage = indexOfLastPage - this.state.postsPerPage
+        const currentData = this.state.categoryData.slice(indexOfFirstPage, indexOfLastPage)
+        const renderData = currentData.map((category) => {
             return (
                 <tr key={category.id}>
                     <td>{category.id}</td>
@@ -187,6 +203,9 @@ export default class categorylist extends Component {
                         </tbody>
                     </table>
                 </div>
+                <Pagination postsPerPage={this.state.postsPerPage} 
+                totalPosts={this.state.categoryData.length} paginate={this.paginate} 
+                nextPage={() => this.pageNext()} prevPage={() => this.pagePrev()}/>
             </Aux>
 
         )

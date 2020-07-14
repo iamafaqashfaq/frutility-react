@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Modal } from 'react-bootstrap'
 import Aux from '../../../../hoc/auxillary'
 import { getCategory, getSubcategory, updateSubcategory, deleteSubcategory } from '../Requests/RequestPayloads'
+import Pagination from './../Pagination';
 class SubCategoryList extends Component {
     constructor(props) {
         super(props)
@@ -15,7 +16,9 @@ class SubCategoryList extends Component {
                 error: null,
                 errorstyle: [],
                 fieldstyle: ['form-control']
-            }
+            },
+            currentPage: 1,
+            postsPerPage: 10
         }
         this.subcategoryNameInput = React.createRef()
         this.categoryidSelect = React.createRef()
@@ -108,9 +111,22 @@ class SubCategoryList extends Component {
 
         }
     }
+    pagination = (pageNumber) => {
+        this.setState({currentPage: pageNumber})
+    }
+    prevPage = () => {
+        this.setState({currentPage: this.state.currentPage - 1})
+    }
+    nextPage = () => {
+        this.setState({currentPage: this.state.currentPage + 1})
+    }
 
     render() {
-        const renderData = this.state.subCategory.map((subcategory) => {
+        const indexOfLastPage = this.state.currentPage * this.state.postsPerPage
+        const indexOfFirstPage = indexOfLastPage - this.state.postsPerPage
+        const currentData = this.state.subCategory.slice(indexOfFirstPage, indexOfLastPage)
+
+        const renderData = currentData.map((subcategory) => {
             return (
                 <tr key={subcategory.id}>
                     <td>{subcategory.id}</td>
@@ -193,6 +209,8 @@ class SubCategoryList extends Component {
                         </tbody>
                     </table>
                 </div>
+                <Pagination postsPerPage={this.state.postsPerPage} totalPosts={this.state.subCategory.length}
+                paginate={this.pagination} prevPage={this.prevPage} nextPage={this.nextPage}/>
             </Aux>
         )
     }
