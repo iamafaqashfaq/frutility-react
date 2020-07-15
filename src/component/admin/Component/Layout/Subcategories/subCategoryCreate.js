@@ -1,46 +1,17 @@
 import React, { Component } from 'react'
-import { Modal } from 'react-bootstrap'
 import Aux from '../../../../hoc/auxillary'
 import { getCategory, createSubcategory } from '../Requests/RequestPayloads'
+import SubCategoryCreateModal from './SubCategoryCreateModal'
 class SubCategoryCreate extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             modalShow: false,
-            categoriesData: [],
-            namefield: {
-                error: null,
-                errorstyle: [],
-                fieldstyle: ['form-control']
-            }
+            categoriesData: []
         }
         this.subCategoryNameInput = React.createRef()
         this.categoryNameSelect = React.createRef();
-    }
-    handleBlur(e){
-        if(e.target.value === ''){
-            this.setState({
-                [e.target.name]:{
-                    ...this.state[e.target.name],
-                    error: 'This field cannot be empty',
-                    errorstyle: ['alert','alert-danger'],
-                    fieldstyle: ['form-control','is-invalid']
-                }
-            })
-        }
-    }
-    handleChange(e){
-        if(e.target.value !== ''){
-            this.setState({
-                [e.target.name]:{
-                    ...this.state[e.target.name],
-                    error: null,
-                    errorstyle: [],
-                    fieldstyle: ['form-control']
-                }
-            })
-        }
     }
     getCategories() {
         const response = getCategory()
@@ -73,7 +44,7 @@ class SubCategoryCreate extends Component {
                 }
             })
         }
-        else{
+        else {
             window.alert('Please fill all the fields')
         }
     }
@@ -81,46 +52,9 @@ class SubCategoryCreate extends Component {
     render() {
         return (
             <Aux>
-                {/* MODAL FOR CREATION  */}
-                <Modal show={this.state.modalShow} onHide={() => this.hideModal()}>
-                    <Modal.Header><h4>Create Subcategory</h4></Modal.Header>
-                    <Modal.Body>
-                        <form>
-                            <div className="form-group">
-                                <label htmlFor="SubCategoryName">Subcategory Name</label>
-                                <input type="text" className={this.state.namefield.fieldstyle.join(' ')}
-                                    ref={this.subCategoryNameInput}
-                                    name="namefield" onBlur={(e) => this.handleBlur(e)}
-                                    onChange={(e) => this.handleChange(e)} />
-                                <div className={this.state.namefield.errorstyle.join(' ')}>
-                                    {this.state.namefield.error}
-                                </div>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="Category">Category</label>
-                                <select className="custom-select" name="categoryselect" ref={this.categoryNameSelect}>
-                                    {this.state.categoriesData.map(category => {
-                                        return (
-                                            <option key={category.id} value={category.id}>
-                                                {category.categoryName}
-                                            </option>
-                                        )
-                                    })}
-                                </select>
-                            </div>
-                        </form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <button className="btn btn-outline-secondary" onClick={() => this.hideModal()}><b>Exit</b></button>
-                        <button className="btn btn-outline-success pl-5 pr-5" onClick={() => this.create()}>
-                            <b>Save</b>
-                        </button>
-
-                    </Modal.Footer>
-                </Modal>
-
-
-                {/* Actual Body  */}
+                <SubCategoryCreateModal showModal={this.state.modalShow} hideModal={() => this.hideModal()}
+                    nameInput={this.subCategoryNameInput} selectInput={this.categoryNameSelect}
+                    create={() => this.create()} selectData={this.state.categoriesData} />
                 <div className="card bg-success text-white mt-4">
                     <div className="card-header"><h3>SubCategories</h3></div>
                     <div className="card-body">

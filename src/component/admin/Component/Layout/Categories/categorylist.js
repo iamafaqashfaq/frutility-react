@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Modal } from 'react-bootstrap'
 import { getCategory, updateCategory, deleteCategory } from '../Requests/RequestPayloads'
 import Aux from '../../../../hoc/auxillary'
 import Pagination from './../Pagination';
+import UpdateModal from './UpdateModal';
 
 export default class categorylist extends Component {
     constructor(props) {
@@ -11,16 +11,6 @@ export default class categorylist extends Component {
             categoryData: [],
             modalShow: false,
             currentCategories: [],
-            namefield: {
-                error: null,
-                style: [],
-                field: ['form-control']
-            },
-            descfield: {
-                error: null,
-                style: [],
-                field: ['form-control']
-            },
             currentPage: 1,
             postsPerPage: 10
         }
@@ -34,29 +24,6 @@ export default class categorylist extends Component {
     componentDidUpdate(prevProps) {
         if (this.props.change !== prevProps.change) {
             this.repost()
-        }
-    }
-    handleChange(e) {
-        const fieldname = e.target.name
-        if (e.target.value === '') {
-            this.setState({
-                [fieldname]: {
-                    ...this.state[fieldname],
-                    error: 'This field cannot be empty',
-                    style: ['alert', 'alert-danger'],
-                    field: ['form-control', 'is-invalid']
-                }
-            })
-        }
-        else {
-            this.setState({
-                [fieldname]: {
-                    ...this.state[fieldname],
-                    error: null,
-                    style: [],
-                    field: ['form-control']
-                }
-            })
         }
     }
 
@@ -112,13 +79,13 @@ export default class categorylist extends Component {
         }
     }
     paginate = (pageNumber) => {
-        this.setState({currentPage: pageNumber})
+        this.setState({ currentPage: pageNumber })
     }
     pageNext() {
-        this.setState({currentPage: parseInt(this.state.currentPage + 1)})
+        this.setState({ currentPage: parseInt(this.state.currentPage + 1) })
     }
-    pagePrev(){
-        this.setState({currentPage: parseInt(this.state.currentPage - 1)})
+    pagePrev() {
+        this.setState({ currentPage: parseInt(this.state.currentPage - 1) })
     }
 
     render() {
@@ -131,8 +98,8 @@ export default class categorylist extends Component {
                     <td>{category.id}</td>
                     <td>{category.categoryName}</td>
                     <td>{category.description}</td>
-                    <td>{Date(category.creationDate)}</td>
-                    <td>{Date(category.updationDate)}</td>
+                    <td>{category.creationDate}</td>
+                    <td>{category.updationDate}</td>
                     <td><i onClick={() => this.showModal(category)}
                         className="fa fa-pencil-square-o fa-lg btn"></i>&nbsp;&nbsp;
                     <i onClick={() => this.delete(category.id)} className="fa fa-trash-o fa-lg btn">
@@ -143,49 +110,10 @@ export default class categorylist extends Component {
         })
         return (
             <Aux>
-                <Modal show={this.state.modalShow} onHide={() => this.hideModal()}>
-                    <Modal.Header>
-                        <h4>Update Category</h4>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <form>
-                            <div className="form-group">
-                                <label htmlFor="CategoryName">Category Name</label>
-                                <input type="text" className={this.state.namefield.field.join(' ')}
-                                    defaultValue={this.state.currentCategories.categoryName}
-                                    ref={this.categoryNameInput}
-                                    onChange={(e) => this.handleChange(e)}
-                                    name="namefield" />
-                                <div className={this.state.namefield.style.join(' ')}>
-                                    {this.state.namefield.error}
-                                </div>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="CategoryDescription">Category Description</label>
-                                <input type="text" className={this.state.descfield.field.join(' ')}
-                                    defaultValue={this.state.currentCategories.description}
-                                    ref={this.categoryDescInput}
-                                    onChange={(e) => this.handleChange(e)}
-                                    name="descfield" />
-                                <div className={this.state.descfield.style.join(' ')}>
-                                    {this.state.descfield.error}
-                                </div>
-                            </div>
-                        </form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <button onClick={() => this.hideModal()}
-                            className="btn btn-outline-secondary pl-4 pr-4">
-                            <b>Exit</b>
-                        </button>
-                        <button onClick={() => this.update()}
-                            className="btn btn-outline-dark pl-5 pr-5 ml-3">
-                            <b>Update</b>
-                        </button>
-                    </Modal.Footer>
-                </Modal>
+                <UpdateModal nameInput={this.categoryNameInput} descInput={this.categoryDescInput}
+                    showModal={this.state.modalShow} hideModal={() => this.hideModal()}
+                    update={() => this.update()} data={this.state.currentCategories} />
 
-                {/* Actual Body  */}
                 <div className="table-responsive-sm mt-3">
                     <table className="table table-hover">
                         <thead>
@@ -203,11 +131,12 @@ export default class categorylist extends Component {
                         </tbody>
                     </table>
                 </div>
-                <Pagination postsPerPage={this.state.postsPerPage} 
-                totalPosts={this.state.categoryData.length} paginate={this.paginate} 
-                nextPage={() => this.pageNext()} prevPage={() => this.pagePrev()}/>
+                {this.state.categoryData.length > this.state.postsPerPage ? (
+                    <Pagination postsPerPage={this.state.postsPerPage}
+                        totalPosts={this.state.categoryData.length} paginate={this.paginate}
+                        nextPage={() => this.pageNext()} prevPage={() => this.pagePrev()} />
+                ) : null}
             </Aux>
-
         )
     }
 }
