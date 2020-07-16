@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function sidebar() {
     return (
-        <div>
+        <nav className="col-md-2 col-lg-3 d-md-block">
             Sidebar
-        </div>
+        </nav>
     )
 }

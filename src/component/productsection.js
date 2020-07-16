@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function productsection() {
     return (
-        <div>
+        <div class="col-md-10 col-lg-9">
             productsection
         </div>
     )

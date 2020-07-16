@@ -21,12 +21,8 @@ const normalroute =
       <Route path="/" exact>
         <div className="container mt-4">
           <div className="row">
-            <div className="col-md-3">
-              <Sidebar></Sidebar>
-            </div>
-            <div className="col-md-9">
-              <ProductSection></ProductSection>
-            </div>
+            <Sidebar></Sidebar>
+            <ProductSection></ProductSection>
           </div>
         </div>
       </Route>

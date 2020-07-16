@@ -173,3 +173,14 @@ export const deleteProduct = (payload) => {
     }).catch(err => console.error(err))
 }
 
+//Customers
+export const getCustomersList = () => {
+    return axios({
+        method: 'get',
+        url: `https://localhost:44376/api/usercontroller/customerslist`,
+        headers:{
+            'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
+        },
+        withCredentials: true
+    }).catch(err => console.error(err))
+}
