@@ -6,7 +6,7 @@ const ProductCards = (props) => {
                     {props.data.map(product => {
                         return (
                             <div className="col-4 my-2" key={product.id}>
-                                <div className="card border-secondary text-secondary h-100">
+                                <div className="card border border-dark text-secondary h-100">
                                     <img src={"data:image/jpeg;base64," + product.imageBytes[0]}
                                         height="200px" width="200px"
                                         alt="Product" className="card-img-top" />

@@ -150,7 +150,7 @@ export const getProductMin = (signal) => {
         }
     }
 }
-
+//Product controller Update request
 export const updateProduct = (payload, id) => {
     return axios({
         method: 'put',
@@ -162,7 +162,7 @@ export const updateProduct = (payload, id) => {
         }
     }).catch(err => console.error(err))
 }
-
+//Product controller delete request
 export const deleteProduct = (payload) => {
     return axios({
         method: 'delete',
@@ -172,3 +172,4 @@ export const deleteProduct = (payload) => {
         }
     }).catch(err => console.error(err))
 }
+
