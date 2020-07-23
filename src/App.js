@@ -11,22 +11,23 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 
 const normalroute =
-  (<div className="App">
+  (<div>
     {/* Navbar  */}
     <header>
       <Navbar></Navbar>
     </header>
-
-    <Switch>
-      <Route path="/" exact>
-        <div className="container mt-4">
-          <div className="row">
-            <Sidebar></Sidebar>
-            <ProductSection></ProductSection>
+    <main>
+      <Switch>
+        <Route path="/" exact>
+          <div className="container mt-4">
+            <div className="row">
+              <Sidebar></Sidebar>
+              <ProductSection></ProductSection>
+            </div>
           </div>
-        </div>
-      </Route>
-    </Switch>
+        </Route>
+      </Switch>
+    </main>
     <footer>
       <Footercomponent></Footercomponent>
     </footer>
