@@ -1,0 +1,39 @@
+#navHeaderTop{
+    font-size: 1rem;
+}
+.headerTopLeft{
+    padding: 10px;
+}
+.rightHeader{
+    margin-left: auto;
+}
+.headerTopLeft ul{
+    list-style: none;
+    margin-bottom: 0;
+}
+.headerTopLeft ul li{
+    display: inline-block;
+    margin: 0 10px;
+}
+.headerTopRight{
+    padding: 10px;
+}
+.headerTopRight ul{
+    list-style: none;
+    margin-bottom: 0;
+}
+.headerTopRight ul li{
+    display: inline-block;
+    margin: 0 5px;
+}
+.dividerRight{
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    height: 2rem;
+    vertical-align: middle;
+}
+.flagimage{
+    vertical-align: baseline;
+}
+.headerTopRight ul li:hover{
+    color: #16a085;
+}
