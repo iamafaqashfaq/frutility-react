@@ -3,8 +3,8 @@ import React from 'react'
 export default function sidebar() {
     return (
         <div id="sidebar">
-            <div className="sidebar-cat-header">
-                <h4 className="text-center text-white">Categories</h4>
+            <div className="sidebar-cat-header animate__animated animate__bounceInDown">
+                <h4 className="text-center text-white p-3">Categories</h4>
             </div>
             <nav className="sidebar-nav animate__animated animate__backInLeft">
                 <ul>

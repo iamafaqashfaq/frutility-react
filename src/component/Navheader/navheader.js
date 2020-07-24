@@ -4,11 +4,11 @@ import lang from '../../assets/language.png'
 
 const Navheader = () => {
     return (
-        <div className="bg-light d-none d-sm-none d-md-block">
-            <div className="container">
-                <div id="navHeaderTop" className="row justify-content-center">
-                    <div className="col-md-6 col-lg-6">
-                        <div className="headerTopLeft">
+        <div className="bg-light d-none d-sm-none d-md-none d-lg-block">
+            <div className="container-fluid">
+                <div id="nav-header-top" className="row justify-content-center">
+                    <div className="col-md-6 col-lg-6 left-header">
+                        <div className="header-top-left">
                             <ul>
                                 <li>
                                     <i className="fa fa-envelope"></i>&nbsp;hello@frutility.com
@@ -18,7 +18,7 @@ const Navheader = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="col-md-4 col-lg-4 rightHeader">
+                    <div className="col-md-4 col-lg-4 right-header">
                         <div className="headerTopRight">
                             <ul>
                                 <li><i className="fa fa-facebook-f"></i></li>

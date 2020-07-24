@@ -7,7 +7,7 @@ export default function navbar() {
     return (
         <div>
             <Navheader />
-            <div id="nav" className="container">
+            <div id="nav" className="container-fluid">
                 <nav className="navbar navbar-expand-md bg-white navbar-light">
                     <NavLink to="/" className="navbar-brand ml-5">
                         <img src={brandlogo} alt="Frutility" width="100px"/>

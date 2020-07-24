@@ -1,26 +1,29 @@
-#navHeaderTop{
+#nav-header-top{
     font-size: 1rem;
 }
-.headerTopLeft{
-    padding: 10px;
+.header-top-left{
+    padding-top: 10px;
 }
-.rightHeader{
+.left-header{
     margin-left: auto;
 }
-.headerTopLeft ul{
-    list-style: none;
-    margin-bottom: 0;
+.right-header{
+    margin-left: auto;
 }
-.headerTopLeft ul li{
+.header-top-left ul{
+    list-style: none;
+    display: inline-block;
+    margin-right: auto;
+}
+.header-top-left ul li{
     display: inline-block;
     margin: 0 10px;
 }
 .headerTopRight{
-    padding: 10px;
+    padding-top: 10px;
 }
 .headerTopRight ul{
     list-style: none;
-    margin-bottom: 0;
 }
 .headerTopRight ul li{
     display: inline-block;

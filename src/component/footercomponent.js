@@ -9,13 +9,14 @@ export default function footercomponent() {
                     <h3 className="text-center p-3 text-white">Contant Us</h3>
                 </div>
                 <div className="row mt-5 pb-5 animate__animated animate__backInUp">
-                    <div className="col-md-4 col-lg-4 address-details align-self-start">
+                    <div className="col-sm-12 col-md-4 col-lg-4 
+                        address-details align-self-start">
                         <img src={brandlogo} alt="Frutiltiy Logo" width="150px" />
                         <p>7th Avenue Road, RYK</p>
                         <p>Phone: +92 345 867 26 40</p>
                         <p>Email: hello@frutility.com</p>
                     </div>
-                    <div className="col-md-4 col-lg-4 mt-md-4">
+                    <div className="col-sm-12 col-md-4 col-lg-4 mt-md-4">
                         <h4 className="mb-md-4">Useful Links</h4>
                         <table>
                             <tbody>
@@ -72,14 +73,15 @@ export default function footercomponent() {
                             </tbody>
                         </table>
                     </div>
-                    <div className="col-md-4 col-lg-4 mt-md-4">
+                    <div className="col-sm-12 col-md-4 col-lg-4 mt-md-4">
                         <h4 >Join our newsletter!</h4>
                         <p>Get E-mail updates about our latest shop and special offers.</p>
                         <div className="row">
                             <div className="col-md-8 col-lg-8 pr-1">
                                 <input type="email" className="form-control" placeholder="Enter Your Email"/>
                             </div>
-                            <div className="col-md-4 col-lg-4 pl-0">
+                            <div className="col-sm-12 col-md-4 col-lg-4 pl-0 pt-1 
+                                pt-sm-1 pt-md-0 ml-3 ml-sm-3 ml-md-0 btn-block">
                                 <button className="fruity-btn">Subscribe</button>
                             </div>
                         </div>
