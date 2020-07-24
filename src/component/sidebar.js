@@ -4,9 +4,9 @@ export default function sidebar() {
     return (
         <div id="sidebar">
             <div className="sidebar-cat-header">
-                <h4 className="text-center">Categories</h4>
+                <h4 className="text-center text-white">Categories</h4>
             </div>
-            <nav className="sidebar-nav">
+            <nav className="sidebar-nav animate__animated animate__backInLeft">
                 <ul>
                     <li className="hvr-grow">Summer</li>
                     <li className="hvr-grow">Winter</li>

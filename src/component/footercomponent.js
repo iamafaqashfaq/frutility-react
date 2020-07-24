@@ -5,8 +5,10 @@ export default function footercomponent() {
     return (
         <div id="footer-comp" className="bg-light">
             <div className="container">
-                <div id="footer-header"><h3 className="text-center p-3 text-white">Contant Us</h3></div>
-                <div className="row mt-5 pb-5">
+                <div id="footer-header" className="animate__animated animate__backInLeft">
+                    <h3 className="text-center p-3 text-white">Contant Us</h3>
+                </div>
+                <div className="row mt-5 pb-5 animate__animated animate__backInUp">
                     <div className="col-md-4 col-lg-4 address-details align-self-start">
                         <img src={brandlogo} alt="Frutiltiy Logo" width="150px" />
                         <p>7th Avenue Road, RYK</p>
@@ -82,10 +84,10 @@ export default function footercomponent() {
                             </div>
                         </div>
                         <div className="mt-4">
-                            <i className="fa fa-facebook-official fa-lg social-link m-3"></i>
-                            <i className="fa fa-twitter fa-lg social-link"></i>
-                            <i className="fa fa-youtube-play fa-lg social-link m-3"></i>
-                            <i className="fa fa-pinterest-p fa-lg social-link"></i>
+                            <i className="fa fa-facebook-official fa-lg social-link m-3 hvr-shrink"></i>
+                            <i className="fa fa-twitter fa-lg social-link hvr-shrink"></i>
+                            <i className="fa fa-youtube-play fa-lg social-link m-3 hvr-shrink"></i>
+                            <i className="fa fa-pinterest-p fa-lg social-link hvr-shrink"></i>
                         </div>
                     </div>
                 </div>
