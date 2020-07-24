@@ -1,5 +1,6 @@
 /* Website Scheme Color #16a085 and a bit light #1abc9c */
 
+/* Navbar Component  */
 #nav{
   border-radius: 10px;
   border-bottom: 5px solid steelblue;
@@ -17,6 +18,8 @@
 .active{
   color: #1abc9c !important;
 }
+
+/* Footer Component  */
 #footer-header{
   margin: 10px;
   
@@ -50,3 +53,38 @@
   background-color: white;
   color: #16a085;
 }
+
+/* Sidebar Component  */
+#sidebar{
+  position: relative;
+  top: 2%;
+}
+.sidebar-cat-header h4{
+  padding: 5px;
+  background-color: #16a085;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.5);
+}
+.sidebar-nav ul{
+  list-style: none;
+  padding: 0;
+}
+.sidebar-nav ul li{
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.5);
+  margin: 10px;
+  display: block;
+  text-align: center;
+}
+.sidebar-nav ul li:hover{
+  background-color: #1abc9c;
+  color: white;
+}
+
+/* Product Section Component  */
+#product-section .jumbotron{
+  background: url('./assets//productsection/apple-highlight.jpg') 50% 70%/cover;
+}
+
