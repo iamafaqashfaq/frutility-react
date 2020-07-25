@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from './component/navbar'
-import ProductSection from './component/productsection'
+import Navbar from './component/user/navbar/navbar'
+import ProductSection from './component/user/landingPage/productSection/productsection'
 import Footercomponent from './component/footercomponent'
 import Admin from './component/admin/Component/Login/adminlogin'
 import './App.css';

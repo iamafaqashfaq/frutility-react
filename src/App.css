@@ -69,7 +69,7 @@
 
 #sidebar {
   position: relative;
-  top: 5%;
+  top: 15%;
 }
 
 .sidebar-cat-header h4 {
@@ -109,6 +109,11 @@
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.5);
 }
 
+.top-selling .products{
+  margin-right: 100px;
+  margin-left: 100px;
+}
+
 #product-section .products .productimg {
   padding: 50px;
   height: 270px;
@@ -125,6 +130,10 @@
 
 #product-section .products p {
   font-size: 1.3rem;
+}
+
+#product-section .product-name{
+  margin-bottom: 0px;
 }
 
 /* Animations  */
