@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import Adminnavbar from './Navbar/adminnavbar'
 import './admindashboard.css'
 import Sidebar from './Sidebar/sidebar'
-import AppFooter from '../../../footercomponent';
 import DashBoard from './DashboardMain/dashboardmain'
 import Category from './Categories/categorylayout'
 import SubCategory from './Subcategories/subCategoryLayout'
@@ -28,9 +27,6 @@ export default function admindashboard() {
                             <Route path="/admin/products"><Products/></Route>
                             <Route path="/admin/customers"><Customers/></Route>
                         </Switch>
-                        <footer>
-                            <AppFooter />
-                        </footer>
                     </div>
                 </div>
             </div>
