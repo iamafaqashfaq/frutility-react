@@ -13,14 +13,19 @@ const UserComponent = () => {
             </header>
             <main>
                 <Switch>
-                    <Route path="/" exact>
+                    <Route path="/">
                         <div className="container-fluid">
                             <div className="row justify-content-center mt-3">
                                 <div className="col-md-2 col-lg-2">
-                                    <Sidebar/>
+                                    <Sidebar />
                                 </div>
                                 <div className="col-md-10 col-lg-10">
-                                    <ProductSection/>
+                                    <Route path="/" exact>
+                                        <ProductSection />
+                                    </Route>
+                                    <Route path="/product">
+                                        HEllo
+                                    </Route>
                                 </div>
                             </div>
                         </div>

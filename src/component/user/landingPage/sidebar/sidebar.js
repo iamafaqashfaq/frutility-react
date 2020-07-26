@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getCategories, getSubcategories } from './../../Requests/UserRequestPayload';
+import './sidebar.css'
+import { Link } from 'react-router-dom';
 
 export default function Sidebar() {
     const [categories, setCategories] = useState([])
@@ -27,10 +29,8 @@ export default function Sidebar() {
     const handleCategory = (id) => {
         const newList = subcategories.filter(item => {
             const lc = item.categoryID
-            console.log(lc)
             return String(lc).includes(id)
         })
-        console.log(newList)
         setSelectSubcategory(newList)
     }
     return (
@@ -41,17 +41,19 @@ export default function Sidebar() {
             </div>
             <nav className="sidebar-nav">
                 <ul>
-                    <li className="hvr-grow animate__animated 
-                    animate__backInLeft" onClick={() => showAllCategories()}>
+                    <Link to="/">
+                    <li className="hvr-grow" onClick={() => showAllCategories()}>
                         All
                     </li>
+                    </Link>
                     {categories.length === 0 ? <p>Loading...</p> : categories.map(category => {
                         return (
-                            <li className="hvr-grow  animate__animated
-                             animate__backInLeft" key={category.id}
-                                onClick={() => handleCategory(category.id)}>
-                                {category.categoryName}
-                            </li>
+                            <Link to='/product' key={category.id}>
+                                <li className="hvr-grow"
+                                    onClick={() => handleCategory(category.id)}>
+                                    {category.categoryName}
+                                </li>
+                            </Link>
                         )
                     })}
                 </ul>
@@ -62,16 +64,15 @@ export default function Sidebar() {
             </div>
             <nav className="sidebar-nav">
                 <ul>
-                    {selectSubcategory.length === 0 ? 
-                        <p>Loading...</p> : 
+                    {selectSubcategory.length === 0 ?
+                        <p>Loading...</p> :
                         selectSubcategory.map(subcategory => {
-                        return (
-                            <li className="hvr-grow animate__animated 
-                            animate__backInLeft" key={subcategory.id}>
-                                {subcategory.subcategoryName}
-                            </li>
-                        )
-                    })}
+                            return (
+                                <li className="hvr-grow" key={subcategory.id}>
+                                    {subcategory.subcategoryName}
+                                </li>
+                            )
+                        })}
                 </ul>
             </nav>
         </div>
