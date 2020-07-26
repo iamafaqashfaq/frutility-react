@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import Auxillary from './../../../../hoc/auxillary';
 import { getMinProducts } from './../../../Requests/UserRequestPayload';
+import Auxillary from '../../../../hoc/auxillary';
 
-
-const Featuredproducts = () => {
-    const [products, setProducts] = useState([]);
-
+const SubcategoryProducts = (props) => {
+    const [products, setProducts] = useState([])
     useEffect(() => {
         const response = getMinProducts()
         response.then(res => {
             if (res) {
-                setProducts(res.data)
+                const newList = Array(...res.data).filter(item => {
+                    const lc = item.subCategoryID
+                    return String(lc).includes(props.match.params.id)
+                })
+                console.log(newList)
+                setProducts(newList)
             }
         })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
+    }, [props.match.params.id])
     return (
         (products.length === 0 ? (<p>Loading...</p>) :
             (<Auxillary>
@@ -34,7 +35,7 @@ const Featuredproducts = () => {
                 })}
             </Auxillary>)
         )
-
     )
 }
-export default Featuredproducts;
+
+export default SubcategoryProducts;

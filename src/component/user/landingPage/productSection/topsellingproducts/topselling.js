@@ -24,13 +24,13 @@ const Topselling = () => {
                 {products.length === 0 ? (<p>Loading...</p>) : (products.map(product => {
                     return (
                         <div className="col-md-2 col-lg-2 animate__animated
-                             animate__fadeInDown products" key={product.id}>
-                            <div className="productimg hvr-shrink">
+                             animate__fadeInDown products-container" key={product.id}>
+                            <div className="product-img-div hvr-shrink">
                                 <img src={'data:image/jpeg;base64,' + product.imageBytes}
                                  alt="logo" className="product-picture" />
                             </div>
                             <p className="text-center product-name">{product.name}</p>
-                            <p className="text-center"><b>{'PKR ' + product.price}</b></p>
+                            <p className="text-center product-price"><b>{'PKR ' + product.price}</b></p>
                         </div>
                     )
                 }))}

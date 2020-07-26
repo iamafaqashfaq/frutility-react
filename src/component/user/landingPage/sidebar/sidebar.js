@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getCategories, getSubcategories } from './../../Requests/UserRequestPayload';
 import './sidebar.css'
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default function Sidebar() {
     const [categories, setCategories] = useState([])
@@ -41,19 +41,17 @@ export default function Sidebar() {
             </div>
             <nav className="sidebar-nav">
                 <ul>
-                    <Link to="/">
+                    <NavLink to="/">
                     <li className="hvr-grow" onClick={() => showAllCategories()}>
                         All
                     </li>
-                    </Link>
+                    </NavLink>
                     {categories.length === 0 ? <p>Loading...</p> : categories.map(category => {
                         return (
-                            <Link to='/product' key={category.id}>
-                                <li className="hvr-grow"
+                                <li className="hvr-grow category-links" key={category.id}
                                     onClick={() => handleCategory(category.id)}>
                                     {category.categoryName}
                                 </li>
-                            </Link>
                         )
                     })}
                 </ul>
@@ -68,9 +66,11 @@ export default function Sidebar() {
                         <p>Loading...</p> :
                         selectSubcategory.map(subcategory => {
                             return (
-                                <li className="hvr-grow" key={subcategory.id}>
+                                <NavLink to={'/subcategory/products/'+subcategory.id} key={subcategory.id}>
+                                <li className="hvr-grow">
                                     {subcategory.subcategoryName}
                                 </li>
+                                </NavLink>
                             )
                         })}
                 </ul>

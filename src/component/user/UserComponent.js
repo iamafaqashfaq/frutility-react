@@ -20,12 +20,10 @@ const UserComponent = () => {
                                     <Sidebar />
                                 </div>
                                 <div className="col-md-10 col-lg-10">
-                                    <Route path="/" exact>
+                                    {/* <Route path="/" exact> */}
                                         <ProductSection />
-                                    </Route>
-                                    <Route path="/product">
-                                        HEllo
-                                    </Route>
+                                    {/* </Route> */}
+                                    
                                 </div>
                             </div>
                         </div>
