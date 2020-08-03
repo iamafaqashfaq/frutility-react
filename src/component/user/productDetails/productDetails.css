@@ -61,6 +61,6 @@
 }
 
 .product-details .wishlist-btn:hover {
-    color: black;
+    color: red;
     background-color: #999;
 }

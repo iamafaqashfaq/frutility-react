@@ -17,7 +17,7 @@ export default function Navbar() {
     return (
         <div>
             <Navheader />
-            <nav className="site-navbar navbar-expand-md">
+            <nav className="site-navbar navbar-expand-md mb-3">
                 <div className="container d-flex flex-column flex-wrap flex-md-row align-content-center">
                     <NavLink to="/">
                         <img src={brandlogo} alt="Frutility" width="100px" />

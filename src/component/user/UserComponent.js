@@ -6,6 +6,8 @@ import FooterComponent from '../footercomponent'
 import Sidebar from './landingPage/sidebar/sidebar'
 import SubcategoryProducts from './landingPage/productSection/subcategoryProduct/subcategoryProducts';
 import productDetails from './productDetails/productDetails'
+import Login from './Login/login';
+import Signup from './Login/signup';
 
 const UserComponent = () => {
     return (
@@ -20,7 +22,7 @@ const UserComponent = () => {
                             <div className="row justify-content-center mt-3">
                                 <div className="col-md-2 col-lg-2">
                                     <Sidebar bounce=" animate__animated 
-                animate__bounceInDown"/>
+                                    animate__bounceInDown"/>
                                 </div>
                                 <div className="col-md-10 col-lg-10">
                                     <ProductSection />
@@ -28,9 +30,10 @@ const UserComponent = () => {
                             </div>
                         </div>
                     </Route>
-                    <Route path="/product/:id/details" component={productDetails}/>
+                    <Route path="/product/:id/details" component={productDetails} />
                     <Route path="/subcategory/products/:id" component={SubcategoryProducts} />
-
+                    <Route path="/login" component={Login}/>
+                    <Route path="/signup" component={Signup}/>
                 </Switch>
             </main>
             <footer>

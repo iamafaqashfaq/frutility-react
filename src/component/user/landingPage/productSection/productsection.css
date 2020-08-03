@@ -16,7 +16,6 @@
 }
 
 .products-container .product-img-div {
-  padding: 50px;
   height: 250px;
   margin: 5px;
   width: 250px;
@@ -34,6 +33,7 @@
   display: inline-block;
   width: 100%;
   height: 100%;
+  border-radius: 10px;
 }
 
 .products-container .product-price {

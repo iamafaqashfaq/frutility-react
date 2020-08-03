@@ -32,9 +32,9 @@ const SubcategoryProducts = (props) => {
 
                             products.map(product => {
                                 return (
-                                    <NavLink to={"/product/" + product.id + "/details"}>
+                                    <NavLink to={"/product/" + product.id + "/details"}  key={product.id}>
                                         <div className="col-md-2 col-lg-2 animate__animated
-                                            animate__fadeInDown products-container" key={product.id}>
+                                            animate__fadeInDown products-container">
                                             <div className="product-img-div hvr-shrink">
                                                 <img src={'data:image/jpeg;base64,' + product.imageBytes}
                                                 alt="logo" className="product-picture" />

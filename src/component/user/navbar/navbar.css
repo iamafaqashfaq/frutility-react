@@ -47,13 +47,13 @@
   color: #999;
 }
 .site-navbar .nav-wishlist:hover{
-  color: white;
+  color: red;
 }
 .site-navbar .nav-cart{
   color: #999;
 }
 .site-navbar .nav-cart:hover{
-  color: white;
+  color: steelblue;
 }
 @keyframes border-gradient{
   0% {border-color: rgb(83, 82, 82);}
