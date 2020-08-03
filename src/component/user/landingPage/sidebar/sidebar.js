@@ -3,7 +3,7 @@ import { getCategories, getSubcategories } from './../../Requests/UserRequestPay
 import './sidebar.css'
 import { NavLink } from 'react-router-dom';
 
-export default function Sidebar() {
+export default function Sidebar(props) {
     const [categories, setCategories] = useState([])
     const [subcategories, setSubcategories] = useState([])
     const [selectSubcategory, setSelectSubcategory] = useState([])
@@ -35,8 +35,7 @@ export default function Sidebar() {
     }
     return (
         <div id="sidebar">
-            <div className="sidebar-cat-header animate__animated 
-                animate__bounceInDown stick">
+            <div className={"sidebar-cat-header"+props.bounce}>
                 <h4 className="text-center text-white p-3">Categories</h4>
             </div>
             <nav className="sidebar-nav">
@@ -48,7 +47,7 @@ export default function Sidebar() {
                     </NavLink>
                     {categories.length === 0 ? <p>Loading...</p> : categories.map(category => {
                         return (
-                                <li className="hvr-grow category-links" key={category.id}
+                                <li className="hvr-grow" key={category.id}
                                     onClick={() => handleCategory(category.id)}>
                                     {category.categoryName}
                                 </li>
@@ -56,8 +55,7 @@ export default function Sidebar() {
                     })}
                 </ul>
             </nav>
-            <div className="sidebar-cat-header animate__animated 
-                animate__bounceInDown stick">
+            <div className={"sidebar-cat-header"+props.bounce}>
                 <h4 className="text-center text-white p-3">Subcategories</h4>
             </div>
             <nav className="sidebar-nav">
@@ -66,7 +64,8 @@ export default function Sidebar() {
                         <p>Loading...</p> :
                         selectSubcategory.map(subcategory => {
                             return (
-                                <NavLink to={'/subcategory/products/'+subcategory.id} key={subcategory.id}>
+                                <NavLink to={'/subcategory/products/'+subcategory.id} key={subcategory.id}
+                                activeClassName="active">
                                 <li className="hvr-grow">
                                     {subcategory.subcategoryName}
                                 </li>

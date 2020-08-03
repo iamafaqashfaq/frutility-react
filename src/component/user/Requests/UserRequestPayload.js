@@ -22,3 +22,9 @@ export const getMinProducts = () => {
         url: `https://localhost:44376/api/products/productmin`,
     }).catch(err => console.error(err))
 }
+export const getProductById = (payload) => {
+    return axios({
+        method: 'get',
+        url: `https://localhost:44376/api/products/productminbyid/`+payload,
+    }).catch(err => console.error(err))
+}

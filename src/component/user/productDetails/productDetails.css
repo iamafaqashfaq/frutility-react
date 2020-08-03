@@ -1,0 +1,66 @@
+.product-details .product-rating i {
+    color: gold;
+}
+
+.product-details .product-rating span {
+    color: red;
+}
+
+.product-details .product-price {
+    font-size: 30px;
+    font-family: monospace;
+    color: #dd2222;
+}
+
+.product-details .product-description {
+    color: #6f6f6f;
+}
+
+.product-details .product-counter .decrement {
+    color: white;
+    font-weight: bolder;
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.product-details .product-counter .increment {
+    color: white;
+    font-weight: bolder;
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.product-details .product-counter .decrement:hover {
+    color: black;
+    background-color: #999;
+}
+
+.product-details .product-counter .increment:hover {
+    color: black;
+    background-color: #999;
+}
+
+.product-details .product-counter .count {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.product-details .cart-button {
+    color: white;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.product-details .cart-button:hover {
+    color: black;
+    background-color: #999;
+}
+
+.product-details .wishlist-btn {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.product-details .wishlist-btn:hover {
+    color: black;
+    background-color: #999;
+}

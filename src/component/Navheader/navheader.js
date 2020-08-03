@@ -28,7 +28,7 @@ const Navheader = () => {
                                 <li className="dividerRight"></li>
                                 <li className="flagimage"><img src={lang} alt="Language" />&nbsp; English</li>
                                 <li className="dividerRight"></li>
-                                <li><i className="fa fa-user"></i>&nbsp; Login</li>
+                                <li><i className="fa fa-user"></i>&nbsp; Signup</li>
                             </ul>
                         </div>
                     </div>

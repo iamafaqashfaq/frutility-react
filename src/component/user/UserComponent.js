@@ -4,6 +4,8 @@ import Navbar from './navbar/navbar'
 import ProductSection from './landingPage/productSection/productsection'
 import FooterComponent from '../footercomponent'
 import Sidebar from './landingPage/sidebar/sidebar'
+import SubcategoryProducts from './landingPage/productSection/subcategoryProduct/subcategoryProducts';
+import productDetails from './productDetails/productDetails'
 
 const UserComponent = () => {
     return (
@@ -13,21 +15,22 @@ const UserComponent = () => {
             </header>
             <main>
                 <Switch>
-                    <Route path="/">
+                    <Route path="/" exact>
                         <div className="container-fluid">
                             <div className="row justify-content-center mt-3">
                                 <div className="col-md-2 col-lg-2">
-                                    <Sidebar />
+                                    <Sidebar bounce=" animate__animated 
+                animate__bounceInDown"/>
                                 </div>
                                 <div className="col-md-10 col-lg-10">
-                                    {/* <Route path="/" exact> */}
-                                        <ProductSection />
-                                    {/* </Route> */}
-                                    
+                                    <ProductSection />
                                 </div>
                             </div>
                         </div>
                     </Route>
+                    <Route path="/product/:id/details" component={productDetails}/>
+                    <Route path="/subcategory/products/:id" component={SubcategoryProducts} />
+
                 </Switch>
             </main>
             <footer>

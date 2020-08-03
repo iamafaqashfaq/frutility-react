@@ -14,6 +14,9 @@
     list-style: none;
     display: inline-block;
     margin-right: auto;
+    padding-inline-start: 0;
+    margin-bottom: 0;
+
 }
 .header-top-left ul li{
     display: inline-block;
@@ -24,6 +27,8 @@
 }
 .headerTopRight ul{
     list-style: none;
+    padding-inline-start: 0;
+    margin-bottom: 0;
 }
 .headerTopRight ul li{
     display: inline-block;
@@ -38,5 +43,5 @@
     vertical-align: baseline;
 }
 .headerTopRight ul li:hover{
-    color: #16a085;
+    color: #999;
 }
