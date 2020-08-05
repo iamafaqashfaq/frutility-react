@@ -1,14 +1,14 @@
 const initialState = {
-    isLoggedIn: false,
+    isLoggedIn: false
 }
-const AdminLoginReducer = (state = initialState, action) => {
+const UserLoginReducer = (state = initialState, action) => {
     switch(action.type){
-        case 'ADMINLOGIN':
+        case 'USERLOGIN':
             return {
                 ...state,
                 isLoggedIn: true
             }
-        case 'ADMINLOGOUT':
+        case 'USERLOGOUT':
             return {
                 ...state,
                 isLoggedIn: false
@@ -17,4 +17,4 @@ const AdminLoginReducer = (state = initialState, action) => {
             return state
     }
 }
-export default AdminLoginReducer
+export default UserLoginReducer

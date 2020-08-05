@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { getProductById } from '../Requests/UserRequestPayload'
 import './productDetails.css'
 import RelatedProducts from './relatedProducts/relatedProducts'
+import ProductAddToCart from './productAddToCart'
 
 const ProductDetails = (props) => {
     const [product, setProduct] = useState([])
-    const [count, setCount] = useState(0)
     useEffect(() => {
         const response = getProductById(props.match.params.id)
         response.then(res => {
@@ -13,14 +13,6 @@ const ProductDetails = (props) => {
         })
     }, [props.match.params.id])
 
-    const hanldeAddCart = () => {
-        if(count === 0){
-            window.alert('Set quantity to add into cart')
-        }
-        else{
-
-        }
-    }
     return (
         <div className="container animate__animated animate__bounceIn">
             <h3 className="text-center bg-dark p-4 m-3 rounded-pill text-white">Product Details</h3>
@@ -45,15 +37,7 @@ const ProductDetails = (props) => {
                     <div className="product-description mb-3">
                         {product.description}
                     </div>
-                    <div className="d-flex">
-                        <div className="product-counter d-flex">
-                            <button className="btn decrement pr-3 pl-3" onClick={() => setCount(count - 1)}>-</button>
-                            <p className="count pr-4 pl-4">{count}</p>
-                            <button className="btn increment pr-3 pl-3" onClick={() => setCount(count + 1)}>+</button>
-                        </div>
-                        <button className="btn cart-button ml-2" onClick={()=>hanldeAddCart()}>Add To Cart</button>
-                        <button className="btn ml-2 wishlist-btn"><i className="fa fa-heart fa-1x"></i></button>
-                    </div>
+                    <ProductAddToCart product={product}/>
                     <hr />
                     <div className="row">
                         <div className="col-md-6 col-lg-6">

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
+import { userSignup } from './../Requests/UserRequestPayload';
 const Signup = () => {
+    const history = useHistory()
     const [user, setUser] = useState(
         {
             fname: '',
@@ -55,14 +57,39 @@ const Signup = () => {
             setValidation({ ...validate, [name]: ["alert", "alert-danger", "d-none"] })
         }
     }
-    const handleBillingCheck = (e) => { 
+    const handleBillingCheck = (e) => {
         const value = e.target.checked
-        if(value === true){
-            setUser({...user, bAddress: user.sAddress, bState: user.sState, bCity: user.sCity})
+        if (value === true) {
+            setUser({ ...user, bAddress: user.sAddress, bState: user.sState, bCity: user.sCity })
         }
     }
     const handleSubmit = (e) => {
         e.preventDefault()
+        if (user.fname.length !== 0 && user.lname.length !== 0
+            && user.email.length !== 0
+            && user.sAddress.length !== 0
+            && user.sState.length !== 0
+            && user.sCity.length !== 0
+            && user.bAddress.length !== 0
+            && user.bState.length !== 0
+            && user.bCity.length !== 0
+            && user.phone.length !== null
+            && user.username.length !== 0
+            && user.password.length !== 0
+            && user.cpassword.length !== 0) {
+            const response = userSignup(user)
+            response.then(res => {
+                if (res.data !== false) {
+                    localStorage.setItem('userUserName', res.data.userName)
+                    localStorage.setItem('userToken', res.data.entoken)
+                    history.push("/")
+
+                }
+            })
+        }
+        else {
+            window.alert("Field cannot be empty")
+        }
     }
     return (
         <div className="m-5 animate__animated animate__backInLeft">
@@ -134,7 +161,7 @@ const Signup = () => {
                             <div className="col-md-6 col-lg-6">
                                 <div className="custom-control custom-checkbox">
                                     <input type="checkbox" className="custom-control-input"
-                                        id="customCheck2" onChange={(e)=>handleBillingCheck(e)}/>
+                                        id="customCheck2" onChange={(e) => handleBillingCheck(e)} />
                                     <label className="custom-control-label"
                                         htmlFor="customCheck2">Same as Shipping</label>
                                 </div>
@@ -143,8 +170,8 @@ const Signup = () => {
                                     <textarea rows="3" col="5" className="form-control"
                                         placeholder="Enter Billing Address" name="bAddress"
                                         onChange={(e) => handleInputChange(e)}
-                                        onBlur={(e) => handleInputBlur(e)} 
-                                        value={user.bAddress}/>
+                                        onBlur={(e) => handleInputBlur(e)}
+                                        value={user.bAddress} />
                                     <span className={validate.bAddress.join(' ')}>Cannot be empty</span>
                                 </div>
                                 <div className="form-group">
@@ -152,8 +179,8 @@ const Signup = () => {
                                     <input type="text" className="form-control"
                                         placeholder="Enter Billing State" name="bState"
                                         onChange={(e) => handleInputChange(e)}
-                                        onBlur={(e) => handleInputBlur(e)} 
-                                        value={user.bState}/>
+                                        onBlur={(e) => handleInputBlur(e)}
+                                        value={user.bState} />
                                     <span className={validate.bState.join(' ')}>Cannot be empty</span>
                                 </div>
                                 <div className="form-group">
@@ -161,8 +188,8 @@ const Signup = () => {
                                     <input type="text" className="form-control"
                                         placeholder="Enter Billing City" name="bCity"
                                         onChange={(e) => handleInputChange(e)}
-                                        onBlur={(e) => handleInputBlur(e)} 
-                                        value={user.bCity}/>
+                                        onBlur={(e) => handleInputBlur(e)}
+                                        value={user.bCity} />
                                     <span className={validate.bCity.join(' ')}>Cannot be empty</span>
                                 </div>
 
@@ -198,7 +225,7 @@ const Signup = () => {
                                 htmlFor="customCheck1">Remember Me</label>
                         </div>
                         <div className="form-group mt-3">
-                            <button className="btn btn-block btn-outline-dark" type="submit" onClick={(e)=>handleSubmit(e)}>
+                            <button className="btn btn-block btn-outline-dark" type="submit" onClick={(e) => handleSubmit(e)}>
                                 Signup
                             </button>
                         </div>

@@ -7,7 +7,7 @@ import Dashboard from '../Layout/admindashboard'
 
 export default function Adminlogin() {
     const dispatch = useDispatch()
-    const redux = useSelector(state => state.adminlogin.isLoggedin)
+    const redux = useSelector(state => state.adminlogin.isLoggedIn)
     const [model, setModel] = useState({
         UserName: '',
         Password: ''
@@ -61,6 +61,7 @@ export default function Adminlogin() {
                     localStorage.setItem("admintoken", Login.entoken)
                     localStorage.setItem("adminusername", Login.userName)
                     dispatch(ADMINLOGIN())
+                    console.log(redux)
                 }
             }).catch(err => console.error(err))
     }

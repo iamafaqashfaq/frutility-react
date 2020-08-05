@@ -28,3 +28,22 @@ export const getProductById = (payload) => {
         url: `https://localhost:44376/api/products/productminbyid/`+payload,
     }).catch(err => console.error(err))
 }
+
+//Signup User
+export const userSignup = (payload) => {
+    return axios({
+        method: "POST",
+        url: `https://localhost:44376/api/usercontroller/userregister`,
+        data: payload,
+        withCredentials: true
+    }).catch(err => console.error(err))
+}
+//Login User
+export const userLogin = (payload) => {
+    return axios({
+        method: 'post',
+        url: `https://localhost:44376/api/usercontroller/login`,
+        data: payload,
+        withCredentials: true
+    }).catch(err => console.error(err))
+}
