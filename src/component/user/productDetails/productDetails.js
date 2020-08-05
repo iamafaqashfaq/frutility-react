@@ -37,7 +37,7 @@ const ProductDetails = (props) => {
                     <div className="product-description mb-3">
                         {product.description}
                     </div>
-                    <ProductAddToCart product={product}/>
+                    <ProductAddToCart product={product} />
                     <hr />
                     <div className="row">
                         <div className="col-md-6 col-lg-6">
@@ -67,7 +67,7 @@ const ProductDetails = (props) => {
                     </div>
                 </div>
             </div>
-            <RelatedProducts subCategoryID={product.subCategoryID}/>
+            <RelatedProducts subCategoryID={product.subCategoryID} />
         </div>
     )
 }

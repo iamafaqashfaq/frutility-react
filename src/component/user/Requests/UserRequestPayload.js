@@ -47,3 +47,16 @@ export const userLogin = (payload) => {
         withCredentials: true
     }).catch(err => console.error(err))
 }
+
+//Order an item
+export const postOrder = (payload) => {
+    return axios({
+        method: 'post',
+        url: `https://localhost:44376/api/orders`,
+        data: payload,
+        withCredentials: true,
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        }
+    }).catch(err => console.error(err))
+}
