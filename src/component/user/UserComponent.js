@@ -8,6 +8,7 @@ import SubcategoryProducts from './landingPage/productSection/subcategoryProduct
 import productDetails from './productDetails/productDetails'
 import Login from './Login/login';
 import Signup from './Login/signup';
+import ShoppingCart from './shoppingCart/ShoppingCart';
 
 const UserComponent = () => {
     return (
@@ -34,6 +35,7 @@ const UserComponent = () => {
                     <Route path="/subcategory/products/:id" component={SubcategoryProducts} />
                     <Route path="/login" component={Login}/>
                     <Route path="/signup" component={Signup}/>
+                    <Route path="/cart" component={ShoppingCart}/>
                 </Switch>
             </main>
             <footer>

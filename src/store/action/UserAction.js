@@ -8,3 +8,15 @@ export const USERLOGOUT = () => {
         type: 'USERLOGOUT'
     }
 }
+export const USERORDERCOUNT = (count) => {
+    return {
+        type: 'USERORDERCOUNT',
+        count: count
+    }
+}
+export const USERORDERINCREMENT = (count) => {
+    return {
+        type: 'USERORDERINCREMENT',
+        incrementCount: count
+    }
+}

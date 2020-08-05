@@ -55,6 +55,9 @@
 .site-navbar .nav-cart:hover{
   color: steelblue;
 }
+.site-navbar i sup{
+  font-size: large;
+}
 @keyframes border-gradient{
   0% {border-color: rgb(83, 82, 82);}
   25% {border-color: #1abc9c;}

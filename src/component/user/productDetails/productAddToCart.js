@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { postOrder } from './../Requests/UserRequestPayload';
+import { useDispatch } from 'react-redux';
+import { USERORDERINCREMENT } from './../../../store/action/UserAction';
 
 const ProductAddToCart = (props) => {
+    const dispatch = useDispatch()
     const [count, setCount] = useState(0)
     const handleDecrement = async () => {
-        if(count > 0){
-            setCount(count - 1)
+        if (count > 0) {
+            await setCount(count - 1)
         }
     }
-    const handleIncrement = () => {
-        setCount(count + 1)
+    const handleIncrement = async () => {
+        await setCount(count + 1)
     }
     const history = useHistory()
     const hanldeAddCart = async () => {
@@ -18,23 +21,22 @@ const ProductAddToCart = (props) => {
             window.alert('Set quantity to add into cart')
         }
         else {
-            if(localStorage.getItem('userToken') === null){
+            if (localStorage.getItem('userToken') === null) {
                 history.push('/login')
             }
-            else{
+            else {
                 const data = {
                     productId: props.product.id,
                     quantity: count
                 }
-                console.log(data)
                 const response = postOrder(data)
                 response.then(res => {
-                    console.log(res)
-                    if(res.data !== false){
+                    if (res.data !== false) {
                         console.log(res.data)
+                        dispatch(USERORDERINCREMENT(count))
                     }
                 })
-            }   
+            }
         }
     }
     return (

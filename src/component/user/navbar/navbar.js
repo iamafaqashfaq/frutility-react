@@ -3,14 +3,19 @@ import { NavLink } from "react-router-dom"
 import Navheader from '../../Navheader/navheader';
 import brandlogo from '../../../assets/frutilitylogoWhite.png'
 import './navbar.css'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import CartIcon from './CartIcon/CartIcon';
+import { USERLOGIN } from './../../../store/action/UserAction';
 
 export default function Navbar() {
+    const dispatch = useDispatch()
     const [togglerClass, setTogglerClass] = useState(['collapse', 'navbar-collapse'])
-    const [loginButton, setLoginButton] = useState(<NavLink to="/login" className="nav-link">
-        <i className="fa fa-user fa-2x"></i>
-    </NavLink>)
-    const redux = useSelector(state => state.userlogin.isLoggedIn)
+    const [loginButton, setLoginButton] = useState(
+        <NavLink to="/login" className="nav-link">
+            <i className="fa fa-user fa-2x"></i>
+        </NavLink>
+    )
+    const IsLoggedIn = useSelector(state => state.userlogin.isLoggedIn)
     const handleToggler = () => {
         if (togglerClass.includes('collapse')) {
             setTogglerClass(['navbar-collapse'])
@@ -25,8 +30,10 @@ export default function Navbar() {
             setLoginButton(<NavLink to="/login" className="nav-link">
                 <i className="fa fa-user fa-2x"></i> <span>{localStorage.getItem('userUserName')}</span>
             </NavLink>)
+            dispatch(USERLOGIN())
         }
-    }, [redux])
+    }, [IsLoggedIn,dispatch])
+    
     return (
         <div>
             <Navheader />
@@ -51,7 +58,7 @@ export default function Navbar() {
                             </button>
                         </form>
                         <i className="fa fa-heart fa-2x nav-wishlist nav-link"></i>
-                        <i className="fa fa-shopping-cart nav-cart fa-2x nav-link"></i>
+                        <CartIcon/>
                         {loginButton}
                     </div>
                 </div>

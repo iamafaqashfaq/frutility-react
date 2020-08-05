@@ -25,7 +25,7 @@ export const getMinProducts = () => {
 export const getProductById = (payload) => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/products/productminbyid/`+payload,
+        url: `https://localhost:44376/api/products/productminbyid/` + payload,
     }).catch(err => console.error(err))
 }
 
@@ -56,6 +56,37 @@ export const postOrder = (payload) => {
         data: payload,
         withCredentials: true,
         headers: {
+            'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        }
+    }).catch(err => console.error(err))
+}
+//Get Order Count of User
+export const getUserOrderCount = () => {
+    return axios({
+        method: 'get',
+        url: `https://localhost:44376/api/orders/userordercount`,
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        }
+    })
+}
+//Get Order Items In Shopping Cart
+export const getShoppingCartItems = () => {
+    return axios({
+        method: 'get',
+        url: `https://localhost:44376/api/orders/shoppingcart`,
+        withCredentials: true,
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        }
+    }).catch(err => console.error(err))
+}
+//Delete an order from shopping cart
+export const removeShoppingCartItem = (payload) => {
+    return axios({
+        method: 'delete',
+        url: `https://localhost:44376/api/orders/${payload}`,
+        headers:{
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
         }
     }).catch(err => console.error(err))
