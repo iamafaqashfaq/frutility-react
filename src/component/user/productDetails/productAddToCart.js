@@ -3,9 +3,11 @@ import { useHistory } from 'react-router-dom';
 import { postOrder } from './../Requests/UserRequestPayload';
 import { useDispatch } from 'react-redux';
 import { USERORDERINCREMENT } from './../../../store/action/UserAction';
+import { useToasts } from 'react-toast-notifications'
 
 const ProductAddToCart = (props) => {
     const dispatch = useDispatch()
+    const { addToast } = useToasts()
     const [count, setCount] = useState(0)
     const handleDecrement = async () => {
         if (count > 0) {
@@ -32,8 +34,11 @@ const ProductAddToCart = (props) => {
                 const response = postOrder(data)
                 response.then(res => {
                     if (res.data !== false) {
-                        console.log(res.data)
                         dispatch(USERORDERINCREMENT(count))
+                        addToast('Added To The Cart', {
+                            appearance: 'success',
+                            autoDismiss: 'true'
+                        })
                     }
                 })
             }

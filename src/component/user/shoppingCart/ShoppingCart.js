@@ -1,41 +1,53 @@
 import React, { useState, useEffect } from 'react'
-import { getShoppingCartItems, removeShoppingCartItem } from './../Requests/UserRequestPayload'
+import { getShoppingCartItems, removeShoppingCartItem, getUserOrderCount } from './../Requests/UserRequestPayload'
 import TotalBill from './totalBill'
 import './shoppingCart.css'
 import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { USERORDERCOUNT } from './../../../store/action/UserAction';
+import { useToasts } from 'react-toast-notifications';
+import PaymentConfirmation from './paymentConfirmation';
 
 const ShoppingCart = () => {
+    const { addToast } = useToasts()
     const [products, setProducts] = useState([])
+    const [modal, setModal] = useState(false)
+    const [bill, setBill] = useState(0)
+    const dispatch = useDispatch()
     useEffect(() => {
         const response = getShoppingCartItems()
         response.then(res => {
             if (res.data !== false) {
-                console.log(res.data)
                 setProducts(res.data)
             }
         })
     }, [])
     const RemoveOrder = (id) => {
-        console.log(id)
         const response = removeShoppingCartItem(id)
         response.then(res => {
-            console.log(res)
-            if(res.data === true){
+            if (res.data === true) {
                 let data = products
-                console.log(products)
-                console.log(data)
                 let removeIndex = data.map(item => {
                     return item.id
                 }).indexOf(id)
-                data.splice(removeIndex,1)
-                console.log(data)
+                data.splice(removeIndex, 1)
                 setProducts(Array(...data))
-                console.log(products)
+                const response = getUserOrderCount()
+                response.then(res => {
+                    if (res.data !== false) {
+                        dispatch(USERORDERCOUNT(res.data))
+                        addToast('Order Removed', {
+                            appearance: 'error',
+                            autoDismiss: true
+                        })
+                    }
+                })
             }
         })
     }
     return (
-        <div>
+        <div className="mb-5">
+            <PaymentConfirmation modal={modal} hide={setModal} product={products} bill={bill}/>
             <h3 className="text-center m-auto rounded-pill p-4 bg-dark text-white w-75">
                 Shopping Cart
             </h3>
@@ -57,9 +69,11 @@ const ShoppingCart = () => {
                                     return (
                                         <tr key={product.id}>
                                             <td className="product-name">
-                                                <img src={"data:image/jpeg;base64," + product.imageBytes}
-                                                    alt="productimage" width="150px" className="img-thumbnail" />
-                                                <h5>{product.products.name}</h5>
+                                                <NavLink to={"/product/"+product.products.id+"/details"}>
+                                                    <img src={"data:image/jpeg;base64," + product.imageBytes}
+                                                        alt="productimage" width="150px" className="img-thumbnail" />
+                                                    <h5>{product.products.name}</h5>
+                                                </NavLink>
                                             </td>
                                             <td className="product-price">
                                                 {product.products.price}
@@ -70,7 +84,11 @@ const ShoppingCart = () => {
                                             <td className="product-total-price">
                                                 {product.quantity * product.products.price}
                                             </td>
-                                            <td><i className="btn fa fa-times fa-2x" onClick={() => RemoveOrder(product.id)}></i></td>
+                                            <td>
+                                                <i className="btn fa fa-times fa-2x"
+                                                    onClick={() => RemoveOrder(product.id)}>
+                                                </i>
+                                            </td>
                                         </tr>
                                     )
                                 })
@@ -78,10 +96,22 @@ const ShoppingCart = () => {
                         </tbody>
                     </table>
                 </div>
-                <TotalBill products={products}/>
-                <NavLink to="/" className="w-100 ml-auto">
-                    <button className="btn btn-outline-secondary d-inline-block">Continue Shopping</button>
-                </NavLink>
+                <div className="row justify-content-between mt-4">
+                    <div className="col-md-7 col-lg-7">
+                        
+                        {products.length !== 0 ?
+                        (
+                            <TotalBill products={products} modal={setModal} sendBill={setBill}/>
+                        ) : null}
+                    </div>
+                    <div className="col-md-3 col-lg-3">
+                        <NavLink to="/">
+                            <button className="btn btn-outline-secondary d-inline-block font-weight-bold">
+                                Continue Shopping
+                            </button>
+                        </NavLink>
+                    </div>
+                </div>
             </div>
         </div>
     )

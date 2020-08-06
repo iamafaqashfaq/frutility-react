@@ -91,3 +91,14 @@ export const removeShoppingCartItem = (payload) => {
         }
     }).catch(err => console.error(err))
 }
+
+//Checkout Orders 
+export const checkoutOrder = () => {
+    return axios({
+        method: 'put',
+        url: `https://localhost:44376/api/orders/`,
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        }
+    }).catch(err => console.error(err))
+}

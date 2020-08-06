@@ -96,7 +96,7 @@ export default class Pendingorderdetail extends Component {
                     <td>{order.amount}</td>
                     <td>{order.orderDate}</td>
                     <td>{order.paymentMethod}</td>
-                    <td><i className="fa fa-clock-o fa-lg"></i> {order.orderStatus}</td>
+                    <td><i className="fa fa-clock-o"></i> {order.orderStatus}</td>
                     <td><i onClick={() => this.showModal(order)} className="fa fa-pencil-square-o fa-lg btn"></i></td>
                 </tr>
             )

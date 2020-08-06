@@ -8,13 +8,16 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.min.css'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import UserComponent from './component/user/UserComponent';
+import { ToastProvider } from 'react-toast-notifications';
 
 function App() {
   let adminroute = <Route path="/admin" component={Admin}></Route>
 
   return (
     <Router>
-      {window.location.pathname.indexOf('/admin') === 0 ? adminroute : <UserComponent/>}
+      <ToastProvider placement='bottom-right'>
+        {window.location.pathname.indexOf('/admin') === 0 ? adminroute : <UserComponent />}
+      </ToastProvider>
     </Router>
   )
 }

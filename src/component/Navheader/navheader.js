@@ -1,6 +1,7 @@
 import React from 'react'
 import './navheader.css'
 import lang from '../../assets/language.png'
+import { NavLink } from 'react-router-dom';
 
 const Navheader = () => {
     return (
@@ -28,7 +29,7 @@ const Navheader = () => {
                                 <li className="dividerRight"></li>
                                 <li className="flagimage"><img src={lang} alt="Language" />&nbsp; English</li>
                                 <li className="dividerRight"></li>
-                                <li><i className="fa fa-user"></i>&nbsp; Signup</li>
+                                <NavLink to="/signup"><li><i className="fa fa-users"></i>&nbsp; Signup</li></NavLink>
                             </ul>
                         </div>
                     </div>
