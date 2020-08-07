@@ -16,16 +16,16 @@ export const getSubcategories = () => {
     }).catch(err => console.error(err))
 }
 //Get Products with Single Image
-export const getMinProducts = () => {
+export const getProducts = () => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/products/productmin`,
+        url: `https://localhost:44376/api/products`,
     }).catch(err => console.error(err))
 }
 export const getProductById = (payload) => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/products/productminbyid/` + payload,
+        url: `https://localhost:44376/api/products/productbyid/` + payload,
     }).catch(err => console.error(err))
 }
 

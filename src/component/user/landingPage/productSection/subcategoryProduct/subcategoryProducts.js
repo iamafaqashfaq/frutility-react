@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getMinProducts } from './../../../Requests/UserRequestPayload';
+import { getProducts } from './../../../Requests/UserRequestPayload';
 import Auxillary from '../../../../hoc/auxillary';
 import { NavLink } from 'react-router-dom';
 import Sidebar from './../../sidebar/sidebar';
@@ -8,12 +8,12 @@ import './subcategoryProduct.css'
 const SubcategoryProducts = (props) => {
     const [products, setProducts] = useState([])
     useEffect(() => {
-        const response = getMinProducts()
+        const response = getProducts()
         response.then(res => {
             if (res) {
                 const newList = Array(...res.data).filter(item => {
                     const lc = item.subCategoryID
-                    return String(lc).includes(props.match.params.id)
+                    return Boolean(String(lc) === (props.match.params.id))
                 })
                 console.log(newList)
                 setProducts(newList)

@@ -1,5 +1,6 @@
 const initialState = {
     isLoggedIn: false,
+    StatusChanged: 0
 }
 const AdminLoginReducer = (state = initialState, action) => {
     switch(action.type){
@@ -12,6 +13,11 @@ const AdminLoginReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: false
+            }
+        case 'ORDERSTATUSCHANGED':
+            return {
+                ...state,
+                StatusChanged: state.StatusChanged + 1
             }
         default:
             return state

@@ -32,7 +32,7 @@ export default function Sidebar() {
                                 <i className="fa fa-users"></i>  Customers
                             </NavLink>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <NavLink to="/admin/reports" className="nav-link">
                                 <i className="fa fa-area-chart"></i> Reports
                             </NavLink>
@@ -41,37 +41,7 @@ export default function Sidebar() {
                             <NavLink to="/admin/integration" className="nav-link" href="#">
                                 <i className="fa fa-microchip"></i>  Integrations
                             </NavLink>
-                        </li>
-                    </ul>
-
-                    <h6 className="sidebar-heading d-flex justify-content-between 
-                    align-items-center px-3 mt-4 mb-1 text-muted">
-                        <span>Saved reports</span>
-                        <a className="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
-                            <i className="fa fa-plus-circle fa-lg"></i>
-                        </a>
-                    </h6>
-                    <ul className="nav flex-column mb-2">
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">
-                            <i className="fa fa-file-pdf-o"></i>  Current month
-                        </a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">
-                            <i className="fa fa-file-pdf-o"></i>  Last quarter
-                        </a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">
-                            <i className="fa fa-file-pdf-o"></i>  Social engagement
-                         </a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">
-                            <i className="fa fa-file-pdf-o"></i>  Year-end sale
-                        </a>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </nav>

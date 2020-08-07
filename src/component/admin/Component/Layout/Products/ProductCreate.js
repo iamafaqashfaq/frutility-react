@@ -42,8 +42,6 @@ class ProductCreate extends Component {
         formdata.append("Price", parseFloat(this.state.createdata.price))
         formdata.append("PriceBeforeDiscount", parseFloat(this.state.createdata.beforeDiscount))
         formdata.append("Image1", this.state.createdata.image1)
-        formdata.append("Image2", this.state.createdata.image2)
-        formdata.append("Image3", this.state.createdata.image3)
         formdata.append('ShippingCharges', parseFloat(this.state.createdata.shipping))
         formdata.append('Availability', this.state.createdata.availability)
         formdata.append('Stock', parseInt(this.state.createdata.stock))

@@ -50,8 +50,6 @@ const ProductCreateModal = (props) => {
             price: 0,
             beforeDiscount: 0,
             image1: null,
-            image2: null,
-            image3: null,
             shipping: 0,
             availability: false,
             stock: 0,
@@ -221,12 +219,6 @@ const ProductCreateModal = (props) => {
                                 <input type="file" className="form-control-file mb-1"
                                     onChange={(e) => handleImageSet(e)}
                                     name="image1" />
-                                <input type="file" className="form-control-file mb-1"
-                                    onChange={(e) => handleImageSet(e)}
-                                    name="image2" />
-                                <input type="file" className="form-control-file mb-1"
-                                    onChange={(e) => handleImageSet(e)}
-                                    name="image3" />
                             </div>
                             <div className="col-sm-6 col-md-6">
                                 <div className="form-group">

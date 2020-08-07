@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Auxillary from './../../../../hoc/auxillary';
-import { getMinProducts } from './../../../Requests/UserRequestPayload';
+import { getProducts } from './../../../Requests/UserRequestPayload';
 import { NavLink } from 'react-router-dom';
 
 
@@ -8,7 +8,7 @@ const Featuredproducts = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        const response = getMinProducts()
+        const response = getProducts()
         response.then(res => {
             if (res) {
                 setProducts(res.data)

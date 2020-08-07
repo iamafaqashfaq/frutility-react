@@ -73,16 +73,12 @@ const ProductUpdateModal = (props) => {
             price: 0,
             beforeDiscount: 0,
             image1: null,
-            image2: null,
-            image3: null,
             shipping: 0,
             availability: false,
             stock: null,
             weight: 0,
             subcategoryId: 1,
-            imageNo1: false,
-            imageNo2: false,
-            imageNo3: false
+            imageNo1: false
         }
     })
 
@@ -129,26 +125,6 @@ const ProductUpdateModal = (props) => {
                         ...state.createdata,
                         [name]: file,
                         imageNo1: true
-                    }
-                })
-                break
-            case 'image2':
-                setState({
-                    ...state,
-                    createdata: {
-                        ...state.createdata,
-                        [name]: file,
-                        imageNo2: true
-                    }
-                })
-                break
-            case 'image3':
-                setState({
-                    ...state,
-                    createdata: {
-                        ...state.createdata,
-                        [name]: file,
-                        imageNo3: true
                     }
                 })
                 break
@@ -305,17 +281,6 @@ const ProductUpdateModal = (props) => {
                                 <input type="file" className="form-control-file mb-1"
                                     onChange={(e) => handleImageChange(e)}
                                     name="image1" />
-                            </div>
-
-                            <div className="col-4 col-sm-4 col-md-4">
-                                <input type="file" className="form-control-file mb-1"
-                                    onChange={(e) => handleImageChange(e)}
-                                    name="image2" />
-                            </div>
-                            <div className="col-4 col-sm-4 col-md-4">
-                                <input type="file" className="form-control-file mb-1"
-                                    onChange={(e) => handleImageChange(e)}
-                                    name="image3" />
                             </div>
                         </div>
                         <div className="form-group col-sm-6 col-md-6 mt-3">

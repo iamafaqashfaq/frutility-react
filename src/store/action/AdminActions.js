@@ -8,3 +8,8 @@ export const ADMINLOGOUT = () => {
         type: 'ADMINLOGOUT'
     }
 }
+export const ORDERSTATUSCHANGED = () => {
+    return {
+        type: 'ORDERSTATUSCHANGED'
+    }
+}

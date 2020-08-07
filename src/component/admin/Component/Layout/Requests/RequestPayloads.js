@@ -15,6 +15,7 @@ export const createCategory = (payload) => {
     }).catch(err => console.error(err))
 }
 
+//Get Category List
 export const getCategory = () => {
     return axios({
         method: 'get',
@@ -22,6 +23,7 @@ export const getCategory = () => {
     })
 }
 
+//Update Category
 export const updateCategory = (payload) => {
     return axios({
         method: 'put',
@@ -37,6 +39,7 @@ export const updateCategory = (payload) => {
     }).catch(err => console.error(err))
 }
 
+//Delete a category
 export const deleteCategory = (payload) => {
     return axios({
         method: 'delete',
@@ -62,6 +65,7 @@ export const createSubcategory = (payload) => {
     }).catch(err => console.error(err))
 }
 
+//Get subcategory list
 export const getSubcategory = () => {
     return axios({
         method: 'get',
@@ -73,6 +77,7 @@ export const getSubcategory = () => {
     })
 }
 
+//Update a subcategory
 export const updateSubcategory = (payload) => {
     return axios({
         method: 'put',
@@ -88,6 +93,7 @@ export const updateSubcategory = (payload) => {
     }).catch(err => console.error(err))
 }
 
+//Delete a subcategory
 export const deleteSubcategory = (payload) => {
     return axios({
         method: 'delete',
@@ -131,25 +137,10 @@ export const getProducts = (signal) => {
 export const getProductMinById = (payload) => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/products/productmin/${payload}`
+        url: `https://localhost:44376/api/products/productbyid/${payload}`
     }).catch(err => console.error(err))
 }
 
-//Product Controller Get Request Single Image
-export const getProductMin = (signal) => {
-    try {
-        return axios({
-            method: 'get',
-            url: `https://localhost:44376/api/products/productmin`,
-            cancelToken: signal.token
-        }).catch(err => console.error(err))
-    }
-    catch (error) {
-        if (axios.isCancel(error)) {
-            console.log(error)
-        }
-    }
-}
 //Product controller Update request
 export const updateProduct = (payload, id) => {
     return axios({
@@ -182,5 +173,17 @@ export const getCustomersList = () => {
             'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
         },
         withCredentials: true
+    }).catch(err => console.error(err))
+}
+
+//Change Order Status
+export const updateOrderStatus = (payload) => {
+    return axios({
+        method: 'put',
+        url: 'https://localhost:44376/api/orders/orderstatus',
+        data: payload,
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
+        }
     }).catch(err => console.error(err))
 }
