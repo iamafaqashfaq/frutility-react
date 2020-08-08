@@ -6,6 +6,7 @@ import './navbar.css'
 import { useSelector, useDispatch } from 'react-redux';
 import CartIcon from './CartIcon/CartIcon';
 import { USERLOGIN, USERLOGOUT } from './../../../store/action/UserAction';
+import { signout } from '../Requests/UserRequestPayload';
 
 export default function Navbar() {
     const dispatch = useDispatch()
@@ -53,16 +54,21 @@ export default function Navbar() {
 
 
     const handleSignout = () => {
-        localStorage.removeItem('userUserName')
-        localStorage.removeItem('userToken')
-        dispatch(USERLOGOUT())
+        const response = signout()
+        response.then(res => {
+            if (res.data) {
+                localStorage.removeItem('userUserName')
+                localStorage.removeItem('userToken')
+                dispatch(USERLOGOUT())
+            }
+        })
     }
     return (
         <div>
             <Navheader />
             <nav className="site-navbar navbar-expand-md mb-3">
                 <div className="container d-flex flex-column flex-wrap flex-md-row align-content-center">
-                    <NavLink to="/">
+                    <NavLink to="/" activeClassName="active">
                         <img src={brandlogo} alt="Frutility" width="100px" />
                     </NavLink>
                     <button className="navbar-toggler" data-toggle="collapse"
@@ -80,7 +86,9 @@ export default function Navbar() {
                                 <i className="fa fa-search"></i>
                             </button>
                         </form>
-                        <i className="fa fa-heart fa-2x nav-wishlist nav-link"></i>
+                        <NavLink to="/wishlist">
+                            <i className="fa fa-heart fa-2x nav-wishlist nav-link"></i>
+                        </NavLink>
                         <CartIcon />
                         {loginButton}
                         {signoutButton}

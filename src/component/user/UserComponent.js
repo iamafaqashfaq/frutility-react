@@ -9,6 +9,7 @@ import productDetails from './productDetails/productDetails'
 import Login from './Login/login';
 import Signup from './Login/signup';
 import ShoppingCart from './shoppingCart/ShoppingCart';
+import Account from './Account/Account';
 
 const UserComponent = () => {
     return (
@@ -36,6 +37,7 @@ const UserComponent = () => {
                     <Route path="/login" component={Login}/>
                     <Route path="/signup" component={Signup}/>
                     <Route path="/cart" component={ShoppingCart}/>
+                    <Route path="/account" component={Account}/>
                 </Switch>
             </main>
             <footer>

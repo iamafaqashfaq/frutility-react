@@ -113,3 +113,24 @@ export const signout = () => {
         }
    }).catch(err => console.error(err))
 }
+
+export const getUser = () => {
+    return axios({
+        method: 'get',
+        url: `https://localhost:44376/api/usercontroller/getmydata`,
+        withCredentials: true,
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        }
+    }).catch(err => console.error(err))
+}
+export const changePassword = (payload) => {
+    return axios({
+        method: 'put',
+        url: `https://localhost:44376/api/usercontroller/changepassword`,
+        data: payload,
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        }
+    })
+}

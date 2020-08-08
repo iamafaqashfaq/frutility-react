@@ -16,8 +16,8 @@ const CartIcon = () => {
         })
     }, [cartcount, dispatch])
     return (
-        <NavLink to="/cart">
-            <i className="fa fa-shopping-cart nav-cart fa-2x nav-link">
+        <NavLink to="/cart" className="nav-link nav-cart">
+            <i className="fa fa-shopping-cart fa-2x">
                 {
                     cartcount !== 0 ? (
                         <sup>

@@ -43,14 +43,8 @@
 .site-navbar .navbar-toggler{
   color: white;
 }
-.site-navbar .nav-wishlist{
-  color: #999;
-}
 .site-navbar .nav-wishlist:hover{
   color: red;
-}
-.site-navbar .nav-cart{
-  color: #999;
 }
 .site-navbar .nav-cart:hover{
   color: steelblue;
