@@ -15,7 +15,9 @@ const ProductAddToCart = (props) => {
         }
     }
     const handleIncrement = async () => {
-        await setCount(count + 1)
+        if (count < props.product.stock) {
+            await setCount(count + 1)
+        }
     }
     const history = useHistory()
     const hanldeAddCart = async () => {

@@ -50,7 +50,7 @@ const ProductDetails = (props) => {
                             <p>Availability</p>
                         </div>
                         <div className="col-md-6 col-lg-6">
-                            {product.availability ? <p>In Stock</p> : <p>Out of Stock</p>}
+                            {product.availability ? <p>In Stock ({product.stock} pieces)</p> : <p>Out of Stock</p>}
                         </div>
                         <div className="col-md-6 col-lg-6">
                             <p>Shipping</p>
