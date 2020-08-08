@@ -165,9 +165,9 @@ const Signup = () => {
                             <div className="col-md-6 col-lg-6">
                                 <div className="custom-control custom-checkbox">
                                     <input type="checkbox" className="custom-control-input"
-                                        id="customCheck2" onChange={(e) => handleBillingCheck(e)} />
+                                        id="customCheck1" onChange={(e) => handleBillingCheck(e)} />
                                     <label className="custom-control-label"
-                                        htmlFor="customCheck2">Same as Shipping</label>
+                                        htmlFor="customCheck1">Same as Shipping</label>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="bAddress">Billing Address</label>
@@ -221,12 +221,6 @@ const Signup = () => {
                                     <span className={validate.cpassword.join(' ')}>Password Not Matched</span>
                                 </div>
                             </div>
-                        </div>
-                        <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input"
-                                id="customCheck1" />
-                            <label className="custom-control-label"
-                                htmlFor="customCheck1">Remember Me</label>
                         </div>
                         <div className="form-group mt-3">
                             <button className="btn btn-block btn-outline-dark" type="submit" onClick={(e) => handleSubmit(e)}>

@@ -51,7 +51,7 @@ const ShoppingCart = () => {
             <h3 className="text-center m-auto rounded-pill p-4 bg-dark text-white w-75">
                 Shopping Cart
             </h3>
-            <div className="container shopping-cart mt-4">
+            <div className="container shopping-cart mt-4 animate__animated animate__backInLeft">
                 <div>
                     <table>
                         <thead>

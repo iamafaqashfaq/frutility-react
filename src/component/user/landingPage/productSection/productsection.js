@@ -10,7 +10,7 @@ export default function productsection() {
             <Jumbotron />
             <TopSellingProducts />
             <hr />
-            <h4 className="text-center">Featured Products</h4>
+            <h4 className="text-center tracking-in-expand">Featured Products</h4>
             <div className="row justify-content-center">
                 <FeaturedProducts />
             </div>

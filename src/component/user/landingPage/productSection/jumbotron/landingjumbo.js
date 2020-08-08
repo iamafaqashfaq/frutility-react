@@ -3,7 +3,7 @@ import React from 'react'
 const landingjumbo = () => {
     return (
         <div className="jumbotron product-highlight 
-                animate__animated animate__fadeInDown 
+                animate__animated animate__backInRight 
                 d-none d-sm-none d-md-block">
             <div className="display-3 mb-4 
                     tracking-in-contract-bck">

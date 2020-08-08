@@ -76,12 +76,6 @@ const Login = () => {
                                 onBlur={(e)=>handleInputBlur(e)} />
                             <span className={validate.Password.join(' ')}>Field Empty</span>
                         </div>
-                        <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input"
-                                id="customCheck1" />
-                            <label className="custom-control-label"
-                                htmlFor="customCheck1">Remember Me</label>
-                        </div>
                         <div className="form-group mt-3">
                             <button className="btn btn-block btn-outline-dark" type="submit"
                             onClick={(e)=>handleFormSubmit(e)}>Login</button>

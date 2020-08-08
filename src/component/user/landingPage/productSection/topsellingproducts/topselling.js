@@ -26,7 +26,7 @@ const Topselling = () => {
                         return (
 
                             <div className="col-md-2 col-lg-2 animate__animated
-                                    animate__fadeInDown products-container" key={product.id}>
+                                animate__backInRight products-container" key={product.id}>
                                 <NavLink to={"/product/" + product.id + "/details"}>
                                     <div className="product-img-div hvr-shrink">
                                         <img src={'data:image/jpeg;base64,' + product.imageBytes}

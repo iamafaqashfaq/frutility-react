@@ -132,5 +132,15 @@ export const changePassword = (payload) => {
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
         }
-    })
+    }).catch(err => console.error(err))
+}
+export const changeAddress = (payload) => {
+    return axios({
+        method: 'put',
+        url: `https://localhost:44376/api/usercontroller/changeaddress`,
+        data: payload,
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        }
+    }).catch(err => console.error(err))
 }
