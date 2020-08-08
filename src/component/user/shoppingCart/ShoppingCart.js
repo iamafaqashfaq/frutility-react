@@ -15,12 +15,14 @@ const ShoppingCart = () => {
     const [bill, setBill] = useState(0)
     const dispatch = useDispatch()
     useEffect(() => {
-        const response = getShoppingCartItems()
-        response.then(res => {
-            if (res.data !== false) {
-                setProducts(res.data)
-            }
-        })
+        if (localStorage.getItem("userToken")) {
+            const response = getShoppingCartItems()
+            response.then(res => {
+                if (res.data !== false) {
+                    setProducts(res.data)
+                }
+            })
+        }
     }, [])
     const RemoveOrder = (id) => {
         const response = removeShoppingCartItem(id)
@@ -47,7 +49,7 @@ const ShoppingCart = () => {
     }
     return (
         <div className="mb-5">
-            <PaymentConfirmation modal={modal} hide={setModal} product={products} bill={bill}/>
+            <PaymentConfirmation modal={modal} hide={setModal} product={products} bill={bill} />
             <h3 className="text-center m-auto rounded-pill p-4 bg-dark text-white w-75">
                 Shopping Cart
             </h3>
@@ -69,7 +71,7 @@ const ShoppingCart = () => {
                                     return (
                                         <tr key={product.id}>
                                             <td className="product-name">
-                                                <NavLink to={"/product/"+product.products.id+"/details"}>
+                                                <NavLink to={"/product/" + product.products.id + "/details"}>
                                                     <img src={"data:image/jpeg;base64," + product.imageBytes}
                                                         alt="productimage" width="150px" className="img-thumbnail" />
                                                     <h5>{product.products.name}</h5>
@@ -98,11 +100,11 @@ const ShoppingCart = () => {
                 </div>
                 <div className="row justify-content-between mt-4">
                     <div className="col-md-7 col-lg-7">
-                        
+
                         {products.length !== 0 ?
-                        (
-                            <TotalBill products={products} modal={setModal} sendBill={setBill}/>
-                        ) : null}
+                            (
+                                <TotalBill products={products} modal={setModal} sendBill={setBill} />
+                            ) : null}
                     </div>
                     <div className="col-md-3 col-lg-3">
                         <NavLink to="/">

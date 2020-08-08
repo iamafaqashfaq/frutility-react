@@ -10,6 +10,8 @@ import Login from './Login/login';
 import Signup from './Login/signup';
 import ShoppingCart from './shoppingCart/ShoppingCart';
 import Account from './Account/Account';
+import Wishlist from './Wishlist/Wishlist';
+import SearchProducts from './SearchProducts/SearchProducts';
 
 const UserComponent = () => {
     return (
@@ -38,6 +40,8 @@ const UserComponent = () => {
                     <Route path="/signup" component={Signup}/>
                     <Route path="/cart" component={ShoppingCart}/>
                     <Route path="/account" component={Account}/>
+                    <Route path="/wishlist" component={Wishlist}/>
+                    <Route path="/search/:name" component={SearchProducts}/>
                 </Switch>
             </main>
             <footer>

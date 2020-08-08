@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { NavLink } from "react-router-dom"
+import React, { useState, useEffect, useRef } from 'react'
+import { NavLink, useHistory } from "react-router-dom"
 import Navheader from '../../Navheader/navheader';
 import brandlogo from '../../../assets/frutilitylogoWhite.png'
 import './navbar.css'
@@ -10,6 +10,8 @@ import { signout } from '../Requests/UserRequestPayload';
 
 export default function Navbar() {
     const dispatch = useDispatch()
+    const history = useHistory()
+    const searchInput = useRef()
     const [togglerClass, setTogglerClass] = useState(['collapse', 'navbar-collapse'])
     const [loginButton, setLoginButton] = useState(
         <NavLink to="/login" className="nav-link">
@@ -63,6 +65,15 @@ export default function Navbar() {
             }
         })
     }
+    const handleSearch = (e) => {
+        e.preventDefault()
+        if (searchInput.current.value === "") {
+            history.push('/')
+        }
+        else {
+            history.push(`/search/${searchInput.current.value}`)
+        }
+    }
     return (
         <div>
             <Navheader />
@@ -79,10 +90,9 @@ export default function Navbar() {
                         <i className="fa fa-caret-down fa-lg"></i>
                     </button>
                     <div className={togglerClass.join(' ')} id="navbarSupportedContent">
-                        <NavLink to="/freshitems" className="nav-link">Fresh Stock</NavLink>
                         <form className="form-inline col-auto">
-                            <input type="text" className="nav-search" placeholder="Search" />
-                            <button className="btn search-btn">
+                            <input type="text" className="nav-search" placeholder="Search by Product Name" ref={searchInput} />
+                            <button className="btn search-btn" onClick={(e) => handleSearch(e)}>
                                 <i className="fa fa-search"></i>
                             </button>
                         </form>

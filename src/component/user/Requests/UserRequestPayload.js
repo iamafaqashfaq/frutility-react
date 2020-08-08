@@ -113,7 +113,7 @@ export const signout = () => {
         }
    }).catch(err => console.error(err))
 }
-
+//Get User Details
 export const getUser = () => {
     return axios({
         method: 'get',
@@ -124,6 +124,7 @@ export const getUser = () => {
         }
     }).catch(err => console.error(err))
 }
+//Change User Password
 export const changePassword = (payload) => {
     return axios({
         method: 'put',
@@ -134,6 +135,7 @@ export const changePassword = (payload) => {
         }
     }).catch(err => console.error(err))
 }
+//Change User Address
 export const changeAddress = (payload) => {
     return axios({
         method: 'put',
@@ -143,4 +145,37 @@ export const changeAddress = (payload) => {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
         }
     }).catch(err => console.error(err))
+}
+//Get Wishlist
+export const getWishlist = () => {
+    return axios({
+        method: 'get',
+        url: `https://localhost:44376/api/wishlist`,
+        withCredentials: true,
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        }
+    }).catch(err => console.log(err))
+}
+//Add product To Wishlist
+export const addToWishlist = (payload) => {
+    return axios({
+        method: 'post',
+        url: `https://localhost:44376/api/wishlist`,
+        data: payload,
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        }
+    }).catch(err => console.log(err))
+}
+//Delete product from wishlist
+export const deleteFromWishlist = (payload) => {
+    return axios({
+        method: 'delete',
+        url: `https://localhost:44376/api/wishlist`,
+        data: payload,
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        }
+    }).catch(err => console.log(err))
 }

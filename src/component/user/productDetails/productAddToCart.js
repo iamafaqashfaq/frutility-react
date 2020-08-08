@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
-import { postOrder } from './../Requests/UserRequestPayload';
+import { postOrder, addToWishlist } from './../Requests/UserRequestPayload';
 import { useDispatch } from 'react-redux';
 import { USERORDERINCREMENT } from './../../../store/action/UserAction';
 import { useToasts } from 'react-toast-notifications'
@@ -46,6 +46,30 @@ const ProductAddToCart = (props) => {
             }
         }
     }
+    const submitToWishlist = () => {
+        const data = {
+            productId: props.product.id
+        }
+        if (localStorage.getItem("userToken")) {
+            const response = addToWishlist(data)
+            response.then(res => {
+                if (res.data) {
+                    addToast("Added to wishlist", {
+                        appearance: 'success',
+                        autoDismiss: true
+                    })
+                }
+                else {
+                    addToast("Could not add to wishlist", {
+                        appearance: 'error',
+                        autoDismiss: false
+                    })
+                }
+            })
+        }else{
+            history.push('/login')
+        }
+    }
     return (
         <div>
             <div className="d-flex">
@@ -55,7 +79,9 @@ const ProductAddToCart = (props) => {
                     <button className="btn increment pr-3 pl-3" onClick={() => handleIncrement()}>+</button>
                 </div>
                 <button className="btn cart-button ml-2" onClick={() => hanldeAddCart()}>Add To Cart</button>
-                <button className="btn ml-2 wishlist-btn"><i className="fa fa-heart fa-1x"></i></button>
+                <button className="btn ml-2 wishlist-btn" onClick={() => submitToWishlist()}>
+                    <i className="fa fa-heart fa-1x"></i>
+                </button>
             </div>
         </div>
     )
