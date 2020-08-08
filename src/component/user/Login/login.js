@@ -35,9 +35,7 @@ const Login = () => {
         if(user.UserName !== '' && user.Password !== ''){
             const response = userLogin(user)
             response.then(res => {
-                console.log(res)
                 if(res.data !== false){
-                    console.log(res.data)
                     localStorage.setItem('userUserName', res.data.userName)
                     localStorage.setItem('userToken',res.data.entoken)
                     dispatch(USERLOGIN())

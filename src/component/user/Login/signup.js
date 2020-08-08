@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { NavLink, useHistory } from 'react-router-dom';
 import { userSignup } from './../Requests/UserRequestPayload';
+import { useDispatch } from 'react-redux';
+import { USERLOGIN } from '../../../store/action/UserAction'
 const Signup = () => {
     const history = useHistory()
+    const dispatch = useDispatch()
     const [user, setUser] = useState(
         {
             fname: '',
@@ -82,6 +85,7 @@ const Signup = () => {
                 if (res.data !== false) {
                     localStorage.setItem('userUserName', res.data.userName)
                     localStorage.setItem('userToken', res.data.entoken)
+                    dispatch(USERLOGIN())
                     history.push("/")
 
                 }

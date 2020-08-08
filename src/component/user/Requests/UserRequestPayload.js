@@ -102,3 +102,14 @@ export const checkoutOrder = () => {
         }
     }).catch(err => console.error(err))
 }
+
+//User Signout
+export const signout = () => {
+    return axios({
+        method: 'post',
+        url: `https://localhost:44376/api/usercontroller/signout`,
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        }
+   }).catch(err => console.error(err))
+}

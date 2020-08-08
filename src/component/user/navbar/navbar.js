@@ -5,7 +5,7 @@ import brandlogo from '../../../assets/frutilitylogoWhite.png'
 import './navbar.css'
 import { useSelector, useDispatch } from 'react-redux';
 import CartIcon from './CartIcon/CartIcon';
-import { USERLOGIN } from './../../../store/action/UserAction';
+import { USERLOGIN, USERLOGOUT } from './../../../store/action/UserAction';
 
 export default function Navbar() {
     const dispatch = useDispatch()
@@ -15,6 +15,7 @@ export default function Navbar() {
             <i className="fa fa-user fa-2x"></i>
         </NavLink>
     )
+    const [signoutButton, setSignoutButton] = useState(null)
     const IsLoggedIn = useSelector(state => state.userlogin.isLoggedIn)
     const handleToggler = () => {
         if (togglerClass.includes('collapse')) {
@@ -27,13 +28,35 @@ export default function Navbar() {
 
     useEffect(() => {
         if (localStorage.getItem('userUserName') !== null) {
-            setLoginButton(<NavLink to="/login" className="nav-link">
-                <i className="fa fa-user fa-2x"></i> <span>{localStorage.getItem('userUserName')}</span>
-            </NavLink>)
+            setLoginButton(
+                <NavLink to="/account" className="nav-link">
+                    <i className="fa fa-user fa-2x"></i> <span>{localStorage.getItem('userUserName')}</span>
+                </NavLink>
+            )
             dispatch(USERLOGIN())
+            setSignoutButton(
+                <NavLink to="/" onClick={() => handleSignout()} className="nav-link sign-out">
+                    <i className="fa fa-sign-out fa-2x"></i> <span>Signout</span>
+                </NavLink>
+            )
         }
-    }, [IsLoggedIn,dispatch])
-    
+        else {
+            setLoginButton(
+                <NavLink to="/login" className="nav-link">
+                    <i className="fa fa-user fa-2x"></i>
+                </NavLink>
+            )
+            setSignoutButton(null)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [IsLoggedIn, dispatch])
+
+
+    const handleSignout = () => {
+        localStorage.removeItem('userUserName')
+        localStorage.removeItem('userToken')
+        dispatch(USERLOGOUT())
+    }
     return (
         <div>
             <Navheader />
@@ -58,8 +81,9 @@ export default function Navbar() {
                             </button>
                         </form>
                         <i className="fa fa-heart fa-2x nav-wishlist nav-link"></i>
-                        <CartIcon/>
+                        <CartIcon />
                         {loginButton}
+                        {signoutButton}
                     </div>
                 </div>
             </nav>

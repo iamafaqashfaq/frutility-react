@@ -1,11 +1,9 @@
 import React from 'react'
 import './dashboardmain.css'
 import Aux from '../../../../hoc/auxillary'
-import TodayOrdersDetails from './CardsDetails/todayorderdetail'
-import PendingOrdersDetails from './CardsDetails/pendingorderdetail'
-import DeliveredOrdersDetails from './CardsDetails/deliveredorderdetail'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import OrderCardLayout from './Cards/orderCardLayout';
+import CardDetailsList from './CardsDetails/cardDetailsList'
 
 export default function Dashboardmain() {
     return (
@@ -50,9 +48,18 @@ export default function Dashboardmain() {
                     </Link>
                 </div>
                 <Switch>
-                    <Route path="/admin/dashboard/todayorders"><TodayOrdersDetails /></Route>
-                    <Route path="/admin/dashboard/pendingorders"><PendingOrdersDetails /></Route>
-                    <Route path="/admin/dashboard/deliveredorders"><DeliveredOrdersDetails /></Route>
+                    <Route path="/admin/dashboard/todayorders">
+                        <CardDetailsList url="todayorders" title="Today Orders"
+                        statusClass="fa fa-clock-o"/>
+                    </Route>
+                    <Route path="/admin/dashboard/pendingorders">
+                        <CardDetailsList url="pendingorders" title="Pending Orders"
+                        statusClass="fa fa-clock-o"/>
+                    </Route>
+                    <Route path="/admin/dashboard/deliveredorders">
+                        <CardDetailsList url="deliveredorders" title="Delivered Orders"
+                        statusClass="fa fa-home"/>
+                    </Route>
                 </Switch>
             </Router>
         </Aux>

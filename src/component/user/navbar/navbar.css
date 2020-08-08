@@ -58,6 +58,13 @@
 .site-navbar i sup{
   font-size: large;
 }
+.site-navbar .sign-out{
+  color: #999;
+}
+.site-navbar .sign-out:hover{
+  color: white;
+}
+
 @keyframes border-gradient{
   0% {border-color: rgb(83, 82, 82);}
   25% {border-color: #1abc9c;}

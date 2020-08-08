@@ -15,7 +15,6 @@ const SubcategoryProducts = (props) => {
                     const lc = item.subCategoryID
                     return Boolean(String(lc) === (props.match.params.id))
                 })
-                console.log(newList)
                 setProducts(newList)
             }
         })

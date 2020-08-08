@@ -6,7 +6,7 @@ import { updateOrderStatus } from './../../Requests/RequestPayloads';
 import { useDispatch } from 'react-redux';
 import { ORDERSTATUSCHANGED } from './../../../../../../store/action/AdminActions';
 
-const Deliveredorderdetail = () => {
+const CardDetailsList = (props) => {
     const dispatch = useDispatch()
     const signal = axios.CancelToken.source()
     const remarks = useRef()
@@ -19,7 +19,7 @@ const Deliveredorderdetail = () => {
         try {
             axios({
                 method: "post",
-                url: 'https://localhost:44376/api/orders/deliveredorders',
+                url: 'https://localhost:44376/api/orders/' + props.url,
                 data: {
                     'entoken': localStorage.getItem('admintoken')
                 },
@@ -42,13 +42,13 @@ const Deliveredorderdetail = () => {
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [props])
     const repost = () => {
         setSpinner(["fa", "fa-refresh", "fa-lg", "fa-fw", "fa-spin"])
         try {
             axios({
                 method: "post",
-                url: 'https://localhost:44376/api/orders/deliveredorders',
+                url: 'https://localhost:44376/api/orders/' + props.url,
                 data: {
                     'entoken': localStorage.getItem('admintoken')
                 },
@@ -101,7 +101,7 @@ const Deliveredorderdetail = () => {
             {/* Actual Body  */}
             <div className="mt-4 ml-4 p-4">
                 <div className="m-auto text-center p-2">
-                    <h5>Delivered Orders&emsp;
+                    <h5>{props.title}&emsp;
                             <span className="text-primary">
                             <i onClick={() => repost()} className={spinner.join(' ')}
                                 aria-hidden="true"></i>
@@ -140,8 +140,8 @@ const Deliveredorderdetail = () => {
                                             <td>{order.quantity}</td>
                                             <td>{order.amount}</td>
                                             <td>{order.orderDate}</td>
-                                            <td>{order.paymentMethod + order}</td>
-                                            <td><i className="fa fa-home"></i> {order.orderStatus}</td>
+                                            <td>{order.paymentMethod}</td>
+                                            <td><i className={props.statusClass}></i> {order.orderStatus}</td>
                                             <td><i onClick={() => showModal(order)}
                                                 className="fa fa-pencil-square-o fa-lg btn"></i></td>
                                         </tr>
@@ -156,4 +156,4 @@ const Deliveredorderdetail = () => {
     )
 }
 
-export default Deliveredorderdetail;
+export default CardDetailsList;
