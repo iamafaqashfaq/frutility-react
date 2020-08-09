@@ -35,11 +35,19 @@ const ProductAddToCart = (props) => {
                 }
                 const response = postOrder(data)
                 response.then(res => {
+                    console.log(res.data)
                     if (res.data !== false) {
                         dispatch(USERORDERINCREMENT(count))
                         addToast('Added To The Cart', {
                             appearance: 'success',
                             autoDismiss: 'true'
+                        })
+                        props.repost()
+                    }
+                    else{
+                        addToast("Product Out Of Stock",{
+                            appearance: 'error',
+                            autoDismiss: true
                         })
                     }
                 })

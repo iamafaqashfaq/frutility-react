@@ -86,7 +86,7 @@ export const removeShoppingCartItem = (payload) => {
     return axios({
         method: 'delete',
         url: `https://localhost:44376/api/orders/${payload}`,
-        headers:{
+        headers: {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
         }
     }).catch(err => console.error(err))
@@ -111,7 +111,7 @@ export const signout = () => {
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
         }
-   }).catch(err => console.error(err))
+    }).catch(err => console.error(err))
 }
 //Get User Details
 export const getUser = () => {
@@ -174,6 +174,35 @@ export const deleteFromWishlist = (payload) => {
         method: 'delete',
         url: `https://localhost:44376/api/wishlist`,
         data: payload,
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        }
+    }).catch(err => console.log(err))
+}
+//Add Product Review
+export const AddProductReview = (payload) => {
+    return axios({
+        method: 'post',
+        url: `https://localhost:44376/api/productreviews`,
+        data: payload,
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        }
+    }).catch(err => console.log(err))
+}
+export const GetProductReviews = (payload) => {
+    return axios({
+        method: 'get',
+        url: `https://localhost:44376/api/productreviews/${payload}`,
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        }
+    }).catch(err => console.log(err))
+}
+export const GetStarRating = (payload) => {
+    return axios({
+        method: 'get',
+        url: `https://localhost:44376/api/productreviews/starrating/${payload}`,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
         }

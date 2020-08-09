@@ -14,7 +14,12 @@ const ProductDetails = (props) => {
             setProduct(res.data)
         })
     }, [props.match.params.id])
-
+    const repost = () => {
+        const response = getProductById(props.match.params.id)
+        response.then(res => {
+            setProduct(res.data)
+        })
+    }
     return (
         <div className="container animate__animated animate__bounceIn">
             <h3 className="text-center bg-dark p-4 m-3 rounded-pill text-white">Product Details</h3>
@@ -25,21 +30,13 @@ const ProductDetails = (props) => {
                 </div>
                 <div className="col-md-6 col-lg-6">
                     <h3 className="text-capitalize">{product.name}</h3>
-                    <div className="product-rating">
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star"></i>
-                        <i className="fa fa-star-half-o"></i>
-                        <span>&nbsp;(188 reviews)</span>
-                    </div>
                     <div className="product-price">
                         {product.price}.00PKR
                     </div>
                     <div className="product-description mb-3">
                         {product.description}
                     </div>
-                    <ProductAddToCart product={product} />
+                    <ProductAddToCart product={product} repost={() => repost()}/>
                     <hr />
                     <div className="row">
                         <div className="col-md-6 col-lg-6">
@@ -92,7 +89,7 @@ const ProductDetails = (props) => {
                 </div>
             </div>
             <Switch>
-                <Route path="/product/:id/details/reviews" component={ProductReview}/>
+                <Route path="/product/:id/details/reviews" component={ProductReview} />
                 <RelatedProducts subCategoryID={product.subCategoryID} id={product.id} />
             </Switch>
         </div>
