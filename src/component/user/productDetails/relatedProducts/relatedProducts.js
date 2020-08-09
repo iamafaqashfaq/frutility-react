@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getProducts } from './../../Requests/UserRequestPayload';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Route } from 'react-router-dom';
 
 const RelatedProducts = (props) => {
     const [products, setProducts] = useState([])
@@ -16,12 +16,12 @@ const RelatedProducts = (props) => {
     }, [props.subCategoryID])
     return (
         <div className="container">
-            <h5 className="text-center bg-dark rounded-pill p-4 text-white">Related Products</h5>
+            <Route path="/product/:id/details/related" exact>
             <div className="row">
-                {products.length === 0 ? <p>Loading...</p> : products.slice(0,3).map(product => {
+                {products.length === 0 ? <p>Loading...</p> : products.slice(0, 3).map(product => {
                     return (
                         <div className="col-md-2 col-lg-2 animate__animated
-                             animate__fadeInDown products-container" key={product.id}>
+                             animate__backInLeft products-container" key={product.id}>
                             <NavLink to={'/product/' + product.id + '/details'}>
                                 <div className="product-img-div hvr-shrink">
                                     <img src={'data:image/jpeg;base64,' + product.imageBytes}
@@ -34,6 +34,7 @@ const RelatedProducts = (props) => {
                     )
                 })}
             </div>
+            </Route>
         </div>
     )
 }

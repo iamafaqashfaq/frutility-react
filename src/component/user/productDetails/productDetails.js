@@ -3,6 +3,8 @@ import { getProductById } from '../Requests/UserRequestPayload'
 import './productDetails.css'
 import RelatedProducts from './relatedProducts/relatedProducts'
 import ProductAddToCart from './productAddToCart'
+import { Switch, NavLink, Route } from 'react-router-dom'
+import { ProductReview } from './ProductReviews/ProductReview'
 
 const ProductDetails = (props) => {
     const [product, setProduct] = useState([])
@@ -67,7 +69,32 @@ const ProductDetails = (props) => {
                     </div>
                 </div>
             </div>
-            <RelatedProducts subCategoryID={product.subCategoryID} />
+            <div className="row justify-content-center">
+                <div className="col-md-10 col-lg-10">
+                    <ul className="nav nav-tabs">
+                        <li className="nav-item mr-3">
+                            <NavLink to={"/product/" + product.id + "/details/related"}
+                                activeClassName="active" className="nav-link">
+                                <h5 className="text-center">
+                                    Related Products
+                            </h5>
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink to={"/product/" + product.id + "/details/reviews"}
+                                className="nav-link">
+                                <h5 className="text-center">
+                                    Product Reviews
+                            </h5>
+                            </NavLink>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <Switch>
+                <Route path="/product/:id/details/reviews" component={ProductReview}/>
+                <RelatedProducts subCategoryID={product.subCategoryID} id={product.id} />
+            </Switch>
         </div>
     )
 }
