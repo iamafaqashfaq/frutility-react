@@ -12,6 +12,7 @@ import ShoppingCart from './shoppingCart/ShoppingCart';
 import Account from './Account/Account';
 import Wishlist from './Wishlist/Wishlist';
 import SearchProducts from './SearchProducts/SearchProducts';
+import ShopNowPage from './Shopnow/ShopNowPage'
 
 const UserComponent = () => {
     return (
@@ -42,6 +43,7 @@ const UserComponent = () => {
                     <Route path="/account" component={Account}/>
                     <Route path="/wishlist" component={Wishlist}/>
                     <Route path="/search/:name" component={SearchProducts}/>
+                    <Route path="/shopnow" component={ShopNowPage}/>
                 </Switch>
             </main>
             <footer>

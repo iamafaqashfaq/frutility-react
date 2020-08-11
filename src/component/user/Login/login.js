@@ -53,7 +53,7 @@ const Login = () => {
     return (
         <div className="m-5 animate__animated animate__backInLeft">
             <div className="container m-auto w-50">
-                <h4 className="bg-dark rounded-pill 
+                <h4 className="primary-color-bg-green rounded-pill 
                 p-3 m-auto align-content-center 
                 text-center text-white w-50">Login</h4>
                 <div className="mt-3">
@@ -77,7 +77,7 @@ const Login = () => {
                             <span className={validate.Password.join(' ')}>Field Empty</span>
                         </div>
                         <div className="form-group mt-3">
-                            <button className="btn btn-block btn-outline-dark" type="submit"
+                            <button className="btn btn-block btn-outline-success" type="submit"
                             onClick={(e)=>handleFormSubmit(e)}>Login</button>
                         </div>
                     </form>

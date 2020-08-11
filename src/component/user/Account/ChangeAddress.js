@@ -126,10 +126,10 @@ const ChangeAddress = (props) => {
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <button className="btn btn-outline-secondary font-weight-bolder" onClick={() => props.hide()}>
+                <button className="btn btn-outline-success font-weight-bolder" onClick={() => props.hide()}>
                     Exit
                 </button>
-                <button className="btn btn-outline-secondary font-weight-bolder" onClick={() => handleSubmit()}>
+                <button className="btn btn-outline-success font-weight-bolder" onClick={() => handleSubmit()}>
                     Update Address
                 </button>
             </Modal.Footer>

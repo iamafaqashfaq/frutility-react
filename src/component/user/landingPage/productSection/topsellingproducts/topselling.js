@@ -22,22 +22,22 @@ const Topselling = () => {
                     Top Selling Products
             </h3>
                 <div className="row justify-content-center">
-                    {products.length === 0 ? (<p>Loading...</p>) : (products.map(product => {
-                        return (
-
-                            <div className="col-md-2 col-lg-2 animate__animated
+                    {products.length === 0 ? (<p>Loading...</p>) :
+                        (products.slice(products.length - 5, products.length).map(product => {
+                            return (
+                                <div className="col-md-2 col-lg-2 animate__animated
                                 animate__backInRight products-container" key={product.id}>
-                                <NavLink to={"/product/" + product.id + "/details"}>
-                                    <div className="product-img-div hvr-shrink">
-                                        <img src={'data:image/jpeg;base64,' + product.imageBytes}
-                                            alt="logo" className="product-picture" />
-                                    </div>
-                                    <p className="product-name">{product.name}</p>
-                                    <p className="product-price"><b>{product.price + '.00PKR'}</b></p>
-                                </NavLink>
-                            </div>
-                        )
-                    }))}
+                                    <NavLink to={"/product/" + product.id + "/details"}>
+                                        <div className="product-img-div hvr-shrink">
+                                            <img src={'data:image/jpeg;base64,' + product.imageBytes}
+                                                alt="logo" className="product-picture" />
+                                        </div>
+                                        <p className="product-name">{product.name}</p>
+                                        <p className="product-price"><b>{product.price + '.00PKR'}</b></p>
+                                    </NavLink>
+                                </div>
+                            )
+                        }))}
                 </div>
             </div >)
     )

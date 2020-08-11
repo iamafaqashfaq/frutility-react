@@ -50,7 +50,7 @@ const ShoppingCart = () => {
     return (
         <div className="mb-5">
             <PaymentConfirmation modal={modal} hide={setModal} product={products} bill={bill} />
-            <h3 className="text-center m-auto rounded-pill p-4 bg-dark text-white w-75">
+            <h3 className="text-center m-auto rounded-pill p-4 primary-color-bg-green text-white w-75">
                 Shopping Cart
             </h3>
             <div className="container shopping-cart mt-4 animate__animated animate__backInLeft">
@@ -108,7 +108,7 @@ const ShoppingCart = () => {
                     </div>
                     <div className="col-md-3 col-lg-3">
                         <NavLink to="/">
-                            <button className="btn btn-outline-secondary d-inline-block font-weight-bold">
+                            <button className="btn btn-outline-success d-inline-block font-weight-bold">
                                 Continue Shopping
                             </button>
                         </NavLink>

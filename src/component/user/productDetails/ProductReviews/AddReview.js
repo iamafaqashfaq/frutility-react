@@ -24,6 +24,8 @@ const AddReview = (props) => {
                         appearance: 'success',
                         autoDismiss: true
                     })
+                    text.current.value = null
+                    props.setStateChange()
                 }
                 else {
                     addToast("Cannot add your feedback", {

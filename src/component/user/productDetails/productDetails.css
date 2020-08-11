@@ -19,23 +19,23 @@
 .product-details .product-counter .decrement {
     color: white;
     font-weight: bolder;
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: rgba(1,85,18);
 }
 
 .product-details .product-counter .increment {
     color: white;
     font-weight: bolder;
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: rgb(1, 85, 18);
 }
 
 .product-details .product-counter .decrement:hover {
-    color: black;
-    background-color: #999;
+    color: white;
+    background-color: #1da1f2;
 }
 
 .product-details .product-counter .increment:hover {
-    color: black;
-    background-color: #999;
+    color: white;
+    background-color: #1da1f2;
 }
 
 .product-details .product-counter .count {
@@ -47,20 +47,20 @@
 .product-details .cart-button {
     color: white;
     font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: rgb(1, 85, 18);
 }
 
 .product-details .cart-button:hover {
-    color: black;
-    background-color: #999;
+    color: white;
+    background-color: #1da1f2;
 }
 
 .product-details .wishlist-btn {
     color: white;
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: rgb(1, 85, 18);
 }
 
 .product-details .wishlist-btn:hover {
     color: red;
-    background-color: #999;
+    background-color: #1da1f2;
 }

@@ -35,27 +35,28 @@ export default function Sidebar(props) {
     }
     return (
         <div id="sidebar">
-            <div className={"sidebar-cat-header"+props.bounce}>
+            <div className={"sidebar-cat-header" + props.bounce}>
                 <h4 className="text-center text-white p-3">Categories</h4>
             </div>
-            <nav className="sidebar-nav">
+            <nav className="sidebar-nav-header">
                 <ul>
-                    <NavLink to="/">
-                    <li className="hvr-grow" onClick={() => showAllCategories()}>
-                        All
-                    </li>
+                    <NavLink to="/" className="nav-link">
+                        <li className="hvr-grow" onClick={() => showAllCategories()}>
+                            All
+                        </li>
                     </NavLink>
+                    <hr/>
                     {categories.length === 0 ? <p>Loading...</p> : categories.map(category => {
                         return (
-                                <li className="hvr-grow" key={category.id}
-                                    onClick={() => handleCategory(category.id)}>
-                                    {category.categoryName}
-                                </li>
+                            <li className="hvr-grow nav-item" key={category.id}
+                                onClick={() => handleCategory(category.id)}>
+                                {category.categoryName}
+                            </li>
                         )
                     })}
                 </ul>
             </nav>
-            <div className={"sidebar-cat-header"+props.bounce}>
+            <div className={"sidebar-cat-header" + props.bounce}>
                 <h4 className="text-center text-white p-3">Subcategories</h4>
             </div>
             <nav className="sidebar-nav">
@@ -64,16 +65,17 @@ export default function Sidebar(props) {
                         <p>Loading...</p> :
                         selectSubcategory.map(subcategory => {
                             return (
-                                <NavLink to={'/subcategory/products/'+subcategory.id} key={subcategory.id}
-                                activeClassName="active">
-                                <li className="hvr-grow">
-                                    {subcategory.subcategoryName}
+
+                                <li className="hvr-grow nav-item">
+                                    <NavLink to={'/subcategory/products/' + subcategory.id} key={subcategory.id}
+                                        activeClassName="active" className="nav-link">
+                                        {subcategory.subcategoryName}
+                                    </NavLink>
                                 </li>
-                                </NavLink>
                             )
                         })}
                 </ul>
             </nav>
-        </div>
+        </div >
     )
 }

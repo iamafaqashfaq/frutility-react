@@ -36,7 +36,7 @@ const Wishlist = () => {
     }
     return (
         <div className="container">
-            <h4 className="bg-dark p-3 text-white text-center rounded-pill">Wishlist</h4>
+            <h4 className="primary-color-bg-green p-3 text-white text-center rounded-pill">Wishlist</h4>
             <div className="row justify-content-center">
                 {
                     (wishlist.length === 0 ? <p className="lead text-center">Wishlist is empty</p> : (

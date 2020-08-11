@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 const landingjumbo = () => {
     return (
@@ -13,10 +14,12 @@ const landingjumbo = () => {
                     mb-3 ml-4 tracking-in-expand">
                 free pickup and delivery available
             </p>
-            <button className="fruity-btn p-2 pl-4 pr-4 
-                    ml-4 mb-5 hvr-grow">
-                Shop Now
-            </button>
+            <NavLink to="/shopnow">
+                <button className="btn btn-outline-success p-2 pl-4 pr-4 
+                    ml-4 mb-5 hvr-bob">
+                    Shop Now
+                </button>
+            </NavLink>
         </div>
     )
 }

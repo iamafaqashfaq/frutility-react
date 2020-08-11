@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { NavLink, useHistory } from "react-router-dom"
 import Navheader from '../../Navheader/navheader';
-import brandlogo from '../../../assets/frutilitylogoWhite.png'
+import brandlogo from '../../../assets/frutilitylogo.png'
 import './navbar.css'
 import { useSelector, useDispatch } from 'react-redux';
 import CartIcon from './CartIcon/CartIcon';
@@ -77,7 +77,7 @@ export default function Navbar() {
     return (
         <div>
             <Navheader />
-            <nav className="site-navbar navbar-expand-md mb-3">
+            <nav className="site-navbar navbar-expand-md mb-3 bg-light">
                 <div className="container d-flex flex-column flex-wrap flex-md-row">
                     <NavLink to="/" activeClassName="active">
                         <img src={brandlogo} alt="Frutility" width="100px" />

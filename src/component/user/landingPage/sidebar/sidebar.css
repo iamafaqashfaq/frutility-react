@@ -1,4 +1,5 @@
 /* Sidebar Component  */
+/* Website green RGB rgb(52,149,69) */
 
 #sidebar {
     /* margin-top: 100px; */
@@ -8,35 +9,68 @@
 
 .sidebar-cat-header h4 {
     padding: 5px;
-    background-color: rgba(0, 0, 0, 0.85);
-    border-radius: 5px;
+    background-color: rgba(52,149,69);
+    border-radius: 20px 20px;
     box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.5);
 }
-
+.sidebar-nav-header ul{
+    list-style: none;
+    padding: 0;
+}
+.sidebar-nav-header ul li{
+    text-decoration: none;
+    color: black;
+    text-transform: capitalize;
+}
+.sidebar-nav-header ul a li{
+    margin: 0px;
+}
+.sidebar-nav-header hr{
+    margin: 0px;
+}
+.sidebar-nav-header ul li {
+    padding: 5px;
+    background-color: white;
+    color: black;
+    font-weight: 700;
+    margin: 10px;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+}
+.sidebar-nav-header ul li:hover {
+    background-color: #aeccdf;
+    border-radius: 20px 20px;
+    color: #1da1f2;
+}
 .sidebar-nav ul {
     list-style: none;
     padding: 0;
 }
-.sidebar-nav ul a{
+.sidebar-nav ul li a{
     text-decoration: none;
     color: black;
     text-transform: capitalize;
 }
 
 .sidebar-nav ul li {
-    padding: 10px;
-    background-color: #cfd0d1;
+    padding: 5px;
+    background-color: white;
     color: black;
     font-weight: 700;
-    border-radius: 5px;
-    box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.5);
     margin: 10px;
     display: block;
     text-align: center;
     cursor: pointer;
 }
 
-.sidebar-nav ul li:hover {
-    background-color: #999;
-    color: white;
+.sidebar-nav ul li a:hover {
+    background-color: #aeccdf;
+    border-radius: 20px 20px;
+    color: #1da1f2;
+}
+.sidebar-nav ul li .active{
+    background-color: #aeccdf;
+    border-radius: 20px 20px;
+    color: #1da1f2;
 }

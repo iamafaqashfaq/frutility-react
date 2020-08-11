@@ -74,10 +74,10 @@ const ChangePassword = (props) => {
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <button className="btn btn-secondary font-weight-bolder mr-2" onClick={()=>props.hide()}>
+                <button className="btn btn-success font-weight-bolder mr-2" onClick={()=>props.hide()}>
                     Exit
                 </button>
-                <button className="btn btn-dark font-weight-bolder" onClick={()=>handleSubmit()}>
+                <button className="btn btn-success font-weight-bolder" onClick={()=>handleSubmit()}>
                     Change Password
                 </button>
             </Modal.Footer>

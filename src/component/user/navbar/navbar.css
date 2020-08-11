@@ -1,24 +1,23 @@
 /* Navbar Component  */
-.site-navbar{
-  background-color: rgba(0, 0, 0, 0.85);
-}
+/* Primary Color #1da1f2 and Secondary #349545 */
 
 .site-navbar a{
-  color: #999;
+  color: #349545;
   font-weight: bold;
   text-transform: uppercase;
 }
 .site-navbar a:hover{
-  color: white;
+  color: #1da1f2;
 }
 .site-navbar .active{
-  color: white;
+  color: #1da1f2;
 }
 .nav-search {
   width: 20vw;
   padding: 5px;
+  background-color: #e6ecf0;
   border-radius: 5px 0px 0px 5px;
-  border: 3px solid rgb(165, 163, 163);
+  border: 3px solid #349545;
   outline: none;
 }
 
@@ -31,32 +30,32 @@
   animation: border-gradient 4s ease-in-out infinite both;
 }
 .search-btn{
-  background-color: #999;
-  border: 2px solid rgb(165, 163, 163);
+  background-color: #349545;
+  border: 2px solid #349545;
   color: white;
   border-radius: 0px 5px 5px 0px;
 }
 .search-btn:hover{
-  color: black;
+  color: #1da1f2;
   background-color: white;
 }
 .site-navbar .navbar-toggler{
-  color: white;
+  color: #1da1f2;
 }
 .site-navbar .nav-wishlist:hover{
   color: red;
 }
 .site-navbar .nav-cart:hover{
-  color: steelblue;
+  color: #1da1f2;
 }
 .site-navbar i sup{
   font-size: large;
 }
 .site-navbar .sign-out{
-  color: #999;
+  color: #349545;
 }
 .site-navbar .sign-out:hover{
-  color: white;
+  color: #1da1f2;
 }
 
 @keyframes border-gradient{

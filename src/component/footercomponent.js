@@ -1,5 +1,5 @@
 import React from 'react'
-import brandlogo from '../assets/FrutilityPortrait.png'
+import brandlogo from '../assets/frutilitylogo.png'
 
 export default function footercomponent() {
     return (

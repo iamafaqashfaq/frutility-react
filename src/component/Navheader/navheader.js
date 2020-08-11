@@ -1,6 +1,5 @@
 import React from 'react'
 import './navheader.css'
-import lang from '../../assets/language.png'
 import { NavLink } from 'react-router-dom';
 
 const Navheader = () => {
@@ -13,7 +12,7 @@ const Navheader = () => {
                             <ul>
                                 <li>
                                     <i className="fa fa-envelope"></i>&nbsp;hello@frutility.com
-                        </li>
+                                </li>
                                 <li className="dividerRight"></li>
                                 <li>Free Shipping for all Order of $99</li>
                             </ul>
@@ -26,8 +25,6 @@ const Navheader = () => {
                                 <li><i className="fa fa-twitter"></i></li>
                                 <li><i className="fa fa-pinterest-p"></i></li>
                                 <li><i className="fa fa-youtube-play"></i></li>
-                                <li className="dividerRight"></li>
-                                <li className="flagimage"><img src={lang} alt="Language" />&nbsp; English</li>
                                 <li className="dividerRight"></li>
                                 <NavLink to="/signup"><li><i className="fa fa-users"></i>&nbsp; Signup</li></NavLink>
                             </ul>

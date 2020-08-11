@@ -22,7 +22,7 @@ const ProductDetails = (props) => {
     }
     return (
         <div className="container animate__animated animate__bounceIn">
-            <h3 className="text-center bg-dark p-4 m-3 rounded-pill text-white">Product Details</h3>
+            <h3 className="text-center primary-color-bg-green p-4 m-3 rounded-pill text-white">Product Details</h3>
             <div className="row product-details">
                 <div className="col-md-5 col-lg-5 offset-md-1 offset-lg-1 align-self-center">
                     <img src={"data:image/jpeg;base64," + product.imageBytes} alt="productimage"

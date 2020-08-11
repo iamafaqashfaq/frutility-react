@@ -29,7 +29,7 @@ const Account = () => {
             <ChangePassword show={showPModal} hide={() => hidePModal()} />
             <ChangeAddress show={showAModal} hide={() => hideAModal()} data={user} />
             <div className="container mb-5">
-                <h4 className="text-center bg-dark rounded-pill p-3 text-white">User Details</h4>
+                <h4 className="text-center primary-color-bg-green rounded-pill p-3 text-white">User Details</h4>
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-md-5 col-lg-5 align-self-center animate__animated animate__backInLeft">
@@ -56,11 +56,11 @@ const Account = () => {
                                 {user.billingAddress + ", " + user.billingCity + ", " + user.billingState}
                             </h5>
                             <br />
-                            <button className="btn btn-outline-dark font-weight-bolder mr-2"
+                            <button className="btn btn-success font-weight-bolder mr-2"
                                 onClick={() => setShowPModal(true)}>
                                 Change Password
                             </button>
-                            <button className="btn btn-outline-dark font-weight-bolder"
+                            <button className="btn btn-success font-weight-bolder"
                                 onClick={() => setShowAModal(true)}>
                                 Change Address
                             </button>
