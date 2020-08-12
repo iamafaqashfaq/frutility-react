@@ -31,10 +31,10 @@ const TotalBill = (props) => {
         props.sendBill(bill)
     }
     return (
-        <div className="p-4 rounded bg-secondary d-inline-block text-white">
+        <div className="p-4 rounded bg-info d-inline-block text-white">
             <h4 className="d-inline-block mr-5">Cart Total</h4>
             <h5 className="d-inline-block ml-5">{bill}.00PKR</h5>
-            <button className="btn btn-block btn-outline-success text-white font-weight-bold" onClick={() => handleModal()}>
+            <button className="btn btn-block btn-success text-white font-weight-bold" onClick={() => handleModal()}>
                 Checkout
             </button>
         </div>
