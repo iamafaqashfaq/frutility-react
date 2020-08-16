@@ -13,6 +13,9 @@ import Account from './Account/Account';
 import Wishlist from './Wishlist/Wishlist';
 import SearchProducts from './SearchProducts/SearchProducts';
 import ShopNowPage from './Shopnow/ShopNowPage'
+import AboutUs from './UsefulLinks/AboutUs';
+import AboutOurShop from './UsefulLinks/AboutOurShop';
+import OurServices from './UsefulLinks/OurServices';
 
 const UserComponent = () => {
     return (
@@ -44,6 +47,9 @@ const UserComponent = () => {
                     <Route path="/wishlist" component={Wishlist}/>
                     <Route path="/search/:name" component={SearchProducts}/>
                     <Route path="/shopnow" component={ShopNowPage}/>
+                    <Route path="/aboutus" component={AboutUs}/>
+                    <Route path="/aboutourshop" component={AboutOurShop}/>
+                    <Route path="/ourservices" component={OurServices}/>
                 </Switch>
             </main>
             <footer>

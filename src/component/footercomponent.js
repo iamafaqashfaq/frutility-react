@@ -1,5 +1,6 @@
 import React from 'react'
 import brandlogo from '../assets/frutilitylogo.png'
+import { NavLink } from 'react-router-dom';
 
 export default function footercomponent() {
     return (
@@ -22,52 +23,24 @@ export default function footercomponent() {
                             <tbody>
                                 <tr>
                                     <td className="p-2">
-                                        <a href="#"
+                                        <NavLink to="/aboutus"
                                             className="text-decoration-none text-dark">
                                             About Us
-                                        </a>
+                                        </NavLink>
                                     </td>
                                     <td className="p-2">
-                                        <a href="#"
-                                            className="text-decoration-none text-dark">
-                                            Who We Are
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="p-2">
-                                        <a href="#"
+                                        <NavLink to="/aboutourshop"
                                             className="text-decoration-none text-dark">
                                             About Our Shop
-                                        </a>
+                                        </NavLink>
                                     </td>
+                                </tr>
+                                <tr>
                                     <td className="p-2">
-                                        <a href="#"
+                                        <NavLink to="/ourservices"
                                             className="text-decoration-none text-dark">
                                             Our Services
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="p-2">
-                                        <a href="#"
-                                            className="text-decoration-none text-dark">
-                                            Delivery Information
-                                        </a>
-                                    </td>
-                                    <td className="p-2">
-                                        <a href="#"
-                                            className="text-decoration-none text-dark">
-                                            Testimonials
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="p-2">
-                                        <a href="#"
-                                            className="text-decoration-none text-dark">
-                                            Privacy Policy
-                                        </a>
+                                        </NavLink>
                                     </td>
                                 </tr>
                             </tbody>
@@ -78,7 +51,7 @@ export default function footercomponent() {
                         <p>Get E-mail updates about our latest shop and special offers.</p>
                         <div className="row">
                             <div className="col-md-8 col-lg-8 pr-1">
-                                <input type="email" className="form-control" placeholder="Enter Your Email"/>
+                                <input type="email" className="form-control" placeholder="Enter Your Email" />
                             </div>
                             <div className="col-sm-12 col-md-4 col-lg-4 pl-0 pt-1 
                                 pt-sm-1 pt-md-0 ml-3 ml-sm-3 ml-md-0 btn-block">

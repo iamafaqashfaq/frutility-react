@@ -31,12 +31,12 @@ const ProductDetails = (props) => {
                 <div className="col-md-6 col-lg-6">
                     <h3 className="text-capitalize">{product.name}</h3>
                     <div className="product-price">
-                        {product.price}.00PKR
+                        {product.price}.00PKR <del>{product.priceBeforeDiscount}.00PKR</del>
                     </div>
                     <div className="product-description mb-3">
                         {product.description}
                     </div>
-                    <ProductAddToCart product={product} repost={() => repost()}/>
+                    <ProductAddToCart product={product} repost={() => repost()} />
                     <hr />
                     <div className="row">
                         <div className="col-md-6 col-lg-6">

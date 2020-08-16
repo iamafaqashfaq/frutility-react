@@ -66,8 +66,8 @@ export default function Sidebar(props) {
                         selectSubcategory.map(subcategory => {
                             return (
 
-                                <li className="hvr-grow nav-item">
-                                    <NavLink to={'/subcategory/products/' + subcategory.id} key={subcategory.id}
+                                <li className="hvr-grow nav-item" key={subcategory.id}>
+                                    <NavLink to={'/subcategory/products/' + subcategory.id}
                                         activeClassName="active" className="nav-link">
                                         {subcategory.subcategoryName}
                                     </NavLink>

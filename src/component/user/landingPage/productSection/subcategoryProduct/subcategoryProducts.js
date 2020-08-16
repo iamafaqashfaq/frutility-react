@@ -27,28 +27,29 @@ const SubcategoryProducts = (props) => {
                         <Sidebar bounce="" />
                     </div>
                     <div className="col-md-10 col-lg-10">
-                        {(products.length === 0 ? (<p>Loading...</p>) :
-
-                            products.map(product => {
-                                return (
-                                    <NavLink to={"/product/" + product.id + "/details"}  key={product.id}>
-                                        <div className="col-md-2 col-lg-2 animate__animated
+                        <div className="row">
+                            {(products.length === 0 ? (<p>Loading...</p>) :
+                                products.map(product => {
+                                    return (
+                                        <NavLink to={"/product/" + product.id + "/details"} key={product.id}>
+                                            <div className="col-md-2 col-lg-2 animate__animated
                                             animate__fadeInDown products-container">
-                                            <div className="product-img-div hvr-shrink">
-                                                <img src={'data:image/jpeg;base64,' + product.imageBytes}
-                                                alt="logo" className="product-picture" />
+                                                <div className="product-img-div hvr-shrink">
+                                                    <img src={'data:image/jpeg;base64,' + product.imageBytes}
+                                                        alt="logo" className="product-picture" />
+                                                </div>
+                                                <p className="text-center product-name">
+                                                    {product.name}
+                                                </p>
+                                                <p className="text-center product-price">
+                                                    <b>{product.price + '.00PKR'}</b>
+                                                </p>
                                             </div>
-                                            <p className="text-center product-name">
-                                                {product.name}
-                                            </p>
-                                            <p className="text-center product-price">
-                                                <b>{product.price + '.00PKR'}</b>
-                                            </p>
-                                        </div>
-                                    </NavLink>
-                                )
-                            })
-                        )}
+                                        </NavLink>
+                                    )
+                                })
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

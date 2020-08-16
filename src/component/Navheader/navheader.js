@@ -11,7 +11,10 @@ const Navheader = () => {
                         <div className="header-top-left">
                             <ul>
                                 <li>
-                                    <i className="fa fa-envelope"></i>&nbsp;hello@frutility.com
+                                    <i className="fa fa-envelope"></i>&nbsp;
+                                    <a href="mailto:hello@frutility.com" className="text-decoration-none text-dark">
+                                        hello@frutility.com
+                                    </a>
                                 </li>
                                 <li className="dividerRight"></li>
                                 <li>Free Shipping for all Order of $99</li>
@@ -26,7 +29,7 @@ const Navheader = () => {
                                 <li><i className="fa fa-pinterest-p"></i></li>
                                 <li><i className="fa fa-youtube-play"></i></li>
                                 <li className="dividerRight"></li>
-                                <NavLink to="/signup"><li><i className="fa fa-users"></i>&nbsp; Signup</li></NavLink>
+                                <NavLink to="/signup" className="text-dark"><li><i className="fa fa-users"></i>&nbsp; Signup</li></NavLink>
                             </ul>
                         </div>
                     </div>
