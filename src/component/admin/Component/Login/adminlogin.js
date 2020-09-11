@@ -18,7 +18,7 @@ export default function Adminlogin() {
         if (token) {
             axios({
                 method: 'post',
-                url: `https://localhost:44376/api/usercontroller/checkuser`,
+                url: `https://localhost:5001/api/usercontroller/checkuser`,
                 data: {
                     entoken: token
                 },
@@ -52,7 +52,7 @@ export default function Adminlogin() {
     const sendLoginData = (event) => {
         event.preventDefault()
         let Login
-        axios.post(`https://localhost:44376/api/usercontroller/adminlogin`, model,
+        axios.post(`https://localhost:5001/api/usercontroller/adminlogin`, model,
             { withCredentials: true })
             .then(response => {
                 console.log(response)

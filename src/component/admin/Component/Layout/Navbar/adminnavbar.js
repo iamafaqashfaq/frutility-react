@@ -9,7 +9,7 @@ export default function Adminnavbar() {
     const logout = () => {
         axios({
             method: 'post',
-            url: `https://localhost:44376/api/usercontroller/signout`,
+            url: `https://localhost:5001/api/usercontroller/signout`,
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
             }

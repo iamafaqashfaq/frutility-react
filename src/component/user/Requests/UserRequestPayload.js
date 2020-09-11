@@ -1,31 +1,31 @@
 import axios from 'axios'
 
-
+const route = "https://localhost:5001/api/"
 //Get Categories
 export const getCategories = () => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/category`
+        url: `${route}category`
     }).catch(err => console.log(err))
 }
 //Get Subcategories
 export const getSubcategories = () => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/subcategory`
+        url: `${route}subcategory`
     }).catch(err => console.error(err))
 }
 //Get Products with Single Image
 export const getProducts = () => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/products`,
+        url: `${route}products`,
     }).catch(err => console.error(err))
 }
 export const getProductById = (payload) => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/products/productbyid/` + payload,
+        url: `${route}products/productbyid/` + payload,
     }).catch(err => console.error(err))
 }
 
@@ -33,7 +33,7 @@ export const getProductById = (payload) => {
 export const userSignup = (payload) => {
     return axios({
         method: "POST",
-        url: `https://localhost:44376/api/usercontroller/userregister`,
+        url: `${route}usercontroller/userregister`,
         data: payload,
         withCredentials: true
     }).catch(err => console.error(err))
@@ -42,7 +42,7 @@ export const userSignup = (payload) => {
 export const userLogin = (payload) => {
     return axios({
         method: 'post',
-        url: `https://localhost:44376/api/usercontroller/login`,
+        url: `${route}usercontroller/login`,
         data: payload,
         withCredentials: true
     }).catch(err => console.error(err))
@@ -52,7 +52,7 @@ export const userLogin = (payload) => {
 export const postOrder = (payload) => {
     return axios({
         method: 'post',
-        url: `https://localhost:44376/api/orders`,
+        url: `${route}orders`,
         data: payload,
         withCredentials: true,
         headers: {
@@ -64,7 +64,7 @@ export const postOrder = (payload) => {
 export const getUserOrderCount = () => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/orders/userordercount`,
+        url: `${route}orders/userordercount`,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
         }
@@ -74,7 +74,7 @@ export const getUserOrderCount = () => {
 export const getShoppingCartItems = () => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/orders/shoppingcart`,
+        url: `${route}orders/shoppingcart`,
         withCredentials: true,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
@@ -85,7 +85,7 @@ export const getShoppingCartItems = () => {
 export const removeShoppingCartItem = (payload) => {
     return axios({
         method: 'delete',
-        url: `https://localhost:44376/api/orders/${payload}`,
+        url: `${route}orders/${payload}`,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
         }
@@ -96,7 +96,7 @@ export const removeShoppingCartItem = (payload) => {
 export const checkoutOrder = () => {
     return axios({
         method: 'put',
-        url: `https://localhost:44376/api/orders/`,
+        url: `${route}orders/`,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
         }
@@ -107,7 +107,7 @@ export const checkoutOrder = () => {
 export const signout = () => {
     return axios({
         method: 'post',
-        url: `https://localhost:44376/api/usercontroller/signout`,
+        url: `${route}usercontroller/signout`,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
         }
@@ -117,7 +117,7 @@ export const signout = () => {
 export const getUser = () => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/usercontroller/getmydata`,
+        url: `${route}usercontroller/getmydata`,
         withCredentials: true,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
@@ -128,7 +128,7 @@ export const getUser = () => {
 export const changePassword = (payload) => {
     return axios({
         method: 'put',
-        url: `https://localhost:44376/api/usercontroller/changepassword`,
+        url: `${route}usercontroller/changepassword`,
         data: payload,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
@@ -139,7 +139,7 @@ export const changePassword = (payload) => {
 export const changeAddress = (payload) => {
     return axios({
         method: 'put',
-        url: `https://localhost:44376/api/usercontroller/changeaddress`,
+        url: `${route}usercontroller/changeaddress`,
         data: payload,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
@@ -150,7 +150,7 @@ export const changeAddress = (payload) => {
 export const getWishlist = () => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/wishlist`,
+        url: `${route}wishlist`,
         withCredentials: true,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
@@ -161,7 +161,7 @@ export const getWishlist = () => {
 export const addToWishlist = (payload) => {
     return axios({
         method: 'post',
-        url: `https://localhost:44376/api/wishlist`,
+        url: `${route}wishlist`,
         data: payload,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
@@ -172,7 +172,7 @@ export const addToWishlist = (payload) => {
 export const deleteFromWishlist = (payload) => {
     return axios({
         method: 'delete',
-        url: `https://localhost:44376/api/wishlist`,
+        url: `${route}wishlist`,
         data: payload,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
@@ -183,7 +183,7 @@ export const deleteFromWishlist = (payload) => {
 export const AddProductReview = (payload) => {
     return axios({
         method: 'post',
-        url: `https://localhost:44376/api/productreviews`,
+        url: `${route}productreviews`,
         data: payload,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
@@ -193,7 +193,7 @@ export const AddProductReview = (payload) => {
 export const GetProductReviews = (payload) => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/productreviews/${payload}`,
+        url: `${route}productreviews/${payload}`,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
         }
@@ -202,7 +202,7 @@ export const GetProductReviews = (payload) => {
 export const GetStarRating = (payload) => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/productreviews/starrating/${payload}`,
+        url: `${route}productreviews/starrating/${payload}`,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('userToken')}`
         }

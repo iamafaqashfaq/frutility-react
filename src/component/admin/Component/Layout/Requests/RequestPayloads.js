@@ -1,10 +1,11 @@
 import axios from 'axios'
 
+const route = "https://localhost:5001/api/"
 //Category Controller Request
 export const createCategory = (payload) => {
     return axios({
         method: 'post',
-        url: `https://localhost:44376/api/category`,
+        url: `${route}category`,
         data: {
             categoryName: payload.name,
             description: payload.desc
@@ -19,7 +20,7 @@ export const createCategory = (payload) => {
 export const getCategory = () => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/category`,
+        url: `${route}category`,
     })
 }
 
@@ -27,7 +28,7 @@ export const getCategory = () => {
 export const updateCategory = (payload) => {
     return axios({
         method: 'put',
-        url: `https://localhost:44376/api/category/${payload.id}`,
+        url: `${route}category/${payload.id}`,
         data: {
             id: payload.id,
             categoryName: payload.categoryName,
@@ -43,7 +44,7 @@ export const updateCategory = (payload) => {
 export const deleteCategory = (payload) => {
     return axios({
         method: 'delete',
-        url: `https://localhost:44376/api/category/${payload}`,
+        url: `${route}category/${payload}`,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
         }
@@ -54,7 +55,7 @@ export const deleteCategory = (payload) => {
 export const createSubcategory = (payload) => {
     return axios({
         method: 'post',
-        url: `https://localhost:44376/api/subcategory`,
+        url: `${route}subcategory`,
         data: {
             SubCategoryName: payload.name,
             CategoryID: payload.id
@@ -69,7 +70,7 @@ export const createSubcategory = (payload) => {
 export const getSubcategory = () => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/subcategory`,
+        url: `${route}subcategory`,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
         },
@@ -81,7 +82,7 @@ export const getSubcategory = () => {
 export const updateSubcategory = (payload) => {
     return axios({
         method: 'put',
-        url: `https://localhost:44376/api/subcategory/${payload.id}`,
+        url: `${route}subcategory/${payload.id}`,
         data: {
             "iD": payload.id,
             "subCategoryName": payload.name,
@@ -97,7 +98,7 @@ export const updateSubcategory = (payload) => {
 export const deleteSubcategory = (payload) => {
     return axios({
         method: 'delete',
-        url: `https://localhost:44376/api/subcategory/${payload}`,
+        url: `${route}subcategory/${payload}`,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
         }
@@ -108,7 +109,7 @@ export const deleteSubcategory = (payload) => {
 export const createProducts = (payload) => {
     return axios({
         method: 'post',
-        url: `https://localhost:44376/api/products`,
+        url: `${route}products`,
         data: payload,
         headers: {
             'Content-Type': 'multipart/form-data',
@@ -122,7 +123,7 @@ export const getProducts = (signal) => {
     try {
         return axios({
             method: 'get',
-            url: `https://localhost:44376/api/products`,
+            url: `${route}products`,
             cancelToken: signal.token
         })
     }
@@ -137,7 +138,7 @@ export const getProducts = (signal) => {
 export const getProductMinById = (payload) => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/products/productbyid/${payload}`
+        url: `${route}productbyid/${payload}`
     }).catch(err => console.error(err))
 }
 
@@ -145,7 +146,7 @@ export const getProductMinById = (payload) => {
 export const updateProduct = (payload, id) => {
     return axios({
         method: 'put',
-        url: `https://localhost:44376/api/products/${id}`,
+        url: `${route}products/${id}`,
         data: payload,
         headers: {
             'Content-Type': 'multipart/form-data',
@@ -157,7 +158,7 @@ export const updateProduct = (payload, id) => {
 export const deleteProduct = (payload) => {
     return axios({
         method: 'delete',
-        url: `https://localhost:44376/api/products/${payload}`,
+        url: `${route}products/${payload}`,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
         }
@@ -168,7 +169,7 @@ export const deleteProduct = (payload) => {
 export const getCustomersList = () => {
     return axios({
         method: 'get',
-        url: `https://localhost:44376/api/usercontroller/customerslist`,
+        url: `${route}usercontroller/customerslist`,
         headers:{
             'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
         },
@@ -180,7 +181,7 @@ export const getCustomersList = () => {
 export const updateOrderStatus = (payload) => {
     return axios({
         method: 'put',
-        url: 'https://localhost:44376/api/orders/orderstatus',
+        url: `${route}orders/orderstatus`,
         data: payload,
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
