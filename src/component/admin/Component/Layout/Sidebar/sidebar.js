@@ -32,16 +32,6 @@ export default function Sidebar() {
                                 <i className="fa fa-users"></i>  Customers
                             </NavLink>
                         </li>
-                        {/* <li className="nav-item">
-                            <NavLink to="/admin/reports" className="nav-link">
-                                <i className="fa fa-area-chart"></i> Reports
-                            </NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink to="/admin/integration" className="nav-link" href="#">
-                                <i className="fa fa-microchip"></i>  Integrations
-                            </NavLink>
-                        </li> */}
                     </ul>
                 </div>
             </nav>

@@ -49,7 +49,7 @@ class ProductCreate extends Component {
         formdata.append('SubCategoryID', parseInt(this.state.createdata.subcategoryId))
         const response = createProducts(formdata)
         response.then(res => {
-            if (res.data) {
+        if (res.data) {
                 this.props.update()
                 this.hideModal()
             }
