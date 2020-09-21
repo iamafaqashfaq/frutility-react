@@ -5,6 +5,7 @@ import CardDetailsModal from './cardDetailsModal';
 import { updateOrderStatus } from './../../Requests/RequestPayloads';
 import { useDispatch } from 'react-redux';
 import { ORDERSTATUSCHANGED } from './../../../../../../store/action/AdminActions';
+import {route} from '../../Requests/RequestPayloads'
 
 const CardDetailsList = (props) => {
     const dispatch = useDispatch()
@@ -19,7 +20,7 @@ const CardDetailsList = (props) => {
         try {
             axios({
                 method: "post",
-                url: 'https://localhost:44376/api/orders/' + props.url,
+                url: `${route}orders/` + props.url,
                 data: {
                     'entoken': localStorage.getItem('admintoken')
                 },
@@ -48,7 +49,7 @@ const CardDetailsList = (props) => {
         try {
             axios({
                 method: "post",
-                url: 'https://localhost:44376/api/orders/' + props.url,
+                url: `${route}orders/` + props.url,
                 data: {
                     'entoken': localStorage.getItem('admintoken')
                 },

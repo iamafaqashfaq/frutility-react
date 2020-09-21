@@ -24,7 +24,7 @@ const RelatedProducts = (props) => {
                              animate__backInLeft products-container" key={product.id}>
                             <NavLink to={'/product/' + product.id + '/details'}>
                                 <div className="product-img-div hvr-shrink">
-                                    <img src={'data:image/jpeg;base64,' + product.imageBytes}
+                                    <img src={product.imageURI}
                                         alt="logo" className="product-picture" />
                                 </div>
                                 <p className="text-center product-name">{product.name}</p>

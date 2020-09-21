@@ -30,7 +30,7 @@ const SearchProducts = (props) => {
                                         <div className="col-md-2 col-lg-2 animate__animated
                                             animate__fadeInDown products-container">
                                             <div className="product-img-div hvr-shrink">
-                                                <img src={'data:image/jpeg;base64,' + product.imageBytes}
+                                                <img src={product.imageURI}
                                                     alt="logo" className="product-picture" />
                                             </div>
                                             <p className="text-center product-name">

@@ -7,7 +7,7 @@ const ProductCards = (props) => {
                         return (
                             <div className="col-4 my-2" key={product.id}>
                                 <div className={"card text-secondary h-100 "+ (!product.availability ? "text-danger":null)}>
-                                    <img src={"data:image/jpeg;base64," + product.imageBytes[0]}
+                                    <img src={product.imageURI}
                                         height="200px" width="200px"
                                         alt="Product" className="card-img-top" />
                                     <div className="card-body">

@@ -4,6 +4,7 @@ import { ADMINLOGIN } from '../../../../store/action/AdminActions'
 import axios from 'axios'
 import './adminlogin.css'
 import Dashboard from '../Layout/admindashboard'
+import { route } from '../Layout/Requests/RequestPayloads'
 
 export default function Adminlogin() {
     const dispatch = useDispatch()
@@ -18,7 +19,7 @@ export default function Adminlogin() {
         if (token) {
             axios({
                 method: 'post',
-                url: `https://localhost:5001/api/usercontroller/checkuser`,
+                url: `${route}usercontroller/checkuser`,
                 data: {
                     entoken: token
                 },
@@ -52,10 +53,9 @@ export default function Adminlogin() {
     const sendLoginData = (event) => {
         event.preventDefault()
         let Login
-        axios.post(`https://localhost:5001/api/usercontroller/adminlogin`, model,
+        axios.post(`${route}usercontroller/adminlogin`, model,
             { withCredentials: true })
             .then(response => {
-                console.log(response)
                 Login = response.data
                 if (Login !== false) {
                     localStorage.setItem("admintoken", Login.entoken)

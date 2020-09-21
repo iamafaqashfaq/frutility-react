@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const route = "https://localhost:5001/api/"
+export const route = "https://192.168.2.127:5001/api/"
 //Category Controller Request
 export const createCategory = (payload) => {
     return axios({

@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { ADMINLOGOUT } from '../../../../../store/action/AdminActions'
 import axios from 'axios'
+import {route} from '../Requests/RequestPayloads'
 
 export default function Adminnavbar() {
     const dispatch = useDispatch();
     const logout = () => {
         axios({
             method: 'post',
-            url: `https://localhost:5001/api/usercontroller/signout`,
+            url: `${route}usercontroller/signout`,
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
             }

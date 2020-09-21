@@ -2,6 +2,7 @@ import React,{ useState, useEffect } from 'react';
 import Axios from 'axios'
 import OrderCountCard from './orderCountCard';
 import { useSelector} from 'react-redux';
+import { route } from '../../Requests/RequestPayloads'
 
 function OrderCardLayout(props) {
     const [Orders, setOrders] = useState(0)
@@ -11,7 +12,7 @@ function OrderCardLayout(props) {
         try{
             Axios({
                 method: 'get',
-                url: `https://localhost:44376/api/orders/${props.api}orderscount`,
+                url: `${route}orders/${props.api}orderscount`,
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
                 },

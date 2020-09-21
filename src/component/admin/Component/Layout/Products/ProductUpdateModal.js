@@ -263,18 +263,11 @@ const ProductUpdateModal = (props) => {
                         <label htmlFor="Image">Update Images</label><br />
 
                         <div className="row">
-                            {
-                                props.selectedProduct.imageBytes.map((image, index) => {
-                                    let imageno = parseInt(index)
-                                    imageno = imageno + 1
-                                    return (<div className="col-4 col-sm-4 col-md-4" key={index}>
-                                        <img src={"data:image/jpeg;base64," +
-                                            image}
-                                            height="200px"
-                                            width="200px" alt={"img" + imageno} />
-                                    </div>)
-                                })
-                            }
+                            <div className="col-4 col-sm-4 col-md-4">
+                                <img src={props.selectedProduct.imageURI}
+                                    height="200px"
+                                    width="200px" alt={"img"} />
+                            </div>
                         </div>
                         <div className="row">
                             <div className="col-4 col-sm-4 col-md-4">

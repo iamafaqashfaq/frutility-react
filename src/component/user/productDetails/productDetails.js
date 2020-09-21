@@ -25,7 +25,7 @@ const ProductDetails = (props) => {
             <h3 className="text-center primary-color-bg-green p-4 m-3 rounded-pill text-white">Product Details</h3>
             <div className="row product-details">
                 <div className="col-md-5 col-lg-5 offset-md-1 offset-lg-1 align-self-center">
-                    <img src={"data:image/jpeg;base64," + product.imageBytes} alt="productimage"
+                    <img src={product.imageURI} alt="productimage"
                         className="img-thumbnail" />
                 </div>
                 <div className="col-md-6 col-lg-6">
