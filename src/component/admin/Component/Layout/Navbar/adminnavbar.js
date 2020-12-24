@@ -2,26 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { ADMINLOGOUT } from '../../../../../store/action/AdminActions'
-import axios from 'axios'
-import {route} from '../Requests/RequestPayloads'
 
 export default function Adminnavbar() {
     const dispatch = useDispatch();
     const logout = () => {
-        axios({
-            method: 'post',
-            url: `${route}usercontroller/signout`,
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('admintoken')}`
-            }
-        }).then(res => {
-            const logout = res.data;
-            if (logout) {
-                localStorage.removeItem('admintoken')
-                localStorage.removeItem('adminusername')
-                dispatch(ADMINLOGOUT())
-            }
-        })
+        localStorage.clear();
+        dispatch(ADMINLOGOUT());
     }
     return (
         <div>

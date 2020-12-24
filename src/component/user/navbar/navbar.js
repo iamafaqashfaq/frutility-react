@@ -6,7 +6,6 @@ import './navbar.css'
 import { useSelector, useDispatch } from 'react-redux';
 import CartIcon from './CartIcon/CartIcon';
 import { USERLOGIN, USERLOGOUT } from './../../../store/action/UserAction';
-import { signout } from '../Requests/UserRequestPayload';
 
 export default function Navbar() {
     const dispatch = useDispatch()
@@ -56,14 +55,8 @@ export default function Navbar() {
 
 
     const handleSignout = () => {
-        const response = signout()
-        response.then(res => {
-            if (res.data) {
-                localStorage.removeItem('userUserName')
-                localStorage.removeItem('userToken')
-                dispatch(USERLOGOUT())
-            }
-        })
+        localStorage.clear();
+        dispatch(USERLOGOUT())
     }
     const handleSearch = (e) => {
         e.preventDefault()
