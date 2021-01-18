@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const route = "https://127.0.0.1:5001/api/"
+const route = "https://localhost:44376/api/"
 //Get Categories
 export const getCategories = () => {
     return axios({
